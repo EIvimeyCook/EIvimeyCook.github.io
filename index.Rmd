@@ -1,0 +1,59 @@
+---
+title: "Edward Ivimey-Cook"
+image: "Ed.jpg"
+links:
+  - label: Google Scholar
+    url: "https://scholar.google.co.uk/citations?user=B6EBJEYAAAAJ&hl=en"
+  - label: Twitter
+    url: "https://twitter.com/EdIvimeyCook"
+  - label: GitHub
+    url: "https://github.com/EIvimeyCook"
+  - label: ResearchGate
+    url: "https://www.researchgate.net/profile/Edward-Ivimey-Cook"
+  - label: Email
+    url: "mailto:E.Ivimey-Cook@uea.ac.uk"
+output:
+  postcards::trestles
+---
+ 
+### Current
+
+* Post-doctoral research associate at the University of East Anglia working with Prof. Alexei Maklakov and the nematode worm, *C. elegans*. 
+
+**Project** – “The cost of longevity: trans-generational consequences of parental lifespan extension for offspring fitness”
+
+\
+
+### Past
+
+* PhD at the University of Edinburgh with Dr Jacob Moorad and the burying beetle, *Nicrophorus vespilloides*.
+
+**Thesis** – “Experimental and comparative analyses of maternal age and senescence”
+
+\
+
+### Research Interests
+
+* I'm interested in understanding and investigating the huge diversity of ageing patterns that exists across the tree of life.
+
+* My current work focuses on evolutionary theory, maternal senescence, inter-/trans-generational effects of parental age + diet, and thermal tolerance in beetles.
+
+\
+
+### Recent Publications
+
+[Carlsson, Hanne, et al. "Ageing as “early‐life inertia”: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters 5.5 (2021): 551-564.](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
+
+[Ivimey-Cook, Edward R., et al. "Inbreeding reduces fitness of seed beetles under thermal stress. Journal of Evolutionary Biology 34.9 (2021): 1386-1396](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899)
+
+[Ivimey-Cook, Edward R., et al. "Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans." Proceedings of the Royal Society B 288.1950 (2021): 20210701.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701) 
+
+[Lind, Martin I., et al. "Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing." Proceedings of the Royal Society B 288.1944 (2021): 20201728.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728)
+
+[Ivimey-Cook, Edward, and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B 287.1932 (2020): 20200972.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
+
+[Ivimey-Cook, Edward, and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist 192.5 (2018): 564-576.](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
+
+
+
+

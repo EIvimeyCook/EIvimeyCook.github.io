@@ -11,7 +11,7 @@ links:
   - label: ResearchGate
     url: "https://www.researchgate.net/profile/Edward-Ivimey-Cook"
   - label: Email
-    url: "mailto:E.Ivimey-Cook@uea.ac.uk"
+    url: "mailto:e.ivimeycook@googlemail.com"
 output:
   postcards::trestles
 ---
@@ -42,9 +42,11 @@ output:
 
 ### Recent Publications
 
-[Carlsson, Hanne, et al. "Ageing as “early‐life inertia”: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters 5.5 (2021): 551-564.](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
+[Sultanova, Z. et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
-[Ivimey-Cook, Edward R., et al. "Inbreeding reduces fitness of seed beetles under thermal stress. Journal of Evolutionary Biology 34.9 (2021): 1386-1396](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899)
+[Carlsson, Hanne, et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters 5.5 (2021): 551-564.](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
+
+[Ivimey-Cook, Edward R., et al. "Inbreeding reduces fitness of seed beetles under thermal stress." Journal of Evolutionary Biology 34.9 (2021): 1386-1396](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899)
 
 [Ivimey-Cook, Edward R., et al. "Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans." Proceedings of the Royal Society B 288.1950 (2021): 20210701.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701) 
 

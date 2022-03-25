@@ -18,13 +18,19 @@ output:
  
 ### Current
 
+* Post-doctoral research associate at the University of Glasgow working with Prof. Pat Monaghan and the zebrafinch. 
+
+**Project** – “Intergenerational transfer of ageing; the Lansing Effect”
+
+\
+
+### Past
+
 * Post-doctoral research associate at the University of East Anglia working with Prof. Alexei Maklakov and the nematode worm, *C. elegans*. 
 
 **Project** – “The cost of longevity: trans-generational consequences of parental lifespan extension for offspring fitness”
 
 \
-
-### Past
 
 * PhD at the University of Edinburgh with Dr Jacob Moorad and the burying beetle, *Nicrophorus vespilloides*.
 
@@ -40,9 +46,11 @@ output:
 
 \
 
-### Recent Publications
+### Recent Publications and Work
 
-[Sultanova, Z. et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)
+[Application = shinyDigitise: A GUI to the metaDigitise data exraction package](https://github.com/EIvimeyCook/ShinyDigitise)
+
+[Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
 [Carlsson, Hanne, et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters 5.5 (2021): 551-564.](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
 
@@ -55,7 +63,3 @@ output:
 [Ivimey-Cook, Edward, and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B 287.1932 (2020): 20200972.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
 
 [Ivimey-Cook, Edward, and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist 192.5 (2018): 564-576.](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
-
-
-
-

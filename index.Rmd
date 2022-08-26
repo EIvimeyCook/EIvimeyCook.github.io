@@ -48,6 +48,8 @@ output:
 
 ### Recent Publications and Work
 
+[Cope, Hilary, Edward Ivimey-Cook, and Jacob A. Moorad. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)
+
 [Application = shinyDigitise: A GUI to the metaDigitise data exraction package](https://github.com/EIvimeyCook/ShinyDigitise)
 
 [Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)

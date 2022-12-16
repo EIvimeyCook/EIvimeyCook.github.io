@@ -48,9 +48,11 @@ output:
 
 ### Recent Publications and Work
 
-[Cope, Hilary, Edward Ivimey-Cook, and Jacob A. Moorad. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)
+[Ivimey-Cook, E. R., Sarema Shorr, Jacob Moorad. "The distribution of the Lansing Effect across animal species." Evolution (2022)](https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890)
 
-[Application = shinyDigitise: A GUI to the metaDigitise data exraction package](https://github.com/EIvimeyCook/ShinyDigitise)
+[Cope, Hilary, Edward R. Ivimey-Cook, and Jacob A. Moorad. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)
+
+[shinyDigitise: A GUI to the metaDigitise data extraction package](https://github.com/EIvimeyCook/ShinyDigitise)
 
 [Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
@@ -62,6 +64,10 @@ output:
 
 [Lind, Martin I., et al. "Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing." Proceedings of the Royal Society B 288.1944 (2021): 20201728.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728)
 
-[Ivimey-Cook, Edward, and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B 287.1932 (2020): 20200972.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
+[Ivimey-Cook, Edward R., and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B 287.1932 (2020): 20200972.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
 
-[Ivimey-Cook, Edward, and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist 192.5 (2018): 564-576.](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
+[Ivimey-Cook, Edward R., and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist 192.5 (2018): 564-576.](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
+
+
+
+

@@ -51,6 +51,8 @@ output:
 
 ### Recent Publications and Work
 
+[Nakagawa, S., Ivimey-Cook, E.R., Grainger, M.J. et al. Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions. Nature Communications (2023)](https://www.nature.com/articles/s41467-023-37039-1)
+
 [Ivimey-Cook, E. R., Sarema Shorr, Jacob Moorad. "The distribution of the Lansing Effect across animal species." Evolution (2022)](https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890)
 
 [Cope, Hilary, Edward R. Ivimey-Cook, and Jacob A. Moorad. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)

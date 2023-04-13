@@ -51,6 +51,8 @@ output:
 
 ### Recent Publications and Work
 
+[Ivimey-Cook E.R., Murray D.S., de Coriolis J.C., Edden N., Immler S., Maklakov A.A. "Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish. Proceedings of the Royal Society B (2023)](https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556)
+
 [Nakagawa, S., Ivimey-Cook, E.R., Grainger, M.J. et al. "Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions." Nature Communications (2023)](https://www.nature.com/articles/s41467-023-37039-1)
 
 [Ivimey-Cook, E. R., Sarema Shorr, Jacob Moorad. "The distribution of the Lansing Effect across animal species." Evolution (2022)](https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890)
@@ -59,19 +61,19 @@ output:
 
 [shinyDigitise: A GUI to the metaDigitise data extraction package](https://github.com/EIvimeyCook/ShinyDigitise)
 
-[Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B 288.20211787 (2021)](https://doi.org/10.1098/rspb.2021.1787)
+[Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
-[Carlsson, Hanne, et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters 5.5 (2021): 551-564.](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
+[Carlsson, Hanne, et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters (2021)](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
 
-[Ivimey-Cook, Edward R., et al. "Inbreeding reduces fitness of seed beetles under thermal stress." Journal of Evolutionary Biology 34.9 (2021): 1386-1396](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899)
+[Ivimey-Cook, Edward R., et al. "Inbreeding reduces fitness of seed beetles under thermal stress." Journal of Evolutionary Biology (2021)](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899)
 
-[Ivimey-Cook, Edward R., et al. "Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans." Proceedings of the Royal Society B 288.1950 (2021): 20210701.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701) 
+[Ivimey-Cook, Edward R., et al. "Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans." Proceedings of the Royal Society B (2021)](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701) 
 
-[Lind, Martin I., et al. "Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing." Proceedings of the Royal Society B 288.1944 (2021): 20201728.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728)
+[Lind, Martin I., et al. "Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing." Proceedings of the Royal Society B (2021)](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728)
 
-[Ivimey-Cook, Edward R., and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B 287.1932 (2020): 20200972.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
+[Ivimey-Cook, Edward R., and Jacob Moorad. "The diversity of maternal-age effects upon pre-adult survival across animal species." Proceedings of the Royal Society B (2020)](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972)
 
-[Ivimey-Cook, Edward R., and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist 192.5 (2018): 564-576.](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
+[Ivimey-Cook, Edward R., and Jacob Moorad. "Disentangling pre-and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care." The American Naturalist (2018)](https://www.journals.uchicago.edu/doi/full/10.1086/699654)
 
 
 

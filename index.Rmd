@@ -51,7 +51,9 @@ output:
 
 ### Recent Publications and Work
 
-[Ivimey-Cook E.R., Murray D.S., de Coriolis J.C., Edden N., Immler S., Maklakov A.A. "Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish. Proceedings of the Royal Society B (2023)](https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556)
+[Mitchell A.A., Ivimey-Cook E.R. "Technology-enhanced simulation for healthcare professionals: A meta-analysis." Frontiers in Medicine](https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full)
+
+[Ivimey-Cook E.R., Murray D.S., de Coriolis J.C., Edden N., Immler S., Maklakov A.A. "Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish." Proceedings of the Royal Society B (2023)](https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556)
 
 [Nakagawa, S., Ivimey-Cook, E.R., Grainger, M.J. et al. "Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions." Nature Communications (2023)](https://www.nature.com/articles/s41467-023-37039-1)
 
@@ -61,7 +63,7 @@ output:
 
 [shinyDigitise: A GUI to the metaDigitise data extraction package](https://github.com/EIvimeyCook/ShinyDigitise)
 
-[Sultanova, Zahida, et al. "Fitness benefits of dietary restriction" Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
+[Sultanova, Zahida, et al. "Fitness benefits of dietary restriction'" Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
 [Carlsson, Hanne, et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters (2021)](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
 

@@ -25,6 +25,8 @@ output:
 
 **Project** – “Intergenerational transfer of ageing; the Lansing Effect”
 
+* [Secretary of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE)](https://www.sortee.org/people/#board-of-directors)
+
 \
 
 ### Past
@@ -49,9 +51,21 @@ output:
 
 \
 
+### Preprints/In Review
+
+[Ivimey-Cook, E.R., et al. A framework for improving the reproducibility of data extraction for meta-analysis (In Review)](https://ecoevorxiv.org/repository/view/4814/)
+
+[Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." (In Review)](https://ecoevorxiv.org/repository/view/5393/)
+
+[Ivimey-Cook, E.R., et al. "Genetic and thermal variation influences adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus." (In Review)](https://www.biorxiv.org/content/10.1101/2021.11.26.470113v2)
+
+Monaghan, P., and Ivimey-Cook, E.R. "No Time to Die: Evolution of a Post-Reproductive Life Stage." (In Review)
+
+\
+
 ### Recent Publications and Work
 
-[Mitchell A.A. and Ivimey-Cook E.R. "Technology-enhanced simulation for healthcare professionals: A meta-analysis." Frontiers in Medicine](https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full)
+[Mitchell A.A. and Ivimey-Cook E.R. "Technology-enhanced simulation for healthcare professionals: A meta-analysis." Frontiers in Medicine (2023)](https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full)
 
 [Ivimey-Cook E.R., et al. "Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish." Proceedings of the Royal Society B (2023)](https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556)
 
@@ -61,9 +75,9 @@ output:
 
 [Cope H., Ivimey-Cook E.R. and Moorad J.A. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)
 
-[Ivimey-Cook E.R. and Pick J.P. "shinyDigitise: A GUI to the metaDigitise data extraction package"](https://github.com/EIvimeyCook/ShinyDigitise)
+[Ivimey-Cook E.R. and Pick J.P. "shinyDigitise: A GUI to the metaDigitise data extraction package."](https://github.com/EIvimeyCook/ShinyDigitise)
 
-[Sultanova Z., et al. "Fitness benefits of dietary restriction'" Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
+[Sultanova Z., et al. "Fitness benefits of dietary restriction." Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
 
 [Carlsson H., et al. "Ageing as “early‐life inertia: Disentangling life‐history trade‐offs along a lifetime of an individual." Evolution Letters (2021)](https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254)
 

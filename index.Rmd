@@ -1,6 +1,6 @@
 ---
 title: "Edward Ivimey-Cook"
-image: "Ed.jpg"
+image: "Ed.JPG"
 links:
   - label: Google Scholar
     url: "https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en"
@@ -53,17 +53,18 @@ output:
 
 ### Preprints/In Review
 
-[Ivimey-Cook, E.R., et al. A framework for improving the reproducibility of data extraction for meta-analysis (In Review)](https://ecoevorxiv.org/repository/view/4814/)
+[Ivimey-Cook, E.R., et al. A framework for improving the reproducibility of data extraction for meta-analysis (Accepted at Research Synthesis Methods)](https://ecoevorxiv.org/repository/view/4814/)
 
 [Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." (In Review)](https://ecoevorxiv.org/repository/view/5393/)
 
 [Ivimey-Cook, E.R., et al. "Genetic and thermal variation influences adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus." (In Review)](https://www.biorxiv.org/content/10.1101/2021.11.26.470113v2)
 
-Monaghan, P., and Ivimey-Cook, E.R. "No Time to Die: Evolution of a Post-Reproductive Life Stage." (In Review)
 
 \
 
 ### Recent Publications and Work
+
+[Monaghan, P., and Ivimey-Cook, E.R. "No Time to Die: Evolution of a Post-Reproductive Life Stage." Thomas Henry Huxley Review. Journal of Zoology (2023)](https://zslpublications.onlinelibrary.wiley.com/doi/10.1111/jzo.13096)
 
 [Mitchell A.A. and Ivimey-Cook E.R. "Technology-enhanced simulation for healthcare professionals: A meta-analysis." Frontiers in Medicine (2023)](https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full)
 

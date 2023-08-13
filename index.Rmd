@@ -53,8 +53,6 @@ output:
 
 ### Preprints/In Review
 
-[Ivimey-Cook, E.R., et al. A framework for improving the reproducibility of data extraction for meta-analysis (Accepted at Research Synthesis Methods)](https://ecoevorxiv.org/repository/view/4814/)
-
 [Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." (In Review)](https://ecoevorxiv.org/repository/view/5393/)
 
 [Ivimey-Cook, E.R., et al. "Genetic and thermal variation influences adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus." (In Review)](https://www.biorxiv.org/content/10.1101/2021.11.26.470113v2)
@@ -64,6 +62,8 @@ output:
 
 ### Recent Publications and Work
 
+[Ivimey-Cook, E.R., et al. "Advice for improving the reproducibility of data extraction in meta-analysis." Research Synthesis Methods (2023)](https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663) which contains an introduction to shinyDigitise [Ivimey-Cook E.R. and Pick J.P. "shinyDigitise: A GUI to the metaDigitise data extraction package."](https://github.com/EIvimeyCook/ShinyDigitise)
+
 [Monaghan, P., and Ivimey-Cook, E.R. "No Time to Die: Evolution of a Post-Reproductive Life Stage." Thomas Henry Huxley Review. Journal of Zoology (2023)](https://zslpublications.onlinelibrary.wiley.com/doi/10.1111/jzo.13096)
 
 [Mitchell A.A. and Ivimey-Cook E.R. "Technology-enhanced simulation for healthcare professionals: A meta-analysis." Frontiers in Medicine (2023)](https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full)
@@ -72,11 +72,9 @@ output:
 
 [Nakagawa S., Ivimey-Cook E.R., Grainger M.J. et al. "Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions." Nature Communications (2023)](https://www.nature.com/articles/s41467-023-37039-1)
 
-[Ivimey-Cook E.R., Shorr S. and Moorad J.A. "The distribution of the Lansing Effect across animal species." Evolution (2022)](https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890)
+[Ivimey-Cook E.R., Shorr S. and Moorad J.A. "The distribution of the Lansing Effect across animal species." Evolution (2023)](https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890)
 
 [Cope H., Ivimey-Cook E.R. and Moorad J.A. "Triparental ageing in a laboratory population of an insect with maternal care." Behavioral Ecology (2022)](https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571?searchresult=1)
-
-[Ivimey-Cook E.R. and Pick J.P. "shinyDigitise: A GUI to the metaDigitise data extraction package."](https://github.com/EIvimeyCook/ShinyDigitise)
 
 [Sultanova Z., et al. "Fitness benefits of dietary restriction." Proceedings of the Royal Society B (2021)](https://doi.org/10.1098/rspb.2021.1787)
 

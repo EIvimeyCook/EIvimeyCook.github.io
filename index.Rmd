@@ -53,14 +53,14 @@ output:
 
 ### Preprints/In Review
 
-[Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." (In Review)](https://ecoevorxiv.org/repository/view/5393/)
-
 [Ivimey-Cook, E.R., et al. "Genetic and thermal variation influences adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus." (In Review)](https://www.biorxiv.org/content/10.1101/2021.11.26.470113v2)
 
 
 \
 
 ### Recent Publications and Work
+
+[Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." Journal of Evolutionary Biology (2023)](https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230)
 
 [Ivimey-Cook, E.R., et al. "Advice for improving the reproducibility of data extraction in meta-analysis." Research Synthesis Methods (2023)](https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663) which contains an introduction to shinyDigitise [Ivimey-Cook E.R. and Pick J.P. "shinyDigitise: A GUI to the metaDigitise data extraction package."](https://github.com/EIvimeyCook/ShinyDigitise)
 

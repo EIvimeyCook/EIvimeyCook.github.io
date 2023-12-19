@@ -53,12 +53,12 @@ output:
 
 ### Preprints/In Review
 
-[Ivimey-Cook, E.R., et al. "Genetic and thermal variation influences adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus." (In Review)](https://www.biorxiv.org/content/10.1101/2021.11.26.470113v2)
-
 
 \
 
 ### Recent Publications and Work
+
+[Ivimey-Cook, E.R., et al. "Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus." Journal of Evolutionary Biology (2023)](https://doi.org/10.1093/jeb/voad009)
 
 [Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." Journal of Evolutionary Biology (2023)](https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230)
 

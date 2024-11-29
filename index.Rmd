@@ -4,8 +4,8 @@ image: "Ed.JPG"
 links:
   - label: Google Scholar
     url: "https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en"
-  - label: X
-    url: "https://twitter.com/EdIvimeyCook"
+  - label: BSky
+    url: "https://bsky.app/profile/eivimeycook.bsky.social"
   - label: GitHub
     url: "https://github.com/EIvimeyCook"
   - label: ResearchGate

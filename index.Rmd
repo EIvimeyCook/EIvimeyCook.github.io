@@ -52,7 +52,7 @@ output:
 \
 
 ### Preprints/In Review
-[Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." In Review. (2025).)](https://doi.org/10.32942/X2492Q) 
+[Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." In Review. (2025)](https://doi.org/10.32942/X2492Q) 
 
 \
 

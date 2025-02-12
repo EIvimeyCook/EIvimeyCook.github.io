@@ -52,13 +52,15 @@ output:
 \
 
 ### Preprints/In Review
-[Noble, D. W., et al. "The promise of community-driven preprints in ecology and evolution." EcoEvoRxiv (2024)](https://doi.org/10.32942/X2SS46) 
+[Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." In Review. (2025).)](https://doi.org/10.32942/X2492Q) 
 
 \
 
 ### Recent Publications and Work
 
-[Ivimey-Cook, E.R., et al. "Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus." Journal of Evolutionary Biology (2023)](https://doi.org/10.1093/jeb/voad009)
+[Noble, D. W., et al. "The promise of community-driven preprints in ecology and evolution." Proceedings of the Royal Society B (2025)](https://doi.org/10.1098/rspb.2024.1487) 
+
+[Ivimey-Cook, E.R., et al. "Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus." Journal of Evolutionary Biology (2024)](https://doi.org/10.1093/jeb/voad009)
 
 [Ivimey-Cook, E.R., et al. "Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology." Journal of Evolutionary Biology (2023)](https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230)
 

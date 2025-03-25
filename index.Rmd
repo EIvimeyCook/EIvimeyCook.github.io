@@ -54,6 +54,14 @@ output:
 ### Preprints/In Review
 [Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." In Review. (2025)](https://doi.org/10.32942/X2492Q) 
 
+Mitchell, A. A. & Ivimey-Cook, E.R. "Mediterranean diet and prostate cancer incidence and mortality in the EPIC-Norfolk cohort." In Review. (2025)
+
+Ivimey-Cook, E.R., et al. "Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis." In Review. (2025)
+
+[Ivimey-Cook, E.R., et al. "Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus." In Review. (2025)](https://doi.org/10.32942/X2P919) 
+
+Purgar, M., et al. "Preprint Policies in Ecology and Evolutionary Biology Journals." In Review. (2025)
+
 \
 
 ### Recent Publications and Work

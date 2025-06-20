@@ -56,8 +56,6 @@ output:
 
 Mitchell, A. A. & Ivimey-Cook, E.R. "Mediterranean diet and prostate cancer incidence and mortality in the EPIC-Norfolk cohort." In Review. (2025)
 
-Ivimey-Cook, E.R., et al. "Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis." In Review. (2025)
-
 [Ivimey-Cook, E.R., et al. "Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus." In Review. (2025)](https://doi.org/10.32942/X2P919) 
 
 Purgar, M., et al. "Preprint Policies in Ecology and Evolutionary Biology Journals." In Review. (2025)
@@ -66,7 +64,9 @@ Purgar, M., et al. "Preprint Policies in Ecology and Evolutionary Biology Journa
 
 ### Recent Publications and Work
 
-[Noble, D. W., et al. "The promise of community-driven preprints in ecology and evolution." Proceedings of the Royal Society B (2025)](https://doi.org/10.1098/rspb.2024.1487) 
+[Ivimey-Cook, E.R., et al. "Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis." Aging Cell (2025)](https://onlinelibrary.wiley.com/doi/10.1111/acel.70131)
+
+[Noble, D.W., et al. "The promise of community-driven preprints in ecology and evolution." Proceedings of the Royal Society B (2025)](https://doi.org/10.1098/rspb.2024.1487) 
 
 [Ivimey-Cook, E.R., et al. "Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus." Journal of Evolutionary Biology (2024)](https://doi.org/10.1093/jeb/voad009)
 

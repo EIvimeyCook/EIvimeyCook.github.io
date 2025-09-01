@@ -21,9 +21,9 @@ output:
  
 ### Current
 
-* Lecturer in Biological Sciences at the University of East Anglia
+* Lecturer in Biological Sciences at the University of East Anglia.
 
-* [President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE)](https://www.sortee.org/people/#board-of-directors)
+* [President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE).](https://www.sortee.org/people/#board-of-directors)
 
 \
 
@@ -31,19 +31,19 @@ output:
 
 * Post-doctoral research associate at the University of Glasgow working with Prof. Pat Monaghan and the zebrafinch. 
 
-**Project** – “Intergenerational transfer of ageing; the Lansing Effect”
+**Project** – “Intergenerational transfer of ageing; the Lansing Effect”.
 
 \
 
 * Post-doctoral research associate at the University of East Anglia working with Prof. Alexei Maklakov and the nematode worm, *C. elegans*. 
 
-**Project** – “The cost of longevity: trans-generational consequences of parental lifespan extension for offspring fitness”
+**Project** – “The cost of longevity: trans-generational consequences of parental lifespan extension for offspring fitness”.
 
 \
 
 * PhD at the University of Edinburgh with Dr Jacob Moorad and the burying beetle, *Nicrophorus vespilloides*.
 
-**Thesis** – “Experimental and comparative analyses of maternal age and senescence”
+**Thesis** – “Experimental and comparative analyses of maternal age and senescence”.
 
 \
 
@@ -51,12 +51,12 @@ output:
 
 * I'm interested in understanding and investigating the huge diversity of ageing patterns that exists across the tree of life.
 
-* My current work focuses on evolutionary theory, maternal senescence, inter-/trans-generational effects of parental age + diet, and thermal tolerance in beetles.
+* My current work focuses on evolutionary theory, maternal senescence, inter-/trans-generational effects of parental age + diet, and thermal tolerance in beetles. I'm also passionate about open science and increasing the reproducibility of research across ecology and evolutionary biology. 
 
 \
 
 ### Preprints/In Review
-[Pick, Joel, et al. "The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology." (2025).](https://doi.org/10.32942/X24P8S) 
+[Pick, J.L., et al. "The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology." (2025).](https://doi.org/10.32942/X24P8S) 
 
 [Ivimey-Cook, E.R., et al. "TADA! Simple guidelines to improve code sharing." In Review. (2025)](https://doi.org/10.32942/X2D93K) 
 

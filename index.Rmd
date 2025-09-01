@@ -1,5 +1,5 @@
 ---
-title: "Edward Ivimey-Cook"
+title: "Edward R. Ivimey-Cook"
 image: "Ed.JPG"
 links:
   - label: Google Scholar
@@ -21,15 +21,17 @@ output:
  
 ### Current
 
+* Lecturer in Biological Sciences at the University of East Anglia
+
+* [President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE)](https://www.sortee.org/people/#board-of-directors)
+
+### Past
+
 * Post-doctoral research associate at the University of Glasgow working with Prof. Pat Monaghan and the zebrafinch. 
 
 **Project** – “Intergenerational transfer of ageing; the Lansing Effect”
 
-* [President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE)](https://www.sortee.org/people/#board-of-directors)
-
 \
-
-### Past
 
 * Post-doctoral research associate at the University of East Anglia working with Prof. Alexei Maklakov and the nematode worm, *C. elegans*. 
 
@@ -52,7 +54,11 @@ output:
 \
 
 ### Preprints/In Review
-[Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." In Review. (2025)](https://doi.org/10.32942/X2492Q) 
+[Pick, Joel, et al. "The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology." (2025).](https://doi.org/10.32942/X24P8S) 
+
+[Ivimey-Cook, E.R., et al. "TADA! Simple guidelines to improve code sharing." In Review. (2025)](https://doi.org/10.32942/X2D93K) 
+
+[Ivimey-Cook, E.R., et al. "From Policy to Practice: Progress towards Data-and Code-Sharing in Ecology and Evolution." Accepted in Proceedings B. (2025)](https://doi.org/10.32942/X2492Q) 
 
 Mitchell, A. A. & Ivimey-Cook, E.R. "Mediterranean diet and prostate cancer incidence and mortality in the EPIC-Norfolk cohort." In Review. (2025)
 

@@ -23,7 +23,7 @@ output:
 
 * Lecturer in Biological Sciences at the University of East Anglia.
 
-* [President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE).](https://www.sortee.org/people/#board-of-directors)
+* [Past-President of the Society for Open, Reliable, and Transparent Ecology and Evolutionary Biology (SORTEE).](https://www.sortee.org/people/#board-of-directors)
 
 * Data Editor at Ecology Letters
 

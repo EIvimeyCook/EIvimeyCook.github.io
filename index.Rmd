@@ -58,7 +58,6 @@ output:
 \
 
 ### Preprints/In Review
-[Pick, J.L., et al. "The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology." In Review. (2025)](https://doi.org/10.32942/X24P8S) 
 
 [Ivimey-Cook, E.R., et al. "TADA! Simple guidelines to improve code sharing."  (2025)](https://doi.org/10.32942/X2D93K) 
 
@@ -71,6 +70,8 @@ Mitchell, A. A. & Ivimey-Cook, E.R. "Mediterranean diet and prostate cancer inci
 \
 
 ### Recent Publications and Work
+
+[Pick, J.L., et al. "The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology." Peer Community Journal. (2026)](https://doi.org/10.24072/pcjournal.687) 
 
 [Purgar, M., et al. "Preprint Policies in Ecology and Evolutionary Biology Journals." Proceedings B. (2025)](https://doi.org/10.1098/rspb.2025.0524)
 

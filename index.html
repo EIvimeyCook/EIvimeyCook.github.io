@@ -622,10 +622,6 @@ html[data-theme="dark"]{--paper:#0a0a0a;--paper-2:#151515;--card:#141414;--ink:#
 
   // In-review / non-ORCID works to always merge into the list. (Apps now live in their own
   // "Tools & apps" section near the foot of the page, not in the publications list.)
-  const EXTRAS = [
-    {y:2025,k:'mediterraneandiet',t:"Mediterranean diet and prostate cancer incidence and mortality in the EPIC-Norfolk cohort",j:"EPIC-Norfolk cohort",u:null,c:["health"],s:"review"}
-  ];
-
   function normTitle(t){ return (t||'').toLowerCase().replace(/[^a-z0-9]+/g,''); }
   function mergeExtras(list){
     const have = list.map(function(p){return normTitle(p.t);});

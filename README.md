@@ -4,7 +4,9 @@
 
 <!-- badges: start -->
 [![Website](https://img.shields.io/badge/website-eivimeycook.github.io-brightgreen)](https://eivimeycook.github.io/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 <!-- badges: end -->
+
 
 Content for the [EIvimeyCook.github.io](https://eivimeycook.github.io/) website.
 

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Ivimey-Cook"
+    given-names: "Edward R."
+    orcid: "https://orcid.org/0000-0003-4910-0443"
+title: "Edward R. Ivimey-Cook — personal academic website"
+abstract: "Source for the personal academic website of Edward R. Ivimey-Cook."
+version: 1.0.0
+url: "https://github.com/EIvimeyCook/EIvimeyCook.github.io"
+repository-code: "https://github.com/EIvimeyCook/EIvimeyCook.github.io"
+license: MIT
+keywords:
+  - "academic website"
+  - "personal website"

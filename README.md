@@ -13,9 +13,7 @@ Content for the [EIvimeyCook.github.io](https://eivimeycook.github.io/) website.
 ## Overview
 
 A single-page academic site covering my research, publications, open science
-work, and the tools I build. It is hand-written HTML with inline CSS and
-JavaScript — no static site generator, no build step, no dependencies. Editing
-`index.html` and pushing to `main` deploys it.
+work, and the tools that I've built. 
 
 ## Sections
 

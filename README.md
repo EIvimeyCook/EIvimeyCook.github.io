@@ -44,8 +44,7 @@ holds, and returns the author list for each work.
 - **Map of papers** puts one node per work and joins two works that share an author.
   Node size is the number of authors, colour is the primary theme, and works of the
   same theme attract one another so the map groups by subject. **Preprints are their
-  own group** whatever their subject, and are drawn hollow: what has been posted but
-  not published is a question about the record rather than about the research. The
+  own group** whatever their subject, and are drawn hollow. The
   button under the panel takes them out of the layout and puts them back; hidden
   nodes are skipped by the forces, the edges and the hit test alike, so the rest
   redistributes into the space instead of leaving holes.
@@ -54,13 +53,6 @@ holds, and returns the author list for each work.
   what the two of them wrote**, and clicking any title in that list hands off to the
   record below, which finds and flashes the row. Escape, the close button, or a
   press on the canvas dismisses the list.
-
-Both run a force-directed layout to rest off screen and show a loading state until
-it settles, so nothing thrashes about on arrival. Nodes can be dragged.
-
-These maps are only as complete as the author lists publishers have deposited with
-Crossref. If the request fails, both panels say so and draw nothing: there is no
-synthetic fallback, because invented co-authors would be worse than an empty panel.
 
 ## The background
 

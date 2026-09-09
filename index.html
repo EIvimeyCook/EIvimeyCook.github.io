@@ -3,774 +3,1919 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edward R. Ivimey-Cook — Evolutionary Biologist</title>
-<meta name="description" content="Edward R. Ivimey-Cook — Lecturer in Biological Sciences at the University of East Anglia. Evolutionary biology of ageing, senescence, inter- and transgenerational effects, together with open and reproducible science.">
-<meta name="author" content="Edward R. Ivimey-Cook">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
+<title>Edward R. Ivimey-Cook</title>
+<meta name="description" content="Edward R. Ivimey-Cook, Lecturer in Biological Sciences at the University of East Anglia. Evolutionary biology of ageing, senescence, inter- and transgenerational effects, and open and reproducible science.">
+<link rel="canonical" href="https://eivimeycook.github.io/">
+<meta property="og:type" content="profile">
 <meta property="og:title" content="Edward R. Ivimey-Cook">
 <meta property="og:description" content="Evolutionary biologist studying the diversity of ageing across the tree of life. Lecturer at the University of East Anglia.">
-<meta property="og:image" content="Ed.JPG">
+<meta property="og:image" content="https://eivimeycook.github.io/ed-1600.jpg">
 <meta property="og:url" content="https://eivimeycook.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23131311'/%3E%3Crect x='4' y='21' width='4' height='7' fill='%23f0eee7'/%3E%3Crect x='10' y='15' width='4' height='13' fill='%23f0eee7'/%3E%3Crect x='16' y='9' width='4' height='19' fill='%23ff5c3a'/%3E%3Crect x='22' y='17' width='4' height='11' fill='%23f0eee7'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#131311">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script>
+  (function () {
+    var r = document.documentElement, saved = null;
+    try { saved = localStorage.getItem('eic-theme'); } catch (e) {}
+    r.dataset.theme = saved === 'light' ? 'light' : 'dark';
+    r.classList.add('js');
+    setTimeout(function () { r.classList.add('ready'); }, 1500);
+  })();
+</script>
 
 <style>
-/* ============================================================
-   THEME TOKENS — Clean editorial / academic
-   ============================================================ */
 :root{
-  --paper:#fbfaf6;
-  --paper-2:#f3f1ea;
-  --card:#ffffff;
-  --ink:#1c1b18;
-  --ink-soft:#4a4843;
-  --ink-faint:#807c73;
-  --rule:#e4e0d6;
-  --rule-strong:#d4cfc2;
-  --accent:#27407e;        /* oxford / ink blue */
-  --accent-soft:#5a73b5;
-  --accent-wash:#eef1f8;
-  --gold:#9a7b32;
-  --shadow:0 1px 2px rgba(28,27,24,.04), 0 12px 34px -16px rgba(28,27,24,.22);
-  --shadow-sm:0 1px 2px rgba(28,27,24,.05), 0 6px 18px -12px rgba(28,27,24,.18);
+  --ground:#131311;
+  --panel:#1a1a17;
+  --panel-2:#232320;
+  --ink:#f1efe8;
+  --ink-2:#b4b0a5;
+  --ink-3:#8b8679;
+  --line:#2d2c27;
+  --line-2:#423f39;
+  --signal:#ff5c3a;
+  --signal-2:#8fb8c8;
+  --grain:.05;
 
-  --serif:"Fraunces", Georgia, "Times New Roman", serif;
-  --body:"Newsreader", Georgia, "Times New Roman", serif;
-  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-  --maxw:1080px;
+  --sans:"Archivo",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --navh:44px;
+  --pad:clamp(.9rem,2.2vw,1.6rem);
 }
-html[data-theme="dark"]{
-  --paper:#15161a;
-  --paper-2:#1b1d23;
-  --card:#1e2027;
-  --ink:#eceae3;
-  --ink-soft:#bdbbb2;
-  --ink-faint:#8d8a81;
-  --rule:#2c2f38;
-  --rule-strong:#3a3e49;
-  --accent:#9db2e6;
-  --accent-soft:#7e95cf;
-  --accent-wash:#222634;
-  --gold:#cBa85f;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 18px 44px -20px rgba(0,0,0,.7);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.35), 0 8px 22px -14px rgba(0,0,0,.6);
+:root[data-theme="light"]{
+  --ground:#e7e6e2;
+  --panel:#edece8;
+  --panel-2:#dedcd6;
+  --ink:#141312;
+  --ink-2:#4d4b45;
+  --ink-3:#656258;
+  --line:#c8c5bd;
+  --line-2:#b3afa5;
+  /* #d8331c was only 3.81:1 on this ground, which fails AA for the small mono
+     text it is used for — section numbers, the PREPRINT label, links in
+     captions. #c22a13 is 4.63:1 both as text on the ground and as the ground
+     reversed out of it, which is the other way round it gets used. */
+  --signal:#c22a13;
+  --signal-2:#356b80;
+  --grain:.028;
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+*,*::before,*::after{box-sizing:border-box}
+/* an author-level display: rule outranks the browser's own [hidden] rule, so
+   anything toggled with the hidden attribute needs this to actually disappear */
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:1.075rem;
-  line-height:1.66;
-  font-optical-sizing:auto;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-  transition:background .4s ease, color .4s ease;
+  margin:0;background:var(--ground);color:var(--ink-2);
+  font-family:var(--sans);font-size:15px;line-height:1.55;
+  font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline;text-underline-offset:3px}
-::selection{background:var(--accent);color:#fff}
+body::after{
+  content:"";position:fixed;inset:0;z-index:300;pointer-events:none;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--signal);color:var(--ground)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.05;color:var(--ink)}
+p{margin:0 0 .9em}
+p:last-child{margin-bottom:0}
 
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-.eyebrow{
-  font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--accent-soft);margin:0 0 14px;
-  display:flex;align-items:center;gap:12px;
-}
-.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule);max-width:120px}
-h2.section-title{
-  font-family:var(--serif);font-weight:430;font-size:clamp(1.7rem,3.6vw,2.5rem);
-  line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;
-}
-.section{padding:84px 0;border-top:1px solid var(--rule)}
-.section .lead{font-size:1.18rem;color:var(--ink-soft);max-width:62ch;margin:0 0 6px}
+.mono{font-family:var(--mono)}
+.tag{font-family:var(--mono);font-size:9.5px;font-weight:400;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
 
-/* ============================================================
-   NAV
-   ============================================================ */
-header.nav{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb, var(--paper) 86%, transparent);
-  backdrop-filter:saturate(140%) blur(10px);
-  -webkit-backdrop-filter:saturate(140%) blur(10px);
-  border-bottom:1px solid var(--rule);
+/* ---------- lattice ---------- */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+.rig{max-width:1560px;margin-inline:auto;position:relative;z-index:1;
+  border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.grid{display:grid;border-top:1px solid var(--line)}
+.cell{border-bottom:1px solid var(--line);padding:calc(var(--pad) + 12px) var(--pad) var(--pad);
+  position:relative;min-width:0}
+.cell + .cell{border-left:1px solid var(--line)}
+.cell > .tag:first-child{position:absolute;top:9px;left:var(--pad)}
+@media (max-width:860px){
+  .cell + .cell{border-left:0}
+  .grid{grid-template-columns:minmax(0,1fr)!important}
 }
-.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px;height:62px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.brand{font-family:var(--serif);font-weight:500;font-size:1.06rem;letter-spacing:.01em;color:var(--ink);white-space:nowrap}
-.brand .mono{font-family:var(--sans);font-weight:600;color:var(--accent);margin-right:9px;border:1px solid var(--rule-strong);border-radius:6px;padding:2px 7px;font-size:.78rem}
-.nav-links{display:flex;align-items:center;gap:26px;font-family:var(--sans);font-size:.9rem;font-weight:500}
-.nav-links a{color:var(--ink-soft)}
-.nav-links a:hover{color:var(--accent);text-decoration:none}
-.theme-btn{
-  font-family:var(--sans);background:transparent;border:1px solid var(--rule-strong);
-  color:var(--ink-soft);width:38px;height:34px;border-radius:8px;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;transition:.2s;
-}
-.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
-.theme-btn svg{width:17px;height:17px}
-@media(max-width:760px){.nav-links a{display:none}}
+.cell::before,.cell::after{content:"";position:absolute;width:5px;height:5px;pointer-events:none;
+  border-color:var(--line-2);border-style:solid}
+.cell::before{top:5px;right:5px;border-width:1px 1px 0 0}
+.cell::after{bottom:5px;left:5px;border-width:0 0 1px 1px}
 
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero{padding:78px 0 70px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:center}
-.hero h1{
-  font-family:var(--serif);font-weight:380;font-size:clamp(2.7rem,6.6vw,4.6rem);
-  line-height:1.02;letter-spacing:-.02em;margin:.2em 0 .28em;
+/* ---------- masthead ---------- */
+.bar{position:sticky;top:0;z-index:50;background:var(--ground);border-bottom:1px solid var(--line);
+  height:var(--navh);display:flex;align-items:stretch;max-width:1560px;margin-inline:auto}
+.bar .b{display:flex;align-items:center;gap:.55rem;padding-inline:var(--pad);
+  border-right:1px solid var(--line);white-space:nowrap;flex:none}
+.bar .b:last-child{border-right:0}
+.bar .spacer{margin-left:auto;border-right:1px solid var(--line)}
+.bar .name{font-weight:600;font-size:13px;letter-spacing:-.01em;color:var(--ink)}
+.navlinks{display:flex;overflow-x:auto;scrollbar-width:none;min-width:0}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{display:flex;align-items:center;padding-inline:.75rem;font-family:var(--mono);
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;
+  border-right:1px solid var(--line);transition:background .2s,color .2s}
+.navlinks a:hover{color:var(--ink);background:var(--panel-2)}
+.navlinks a[aria-current]{color:var(--ground);background:var(--signal)}
+@media (max-width:820px){.bar .clock{display:none}}
+@media (max-width:420px){
+  .bar > .b:first-child{flex:0 1 auto;min-width:0;overflow:hidden}
+  .bar .name{font-size:11.5px;overflow:hidden;text-overflow:ellipsis;display:block}
 }
-.hero h1 .accent{font-style:italic;color:var(--accent)}
-.role{font-family:var(--sans);font-weight:500;font-size:1.02rem;color:var(--ink-soft);margin:0 0 22px;letter-spacing:.005em}
-.hero p.tag{font-size:1.22rem;line-height:1.55;color:var(--ink);max-width:40ch;margin:0 0 26px}
-.affil{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
-.chip{
-  font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--ink-soft);
-  background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:6px 13px;
-}
+.tbtn{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  background:none;border:0;color:var(--ink-3);cursor:pointer;padding:0;transition:color .2s}
+.tbtn:hover{color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{grid-template-columns:minmax(0,1.62fr) minmax(0,1fr)}
+.eyebrow{display:flex;align-items:center;gap:1rem;margin:0 0 1.5rem}
+.eyebrow span{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--signal)}
+.eyebrow i{flex:1;height:1px;background:var(--ink-3);max-width:240px;min-width:1.5rem}
+@media (max-width:560px){.eyebrow{flex-wrap:wrap;gap:.6rem}.eyebrow i{display:none}}
+.hero h1{font-size:clamp(2.1rem,6.6vw,5.6rem);font-weight:700;letter-spacing:-.045em;
+  line-height:.92;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--signal);display:block}
+.hero .role{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-2);margin-top:1.5rem;font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.chip{border:1px solid var(--line-2);padding:.5rem .8rem;font-size:13px;color:var(--ink-3);
+  line-height:1.3;transition:border-color .2s}
 .chip b{color:var(--ink);font-weight:600}
-
-.links{display:flex;flex-wrap:wrap;gap:10px}
-.links a{
-  font-family:var(--sans);font-size:.85rem;font-weight:500;color:var(--ink);
-  display:inline-flex;align-items:center;gap:7px;
-  border:1px solid var(--rule-strong);border-radius:9px;padding:8px 13px;background:var(--card);
-  transition:.18s;
-}
-.links a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.chip:hover{border-color:var(--ink-3)}
+.links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.links a{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line-2);
+  padding:.55rem .85rem;font-size:13.5px;color:var(--ink);transition:.2s}
 .links a svg{width:15px;height:15px;flex:none}
+.links a:hover{border-color:var(--signal);color:var(--signal)}
+.shot{padding:0;display:flex;flex-direction:column}
+.shot .frame{flex:1;min-height:260px;overflow:hidden;background:var(--panel-2)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:48% 14%;
+  filter:grayscale(1) contrast(1.14) brightness(1.03)}
+:root[data-theme="dark"] .shot img{filter:grayscale(1) contrast(1.1) brightness(.86)}
+.shot figcaption{border-top:1px solid var(--line);padding:.5rem var(--pad)}
 
-/* portrait */
-.portrait-wrap{position:relative;justify-self:center}
-.portrait{
-  width:100%;max-width:330px;aspect-ratio:4/5;object-fit:cover;
-  border-radius:8px;border:none;
-  box-shadow:var(--shadow);display:block;background:var(--paper-2);
+/* ---------- section headers ---------- */
+.sechead{grid-column:1/-1;display:flex;align-items:baseline;gap:1rem;background:var(--panel);
+  padding:.95rem var(--pad) .85rem;border-bottom:1px solid var(--line)}
+.sechead .sn{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--signal);flex:none}
+.sechead h2,.sechead .ht{font-size:clamp(1.15rem,2.1vw,1.55rem);letter-spacing:-.025em;
+  font-weight:600;flex:none;margin:0;color:var(--ink)}
+.sechead i{flex:1;height:1px;background:var(--line-2);min-width:1rem;align-self:center}
+
+/* ---------- timeline ---------- */
+.tl h3{font-size:1.2rem;font-weight:600;color:var(--ink);margin:0 0 1rem;letter-spacing:-.02em}
+.tl ol{list-style:none;margin:0 0 2.1rem;padding:0 0 0 1.6rem;position:relative}
+.tl ol:last-child{margin-bottom:0}
+.tl ol::before{content:"";position:absolute;left:5px;top:7px;bottom:4px;width:1px;background:var(--ink)}
+.tl li{position:relative;padding-bottom:1.35rem}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-1.6rem;top:4px;width:11px;height:11px;border-radius:50%;
+  background:var(--signal);box-shadow:0 0 0 3px var(--ground)}
+.tl ol.past li::before{background:var(--ground);border:2px solid var(--signal)}
+.tl .r{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35}
+.tl .w{font-size:13.5px;color:var(--ink-3);margin-top:.2rem;line-height:1.45}
+.tl .p{font-size:13px;color:var(--ink-2);font-style:italic;margin-top:.3rem;line-height:1.45}
+
+/* ---------- network loading ---------- */
+.netload{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  transition:opacity .4s var(--ease);
+  justify-content:center;gap:.7rem;font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  letter-spacing:.1em;text-transform:uppercase;background:var(--ground);z-index:3}
+.netload b{display:block;width:120px;height:2px;background:var(--line-2);overflow:hidden;position:relative}
+.netload b::after{content:"";position:absolute;inset:0;width:40%;background:var(--signal);
+  animation:scan 1.1s ease-in-out infinite}
+@keyframes scan{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+@media (prefers-reduced-motion:reduce){.netload b::after{animation:none;width:100%}}
+.net canvas{opacity:0;transition:opacity .6s var(--ease)}
+.net canvas.up{opacity:1}
+
+/* ---------- network controls ---------- */
+.netbar{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1rem;
+  padding:.7rem var(--pad) 0;border-top:1px solid var(--line);margin-top:.2rem}
+.netbar button{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-2);background:none;border:1px solid var(--line-2);padding:.42rem .7rem;
+  cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;transition:.2s}
+.netbar button::before{content:"";width:7px;height:7px;border-radius:50%;
+  border:1.5px solid currentColor;background:currentColor;transition:.2s}
+.netbar button[aria-pressed="false"]{color:var(--ink-3)}
+.netbar button[aria-pressed="false"]::before{background:transparent}
+.netbar button:hover{border-color:var(--signal);color:var(--signal)}
+.netbar span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3)}
+
+/* ---------- co-author panel ---------- */
+.netpanel{position:absolute;z-index:4;right:var(--pad);top:var(--pad);
+  width:min(340px,calc(100% - var(--pad) * 2));max-height:calc(100% - var(--pad) * 2);
+  overflow-y:auto;background:var(--ground);border:1px solid var(--line-2);
+  padding:.85rem .95rem;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.netpanel header{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;
+  border-bottom:1px solid var(--line);padding-bottom:.55rem;margin-bottom:.55rem}
+.netpanel h3{font-size:14.5px;font-weight:600;letter-spacing:-.015em;color:var(--ink);line-height:1.25}
+.netpanel h3 em{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:.3rem}
+.netpanel .x{background:none;border:0;color:var(--ink-3);font-size:17px;line-height:1;
+  cursor:pointer;padding:0 .1rem;flex:none}
+.netpanel .x:hover{color:var(--signal)}
+.netpanel ol{list-style:none;display:flex;flex-direction:column;gap:.1rem}
+.netpanel button.w{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:.42rem .4rem;font:inherit;font-size:12.5px;line-height:1.4;color:var(--ink-2);
+  border-left:2px solid transparent;transition:.18s}
+.netpanel button.w b{font-family:var(--mono);font-size:10px;color:var(--ink-3);
+  display:block;margin-top:.2rem;font-weight:400}
+.netpanel button.w:hover{color:var(--signal);border-left-color:var(--signal);background:var(--panel-2)}
+@media (prefers-reduced-motion:no-preference){
+  .netpanel{animation:panelin .24s var(--ease)}
 }
-.portrait-cap{font-family:var(--sans);font-size:.72rem;color:var(--ink-faint);text-align:center;margin-top:14px;letter-spacing:.03em}
-.monogram{
-  width:100%;max-width:330px;aspect-ratio:4/5;border-radius:10px;border:1px solid var(--rule-strong);
-  box-shadow:var(--shadow);background:var(--paper-2);
-  align-items:center;justify-content:center;font-family:var(--serif);font-weight:400;
-  font-size:5rem;color:var(--accent);letter-spacing:.04em;
+@keyframes panelin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ---------- prose ---------- */
+.prose{font-size:15.5px;line-height:1.62;max-width:66ch;color:var(--ink-2)}
+.prose em{font-style:italic}
+.prose strong{color:var(--ink);font-weight:500}
+h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing:-.03em}
+.spec{border-top:1px solid var(--line);margin-top:1.1rem}
+.spec div{display:flex;gap:1rem;justify-content:space-between;align-items:baseline;
+  padding:.5rem 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.spec dt{color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex:none}
+.spec dd{margin:0;color:var(--ink);text-align:right}
+.spec dd i{display:block;font-style:normal;color:var(--ink-3);font-size:10.5px;margin-top:2px}
+
+.strands{grid-template-columns:repeat(3,minmax(0,1fr))}
+.strand h3{font-size:1.1rem;margin-bottom:.6rem;letter-spacing:-.02em}
+.strand p{font-size:14px;color:var(--ink-2)}
+.strand .n{font-family:var(--mono);font-size:11px;color:var(--signal);margin-bottom:.8rem}
+
+/* ---------- charts ---------- */
+.plot{display:flex;align-items:flex-end;gap:2px;height:118px;margin-top:.4rem}
+.pbar{flex:1;min-width:0;background:none;border:0;padding:0;cursor:pointer;height:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;position:relative;
+  font-family:var(--mono);color:var(--ink-3)}
+.pstack{display:flex;flex-direction:column;justify-content:flex-end;
+  height:calc(var(--h) * 100%);min-height:2px;transform:scaleY(0);transform-origin:bottom;
+  transition:transform .7s var(--ease) calc(var(--i) * 40ms),height .45s var(--ease)}
+.rv.in .pstack{transform:scaleY(1)}
+.plot.settled .pstack{transition:transform .3s var(--ease),height .4s var(--ease)}
+.pstack i{display:block;transition:height .4s var(--ease),background .2s}
+.pstack .pre{height:calc(var(--pre) * 100%);background:var(--signal-2)}
+.pstack .pub{height:calc(var(--pub) * 100%);background:var(--ink-3)}
+.pbar:hover .pstack .pub,.pbar[aria-pressed="true"] .pstack .pub{background:var(--signal)}
+.pbar span{font-size:9.5px;letter-spacing:.04em;margin-top:5px;text-align:center}
+.pbar[data-empty="true"]{cursor:default}
+.pbar[data-empty="true"] .pstack i{background:var(--line-2)}
+.key{display:flex;gap:1.1rem;margin-top:.9rem;font-family:var(--mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.key span{display:flex;align-items:center;gap:.4rem}
+.key b{width:9px;height:9px;display:block}
+.key .kp{background:var(--ink-3)}
+.key .kr{background:var(--signal-2)}
+@media (max-width:640px){.plot{height:82px}.pbar span{font-size:8.5px}}
+
+.hbars{margin-top:.3rem}
+.hb{display:grid;grid-template-columns:92px minmax(0,1fr) 2.2rem;gap:.6rem;align-items:center;
+  padding:.32rem 0;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.hb span:first-child{letter-spacing:.05em;text-transform:uppercase}
+.hb b{height:7px;background:var(--ink-3);display:block;width:calc(var(--w) * 100%);min-width:2px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .7s var(--ease) calc(var(--i) * 55ms),width .4s var(--ease)}
+.rv.in .hb b{transform:scaleX(1)}
+.hb em{font-style:normal;text-align:right;color:var(--ink)}
+.hb u{display:block;background:var(--panel-2);height:7px}
+
+/* ---------- networks ---------- */
+.net{padding:0;display:flex;flex-direction:column}
+.net > .tag:first-child{position:absolute;top:9px;left:var(--pad);z-index:2}
+.net canvas{width:100%;display:block;flex:1;min-height:360px;cursor:pointer;max-height:min(64vh,540px);
+  touch-action:pan-y;cursor:grab}
+@media (max-width:860px){.net canvas{min-height:300px}}
+.cap{text-transform:none;letter-spacing:.04em;line-height:1.6;margin-top:.9rem}
+.cap a{color:var(--signal);border-bottom:1px solid currentColor}
+.net .cap{border-top:1px solid var(--line);padding:.55rem var(--pad);margin-top:0}
+.netstate{font-family:var(--mono);font-size:11px;color:var(--ink-3);padding:2.5rem var(--pad);
+  text-align:center;line-height:1.7}
+.netstate a{color:var(--signal);border-bottom:1px solid currentColor}
+.tipbox{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line-2);
+  padding:.45rem .6rem;font-family:var(--mono);font-size:10.5px;color:var(--ink);
+  max-width:min(22rem,calc(100vw - 2.5rem));
+  opacity:0;transition:opacity .15s;z-index:4;line-height:1.5}
+.tipbox b{color:var(--signal);font-weight:400;display:block;margin-top:.2rem}
+/* The tooltip holds whatever coordinates the last hover gave it, so a window
+   narrowed after a hover would leave it sticking out past the page edge and
+   the whole document scrolling sideways. Clip it to the panel it belongs to. */
+#paperWrap,#peopleWrap{overflow:hidden}
+
+/* ---------- record ---------- */
+.tools-row{display:flex;flex-wrap:wrap;gap:.6rem 1.1rem;align-items:center;
+  padding:.7rem 0 .8rem;border-bottom:1px solid var(--line)}
+.filters{display:flex;flex-wrap:wrap;gap:.35rem}
+.filters button{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  background:none;border:1px solid var(--line-2);color:var(--ink-3);padding:.28rem .55rem;
+  cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--ink);border-color:var(--ink-3)}
+.filters button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--ground)}
+.q{font-family:var(--mono);font-size:11.5px;color:var(--ink);background:var(--panel);
+  border:1px solid var(--line-2);padding:.3rem .5rem;min-width:9rem;flex:1;max-width:15rem}
+.q::placeholder{color:var(--ink-3)}
+.q:focus{outline:0;border-color:var(--signal)}
+
+.rows{border-top:1px solid var(--line)}
+.rec{display:grid;grid-template-columns:3.4rem minmax(0,1fr) 10rem 8rem;gap:1rem;
+  padding:.62rem .55rem .62rem .55rem;border-bottom:1px solid var(--line);align-items:baseline;
+  position:relative;transition:background .2s}
+.rec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--signal);
+  transform:scaleY(0);transition:transform .22s var(--ease)}
+.rec:hover{background:var(--panel-2)}
+.rec:hover::before{transform:scaleY(1)}
+.rec.flash{background:var(--panel-2)}
+.rec.flash::before{transform:scaleY(1)}
+.rec.flash .ti{color:var(--signal)}
+.rec .yr{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.rec .ti{font-size:14px;line-height:1.4;color:var(--ink);font-weight:500;letter-spacing:-.005em}
+.rec:hover .ti{color:var(--signal)}
+.rec .src{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);line-height:1.4}
+.rec .cls{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);line-height:1.6}
+.rec .cls b{color:var(--signal);font-weight:400;display:block}
+@media (max-width:900px){
+  .rec{grid-template-columns:3rem minmax(0,1fr);gap:.4rem 1rem}
+  .rec .src,.rec .cls{grid-column:2}
+  .rec .cls b{display:inline}
 }
-@media(max-width:820px){.monogram{max-width:260px;font-size:4rem}}
+.empty{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding:1.4rem 0}
+.note{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);border-left:2px solid var(--signal);
+  padding:.5rem .7rem;margin-top:.9rem;max-width:56ch;line-height:1.6}
+.note a{color:var(--signal);border-bottom:1px solid currentColor}
+.load{height:2.2rem;border-bottom:1px solid var(--line);background:
+  linear-gradient(90deg,var(--panel) 20%,var(--panel-2) 40%,var(--panel) 60%);
+  background-size:300% 100%;animation:sweep 1.5s linear infinite}
+@keyframes sweep{to{background-position:-200% 0}}
 
-@media(max-width:820px){
-  .hero-grid{grid-template-columns:1fr;gap:38px}
-  .portrait-wrap{order:-1}
-  .portrait{max-width:260px}
-  .hero p.tag{max-width:none}
+/* ---------- service, tools, open science ---------- */
+.roles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0;
+  border-top:1px solid var(--line)}
+.role{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:.7rem .8rem}
+.role dt{font-family:var(--mono);font-size:10px;color:var(--signal);letter-spacing:.08em}
+.role dd{margin:.25rem 0 0;font-size:13px;color:var(--ink);font-weight:500;line-height:1.3}
+.role dd i{display:block;font-style:normal;font-family:var(--mono);font-size:10px;
+  color:var(--ink-3);margin-top:.2rem}
+
+.kit{border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:minmax(0,1fr) 7rem;gap:1rem;padding:.85rem 0;
+  border-bottom:1px solid var(--line);align-items:start}
+.item h3{font-size:14.5px;margin-bottom:.25rem}
+.item p{font-size:13.5px;margin:0;color:var(--ink-2);max-width:58ch}
+.item .meta{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);text-align:right}
+.item a.go{font-family:var(--mono);font-size:10.5px;color:var(--signal);letter-spacing:.06em;
+  display:inline-block;margin-top:.4rem;border-bottom:1px solid transparent}
+.item a.go:hover{border-bottom-color:var(--signal)}
+@media (max-width:640px){.item{grid-template-columns:minmax(0,1fr)}.item .meta{text-align:left}}
+
+.oslist{border-top:1px solid var(--line);margin-top:.2rem}
+.os{display:grid;grid-template-columns:3.2rem minmax(0,1fr) 10rem;gap:1rem;padding:.55rem 0 .55rem .5rem;
+  border-bottom:1px solid var(--line);align-items:baseline;position:relative;transition:background .2s}
+.os:hover{background:var(--panel-2)}
+.os:hover .t{color:var(--signal)}
+.os .y{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.os .t{font-size:13.5px;color:var(--ink);line-height:1.4;transition:color .2s}
+.os .j{font-family:var(--mono);font-size:10px;color:var(--ink-3);line-height:1.5}
+@media (max-width:760px){.os{grid-template-columns:3rem minmax(0,1fr)}.os .j{grid-column:2}}
+
+.out{display:flex;flex-wrap:wrap;gap:.4rem}
+.out a{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line-2);padding:.4rem .7rem;color:var(--ink-2);transition:.2s}
+.out a:hover{background:var(--signal);border-color:var(--signal);color:var(--ground)}
+.mail{font-family:var(--mono);font-size:clamp(1rem,2.6vw,1.6rem);color:var(--ink);
+  letter-spacing:-.02em;border-bottom:2px solid var(--signal);display:inline-block}
+.mail:hover{color:var(--signal)}
+.foot{font-family:var(--mono);font-size:10px;color:var(--ink-3);line-height:1.8;letter-spacing:.04em}
+.foot a{border-bottom:1px solid var(--line-2)}
+.foot a:hover{color:var(--signal);border-bottom-color:var(--signal)}
+
+.js .rv{opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .pstack,.hb b{transform:none;transition:none}
+  .led[data-on="true"],.load{animation:none}
 }
-
-/* ============================================================
-   ABOUT / ROLES
-   ============================================================ */
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;margin-top:30px}
-@media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:34px}}
-.prose p{margin:0 0 1.1em;color:var(--ink-soft)}
-.prose p strong{color:var(--ink)}
-
-.roles{font-family:var(--sans)}
-.roles h3{font-family:var(--serif);font-weight:480;font-size:1.15rem;margin:0 0 14px;color:var(--ink)}
-.timeline{list-style:none;margin:0 0 30px;padding:0;position:relative}
-.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:var(--rule-strong)}
-.timeline li{position:relative;padding:0 0 18px 28px}
-.timeline li::before{content:"";position:absolute;left:1px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
-.timeline li.now::before{background:var(--accent)}
-.t-role{font-size:.95rem;font-weight:600;color:var(--ink);line-height:1.4}
-.t-where{font-size:.86rem;color:var(--ink-faint);margin-top:1px}
-.t-proj{font-size:.84rem;color:var(--ink-soft);font-style:italic;margin-top:4px;font-family:var(--body)}
-
-/* ============================================================
-   RESEARCH CARDS
-   ============================================================ */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-@media(max-width:820px){.cards{grid-template-columns:1fr}}
-.card{
-  background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:26px 24px;
-  transition:.22s;position:relative;overflow:hidden;
-}
-.card:hover{border-color:var(--rule-strong);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
-.card .num{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;color:var(--accent-soft)}
-.card h3{font-family:var(--serif);font-weight:470;font-size:1.28rem;margin:8px 0 9px;line-height:1.15;letter-spacing:-.01em}
-.card p{margin:0;font-size:.98rem;color:var(--ink-soft);line-height:1.55}
-
-/* ============================================================
-   PUBLICATIONS
-   ============================================================ */
-.pub-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px}
-.pub-status{font-family:var(--sans);font-size:.8rem;color:var(--ink-faint);display:flex;align-items:center;gap:8px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block}
-.dot.live{background:#3a9d6b;box-shadow:0 0 0 0 rgba(58,157,107,.5);animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(58,157,107,.45)}70%{box-shadow:0 0 0 7px rgba(58,157,107,0)}100%{box-shadow:0 0 0 0 rgba(58,157,107,0)}}
-@media (prefers-reduced-motion:reduce){.dot.live{animation:none}}
-
-.pub-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:26px 0 8px}
-.pills{display:flex;flex-wrap:wrap;gap:7px}
-.pill{
-  font-family:var(--sans);font-size:.82rem;font-weight:500;color:var(--ink-soft);cursor:pointer;
-  background:transparent;border:1px solid var(--rule-strong);border-radius:999px;padding:6px 14px;transition:.16s;
-}
-.pill:hover{border-color:var(--accent);color:var(--accent)}
-.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.search{
-  font-family:var(--sans);font-size:.88rem;color:var(--ink);background:var(--card);
-  border:1px solid var(--rule-strong);border-radius:9px;padding:8px 13px;min-width:210px;flex:1;max-width:320px;
-}
-.search:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
-
-.pub-year{display:grid;grid-template-columns:88px 1fr;gap:8px;border-top:1px solid var(--rule);padding-top:22px;margin-top:22px}
-@media(max-width:600px){.pub-year{grid-template-columns:1fr;gap:4px}}
-.pub-year .yr{font-family:var(--serif);font-weight:430;font-size:1.5rem;color:var(--ink-faint);position:sticky;top:74px;height:max-content}
-.pub-list{display:flex;flex-direction:column;gap:2px}
-.pub{
-  display:block;padding:15px 16px;border-radius:10px;border:1px solid transparent;
-  transition:.16s;position:relative;
-}
-.pub:hover{background:var(--card);border-color:var(--rule);text-decoration:none}
-.pub .pt{font-family:var(--body);font-size:1.06rem;font-weight:500;color:var(--ink);line-height:1.4;display:block}
-.pub:hover .pt{color:var(--accent)}
-.pub .meta{font-family:var(--sans);font-size:.84rem;color:var(--ink-faint);margin-top:5px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
-.pub .jrnl{font-style:italic;font-family:var(--body);color:var(--ink-soft)}
-.badge{font-family:var(--sans);font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:5px;border:1px solid var(--rule-strong);color:var(--ink-faint)}
-.badge.preprint{color:#9a7b32;border-color:#cbb784;background:rgba(154,123,50,.07)}
-.badge.data{color:#2f7d6b;border-color:#7fc0b1;background:rgba(47,125,107,.07)}
-.badge.review{color:#9a4b4b;border-color:#cb9a9a;background:rgba(154,75,75,.07)}
-html[data-theme="dark"] .badge.preprint{background:rgba(203,168,95,.1)}
-html[data-theme="dark"] .badge.data{background:rgba(127,192,177,.1)}
-.status{font-family:var(--sans);font-size:.66rem;font-weight:600;letter-spacing:.05em;padding:2px 7px;border-radius:5px;white-space:nowrap}
-.status.st-pub{color:#2f7d6b;background:rgba(47,125,107,.1)}
-.status.st-pre{color:#9a7b32;background:rgba(154,123,50,.12)}
-.status.st-rev{color:#9a4b4b;background:rgba(154,75,75,.12)}
-.status.st-soft{color:#3a5ca8;background:rgba(58,92,168,.12)}
-html[data-theme="dark"] .status.st-pub{color:#7fc7b3}
-html[data-theme="dark"] .status.st-pre{color:#d8b878}
-html[data-theme="dark"] .status.st-rev{color:#d89a9a}
-html[data-theme="dark"] .status.st-soft{color:#9db2e6}
-.featured-note{font-family:var(--sans);font-size:.8rem;color:var(--ink-faint);margin:2px 0 0}
-
-.pub-skeleton{display:flex;flex-direction:column;gap:14px;margin-top:26px}
-.sk{height:54px;border-radius:10px;background:linear-gradient(90deg,var(--paper-2) 25%,var(--rule) 37%,var(--paper-2) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite}
-@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
-.pub-msg{font-family:var(--sans);font-size:.9rem;color:var(--ink-faint);background:var(--paper-2);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin-top:22px}
-
-/* ============================================================
-   OPEN SCIENCE STRIP
-   ============================================================ */
-.os-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
-@media(max-width:740px){.os-grid{grid-template-columns:1fr}}
-.os{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:24px}
-.os h3{font-family:var(--serif);font-weight:470;font-size:1.12rem;margin:0 0 8px}
-.os p{margin:0;font-size:.94rem;color:var(--ink-soft)}
-.os a{font-weight:500}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-footer{border-top:1px solid var(--rule);padding:60px 0 70px;background:var(--paper-2)}
-.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:flex-start}
-footer h2{font-family:var(--serif);font-weight:420;font-size:1.9rem;margin:0 0 10px;letter-spacing:-.01em}
-footer .foot-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
-footer .colophon{font-family:var(--sans);font-size:.78rem;color:var(--ink-faint);max-width:34ch;line-height:1.6}
-.to-top{font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)}
-.os-block{border-top:1px solid var(--rule);padding-top:20px;margin-top:24px}
-.os-block:first-of-type{border-top:none;padding-top:0;margin-top:14px}
-.os-block h3{font-family:var(--serif);font-weight:480;font-size:1.32rem;margin:0 0 12px;color:var(--ink)}
-.os-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:9px 28px}
-@media(max-width:680px){.os-list{grid-template-columns:1fr}}
-.os-list li{font-family:var(--body);font-size:1rem;color:var(--ink-soft);padding-left:17px;position:relative;line-height:1.5}
-.os-list li::before{content:"\203a";position:absolute;left:0;color:var(--accent-soft);font-family:var(--sans)}
-.os-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;margin-top:30px}
-@media(max-width:820px){.os-groups{grid-template-columns:1fr}}
-.os-list{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:1fr;gap:9px}
-.os-list li{font-family:var(--body);font-size:.96rem;color:var(--ink-soft);padding-left:16px;position:relative;line-height:1.45}
-.os-list li::before{content:"\203a";position:absolute;left:0;color:var(--accent-soft);font-family:var(--sans)}
-</style>
-<style>
-
-:root{--paper:#fefefe;--paper-2:#f0f0f0;--card:#ffffff;--ink:#0a0a0a;--ink-soft:#222;--ink-faint:#555;--rule:#0a0a0a;--rule-strong:#0a0a0a;--accent:#ff3b00;--accent-soft:#ff3b00;--accent-wash:#ffe9e2;--serif:'Archivo',sans-serif;--body:'Archivo',sans-serif;--sans:'Archivo',sans-serif;}
-html[data-theme="dark"]{--paper:#0a0a0a;--paper-2:#151515;--card:#141414;--ink:#f4f4f4;--ink-soft:#cfcfcf;--ink-faint:#8f8f8f;--rule:#f4f4f4;--rule-strong:#f4f4f4;--accent:#ff5a2c;--accent-soft:#ff7a52;--accent-wash:#2a1a12;}
-*{border-radius:0 !important}
-.hero h1{font-weight:900;letter-spacing:-.04em;text-transform:uppercase}.hero h1 .accent{font-style:normal;color:var(--accent)}
-.section-title{font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
-.card,.os{border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transition:transform .12s,box-shadow .12s}
-.card:hover,.os:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--accent)}
-.pill{border:2px solid var(--ink)}.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--ink);color:#fff}
-.badge,.status{border:1.5px solid var(--ink)}.dot.live{background:var(--accent)}
-.brand .mono{border:2px solid var(--ink);color:var(--ink)}header.nav{border-bottom:2px solid var(--ink)}
-
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:.5rem;top:.5rem;z-index:99;background:var(--ground);color:var(--ink);
+  padding:.5rem .8rem;border:1px solid var(--signal);font-family:var(--mono);font-size:12px}
 </style>
 </head>
 <body>
+<a class="skip" href="#about">Skip to content</a>
+<canvas id="bg" aria-hidden="true"></canvas>
 
-<!-- ===================== NAV ===================== -->
-<header class="nav">
-  <div class="nav-inner">
-    <a class="brand" href="#top"><span class="mono">EIC</span>Edward R. Ivimey-Cook</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="#open">Open Science</a>
-      <a href="#tools">Tools</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme" title="Toggle light / dark">
-      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"></path></svg>
-    </button>
-  </div>
+<header class="bar">
+  <div class="b"><span class="name">Edward R. Ivimey&#8209;Cook</span></div>
+  <nav class="navlinks" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#papers">Papers</a>
+    <a href="#people">People</a>
+    <a href="#research">Research</a>
+    <a href="#output">Output</a>
+    <a href="#record">Record</a>
+    <a href="#open">Open science</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="b spacer clock"><span class="tag mono" id="clock">00:00:00 UTC</span></div>
+  <div class="b"><button class="tbtn" id="themeBtn" aria-label="Switch colour theme">Light</button></div>
 </header>
 
-<a id="top"></a>
+<main class="rig">
 
-<!-- ===================== HERO ===================== -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">Evolutionary Biology · Ageing · Open Science</p>
-      <h1>Edward R.<br><span class="accent">Ivimey-Cook</span></h1>
-      <p class="role">Lecturer in Biological Sciences · University of East Anglia</p>
-      <div class="affil">
-        <span class="chip"><b>UEA</b> · Lecturer</span>
-        <span class="chip"><b>SORTEE</b> · Past-President</span>
-        <span class="chip"><b>Ecology Letters</b> · Data Editor</span>
-        <span class="chip"><b>Ecological Society of America</b> · Publications Committee</span>
+  <section class="grid hero rv" id="about">
+    <div class="sechead"><span class="sn">01</span><p class="ht">About</p><i></i></div>
+    <div class="cell">
+      <p class="eyebrow"><span>Evolutionary Biology &#183; Ageing &#183; Open Science</span><i></i></p>
+      <h1>Edward R.<em>Ivimey-Cook</em></h1>
+      <p class="role">Lecturer in Biological Sciences &#183; University of East Anglia</p>
+      <div class="chips">
+        <span class="chip"><b>UEA</b> &#183; Lecturer</span>
+        <span class="chip"><b>SORTEE</b> &#183; Past-President</span>
+        <span class="chip"><b>Ecology Letters</b> &#183; Data Editor</span>
+        <span class="chip"><b>Ecological Society of America</b> &#183; Publications Committee</span>
       </div>
-      <div class="links" id="heroLinks">
-        <a href="https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.84 3.77A8 8 0 0 1 12 9a8 8 0 0 1 7.16 4.27L24 9.5z"/></svg>Scholar</a>
-        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener" aria-label="ORCID"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 18.16H5.62V8.2h1.75v9.96zM6.5 7.2a1.02 1.02 0 1 1 0-2.04 1.02 1.02 0 0 1 0 2.04zm12.16 10.96h-3.6c-3.13 0-5.18-1.95-5.18-4.97 0-3 2.05-4.99 5.34-4.99h3.44v1.58h-3.26c-2.32 0-3.74 1.32-3.74 3.41 0 2.13 1.5 3.39 3.66 3.39h1.59V9.84h1.75v8.32z"/></svg>ORCID</a>
-        <a href="https://github.com/EIvimeyCook" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>GitHub</a>
-        <a href="https://bsky.app/profile/eivimeycook.bsky.social" target="_blank" rel="noopener" aria-label="Bluesky"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8C10.9 8.6 7.9 4.6 5.1 2.9 2.4 1.3 1.4 1.6.7 1.9 0 2.3 0 3.4 0 4.1c0 .7.4 5.5.6 6.3.7 2.7 3.5 3.6 6.1 3.3-3.8.6-7.1 2-2.7 6.9 4.8 5 6.6-1.1 7.6-4.2.9 3.1 2 9 7.5 4.2 4.1-4.2 1.2-6.4-2.6-6.9 2.6.3 5.4-.6 6.1-3.3.2-.8.6-5.6.6-6.3 0-.7 0-1.8-.7-2.2-.7-.3-1.7-.6-4.4 1C16.1 4.6 13.1 8.6 12 10.8z"/></svg>Bluesky</a>
-        <a href="https://www.researchgate.net/profile/Edward-Ivimey-Cook" target="_blank" rel="noopener" aria-label="ResearchGate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 0H4.4A4.4 4.4 0 0 0 0 4.4v15.2A4.4 4.4 0 0 0 4.4 24h15.2a4.4 4.4 0 0 0 4.4-4.4V4.4A4.4 4.4 0 0 0 19.6 0zM8.3 14.7c-.9 1-2 1-2.4 1-1.9 0-3-1.5-3-3.6V11c0-2.1 1.1-3.6 3-3.6.4 0 1.5 0 2.4 1l-.7.8c-.5-.5-1-.6-1.6-.6-1.2 0-1.8 1-1.8 2.5v1c0 1.5.6 2.5 1.8 2.5.6 0 1.1-.1 1.4-.4v-1.6H6.2v-1h2.1v3.1zm6.1.9-1.8-2.6h-.9v2.6h-1.2V7.5h2.6c1.4 0 2.4.8 2.4 2.2 0 1-.5 1.7-1.4 2l2 2.9h-1.7zm-1.5-3.6c.8 0 1.3-.4 1.3-1.2s-.5-1.2-1.3-1.2h-1.2v2.4h1.2z"/></svg>ResearchGate</a>
-        <a href="mailto:e.ivimeycook@googlemail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Email</a>
+      <div class="links">
+        <a href="https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.84 3.77A8 8 0 0 1 12 9a8 8 0 0 1 7.16 4.27L24 9.5z"/></svg>Scholar</a>
+        <a href="https://orcid.org/0000-0003-4910-0443" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.37 18.16H5.62V8.2h1.75v9.96zM6.5 7.2a1.02 1.02 0 1 1 0-2.04 1.02 1.02 0 0 1 0 2.04zm12.16 10.96h-3.6c-3.13 0-5.18-1.95-5.18-4.97 0-3 2.05-4.99 5.34-4.99h3.44v1.58h-3.26c-2.32 0-3.74 1.32-3.74 3.41 0 2.13 1.5 3.39 3.66 3.39h1.59V9.84h1.75v8.32z"/></svg>ORCID</a>
+        <a href="https://github.com/EIvimeyCook" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>GitHub</a>
+        <a href="https://bsky.app/profile/eivimeycook.bsky.social" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 10.8C10.9 8.6 7.9 4.6 5.1 2.9 2.4 1.3 1.4 1.6.7 1.9 0 2.3 0 3.4 0 4.1c0 .7.4 5.5.6 6.3.7 2.7 3.5 3.6 6.1 3.3-3.8.6-7.1 2-2.7 6.9 4.8 5 6.6-1.1 7.6-4.2.9 3.1 2 9 7.5 4.2 4.1-4.2 1.2-6.4-2.6-6.9 2.6.3 5.4-.6 6.1-3.3.2-.8.6-5.6.6-6.3 0-.7 0-1.8-.7-2.2-.7-.3-1.7-.6-4.4 1C16.1 4.6 13.1 8.6 12 10.8z"/></svg>Bluesky</a>
+        <a href="https://www.researchgate.net/profile/Edward-Ivimey-Cook" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 0H4.4A4.4 4.4 0 0 0 0 4.4v15.2A4.4 4.4 0 0 0 4.4 24h15.2a4.4 4.4 0 0 0 4.4-4.4V4.4A4.4 4.4 0 0 0 19.6 0zM8.3 14.7c-.9 1-2 1-2.4 1-1.9 0-3-1.5-3-3.6V11c0-2.1 1.1-3.6 3-3.6.4 0 1.5 0 2.4 1l-.7.8c-.5-.5-1-.6-1.6-.6-1.2 0-1.8 1-1.8 2.5v1c0 1.5.6 2.5 1.8 2.5.6 0 1.1-.1 1.4-.4v-1.6H6.2v-1h2.1v3.1zm6.1.9-1.8-2.6h-.9v2.6h-1.2V7.5h2.6c1.4 0 2.4.8 2.4 2.2 0 1-.5 1.7-1.4 2l2 2.9h-1.7zm-1.5-3.6c.8 0 1.3-.4 1.3-1.2s-.5-1.2-1.3-1.2h-1.2v2.4h1.2z"/></svg>ResearchGate</a>
+        <a href="mailto:e.ivimeycook@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/></svg>Email</a>
       </div>
     </div>
-    <div class="portrait-wrap">
-      <img class="portrait" src="Ed.JPG" alt="Portrait of Edward R. Ivimey-Cook"
-           data-fallback="https://eivimeycook.github.io/Ed.JPG"
-           onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.style.display='none';document.getElementById('monogram').style.display='flex';document.getElementById('portraitCap').style.display='none';}">
-      <div id="monogram" class="monogram" aria-hidden="true" style="display:none">EIC</div>
-      <p class="portrait-cap" id="portraitCap">Edward R. Ivimey-Cook</p>
-    </div>
-  </div>
-</section>
+    <figure class="cell shot">
+      <div class="frame">
+        <img src="ed-1600.jpg" srcset="ed-800.jpg 800w, ed-1600.jpg 1600w"
+             sizes="(max-width:860px) 100vw, 38vw" width="1600" height="1066"
+             alt="Edward Ivimey-Cook giving a talk at a lectern to a seated audience">
+      </div>
+      <figcaption class="tag">Le Corum, Montpellier</figcaption>
+    </figure>
+  </section>
 
-<!-- ===================== ABOUT ===================== -->
-<section class="section" id="about">
-  <div class="wrap">
-    <h2 class="section-title">About</h2>
-    <div class="about-grid">
+  <section class="grid rv" style="grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)">
+    <div class="cell">
+      <p class="tag">Biography</p>
       <div class="prose">
-        <p>I'm interested in understanding and investigating the huge diversity of ageing patterns that exists across the tree of life - from insects with elaborate parental care to fish, worms and birds.</p>
+        <p>I'm interested in understanding and investigating the huge diversity of ageing patterns that exists across the tree of life, from insects with elaborate parental care to fish, worms and birds.</p>
         <p>My current research focuses on <strong>evolutionary theory, maternal senescence, the inter- and transgenerational effects of parental age and diet, and thermal tolerance across a range of study systems.</strong> Underpinning all of this work is a strong commitment to <strong>open science</strong> and to improving the reproducibility of research in ecology and evolutionary biology.</p>
-       <p>I completed my PhD at the University of Edinburgh with Dr Jacob Moorad, where I studied maternal ageing in the burying beetle <em>Nicrophorus vespilloides</em>. I subsequently held postdoctoral positions at UEA with Prof. Alexei Maklakov, working on the nematode worm <em>C. elegans</em>, and at the University of Glasgow with Prof. Pat Monaghan, working on zebra finches, before joining UEA as a Lecturer.</p> 
+        <p>I completed my PhD at the University of Edinburgh with Dr Jacob Moorad, where I studied maternal ageing in the burying beetle <em>Nicrophorus vespilloides</em>. I subsequently held postdoctoral positions at UEA with Prof. Alexei Maklakov, working on the nematode worm <em>C. elegans</em>, and at the University of Glasgow with Prof. Pat Monaghan, working on zebra finches, before joining UEA as a Lecturer.</p>
       </div>
-      <div class="roles">
+    </div>
+    <div class="cell">
+      <p class="tag">Timeline</p>
+      <div class="tl">
         <h3>Now</h3>
-        <ul class="timeline">
-          <li class="now"><div class="t-role">Lecturer in Biological Sciences</div><div class="t-where">University of East Anglia</div></li>
-          <li class="now"><div class="t-role">Past-President · SORTEE</div><div class="t-where">Society for Open, Reliable &amp; Transparent Ecology &amp; Evolutionary Biology</div></li>
-          <li class="now"><div class="t-role">Data Editor</div><div class="t-where">Ecology Letters</div></li>
-          <li class="now"><div class="t-role">Publications Committee</div><div class="t-where">Ecological Society of America</div></li>
-        </ul>
+        <ol>
+          <li><p class="r">Lecturer in Biological Sciences</p><p class="w">University of East Anglia</p></li>
+          <li><p class="r">Past-President &#183; SORTEE</p><p class="w">Society for Open, Reliable &amp; Transparent Ecology &amp; Evolutionary Biology</p></li>
+          <li><p class="r">Data Editor</p><p class="w">Ecology Letters</p></li>
+          <li><p class="r">Publications Committee</p><p class="w">Ecological Society of America</p></li>
+        </ol>
         <h3>Previously</h3>
-        <ul class="timeline">
-          <li><div class="t-role">Postdoc · University of Glasgow</div><div class="t-where">with Prof. Pat Monaghan · zebra finch</div><div class="t-proj">Intergenerational transfer of ageing: the Lansing Effect</div></li>
-          <li><div class="t-role">Postdoc · University of East Anglia</div><div class="t-where">with Prof. Alexei Maklakov · <em>C. elegans</em></div><div class="t-proj">The cost of longevity: transgenerational consequences of parental lifespan extension</div></li>
-          <li><div class="t-role">PhD · University of Edinburgh</div><div class="t-where">with Dr Jacob Moorad · burying beetle</div><div class="t-proj">Experimental &amp; comparative analyses of maternal age and senescence</div></li>
-        </ul>
+        <ol class="past">
+          <li><p class="r">Postdoc &#183; University of Glasgow</p><p class="w">with Prof. Pat Monaghan &#183; zebra finch</p><p class="p">Intergenerational transfer of ageing: the Lansing Effect</p></li>
+          <li><p class="r">Postdoc &#183; University of East Anglia</p><p class="w">with Prof. Alexei Maklakov &#183; <em>C. elegans</em></p><p class="p">The cost of longevity: transgenerational consequences of parental lifespan extension</p></li>
+          <li><p class="r">PhD &#183; University of Edinburgh</p><p class="w">with Dr Jacob Moorad &#183; burying beetle</p><p class="p">Experimental &amp; comparative analyses of maternal age and senescence</p></li>
+        </ol>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===================== RESEARCH ===================== -->
-<section class="section" id="research">
-  <div class="wrap">
-    <h2 class="section-title">Research</h2>
-    <div class="cards">
-      <div class="card"> <div class="num">01</div> <h3>Ageing &amp; senescence</h3> <p>Understanding why senescence evolves and why ageing varies so dramatically across species. This includes inter- and transgenerational effects of parental age on offspring life histories, particularly related to maternal-age effects, the Lansing Effect, and the evolutionary costs of longevity.</p> </div>
-<div class="card"> <div class="num">02</div> <h3>Environmental effects</h3> <p>Investigating how environmental factors, particularly temperature and diet, shape life histories. This includes heat tolerance and adaptation in seed beetles, and the effects of dietary restriction and fasting within and across generations.</p> </div>
-<div class="card"> <div class="num">03</div> <h3>Open &amp; reproducible science</h3> <p>Developing tools, policies, and best practices that improve the transparency and reproducibility of ecological and evolutionary research, including code review, data and code sharing, preprints, and reporting standards.</p> </div>
+  <section class="grid rv" id="papers">
+    <div class="sechead"><span class="sn">02</span><h2>Map of papers</h2><i></i></div>
+    <div class="cell net">
+      <div id="paperWrap" style="position:relative;display:flex;flex-direction:column;flex:1">
+        <canvas id="paperNet" role="img" aria-label="Network diagram of publications, joined where they share an author. The same works are listed, in accessible form, in the Publications section below."></canvas>
+        <div class="tipbox" id="paperTip"></div>
+        <div class="netload" id="paperLoad"><span>Fetching author lists</span><b></b></div>
+      </div>
+      <div class="netbar" id="paperBar" hidden>
+        <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
+        <span id="paperCount"></span>
+      </div>
+      <p class="cap tag">One node per work, joined where two works share at least one author. Authors come from Crossref. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ===================== PUBLICATIONS ===================== -->
-<section class="section" id="publications">
-  <div class="wrap">
-    <div class="pub-head">
-      <div>
-        <h2 class="section-title">Publications</h2>
+  <section class="grid rv" id="people">
+    <div class="sechead"><span class="sn">03</span><h2>Map of co-authors</h2><i></i></div>
+    <div class="cell net">
+      <div id="peopleWrap" style="position:relative;display:flex;flex-direction:column;flex:1">
+        <canvas id="peopleNet" role="img" aria-label="Network diagram of co-authors, joined where two people appear on the same work."></canvas>
+        <div class="tipbox" id="peopleTip"></div>
+        <div class="netload" id="peopleLoad"><span>Fetching author lists</span><b></b></div>
+        <div class="netpanel" id="peoplePanel" hidden role="dialog" aria-label="Works with this co-author"></div>
       </div>
-      <div class="pub-status" id="pubStatus"><span class="dot"></span><span id="pubStatusText">Loading from ORCID…</span></div>
+      <p class="cap tag"><span id="peopleCount"></span>One node per co-author, joined where two people appear on the same work. Node size is the number of works shared with Ed. Click a person to list what the two of them wrote, and any title in that list to find it in the record below. Drawn from Crossref author lists, so it reflects what publishers have deposited.</p>
     </div>
+  </section>
 
-    <div class="pub-controls">
-      <div class="pills" id="pubPills" role="group" aria-label="Filter publications by theme">
-        <button class="pill" data-filter="all" aria-pressed="true">All</button>
-        <button class="pill" data-filter="ageing" aria-pressed="false">Ageing &amp; senescence</button>
-        <button class="pill" data-filter="environmental" aria-pressed="false">Environmental effects</button>
-        <button class="pill" data-filter="open" aria-pressed="false">Open science</button>
-        <button class="pill" data-filter="meta" aria-pressed="false">Meta-analysis</button>
-        <button class="pill" data-filter="health" aria-pressed="false">Health &amp; biomedical</button>
-      </div>
-      <input class="search" id="pubSearch" type="search" placeholder="Search titles, journals, years…" aria-label="Search publications">
+  <section class="grid strands rv" id="research">
+    <div class="sechead"><span class="sn">04</span><h2>Research</h2><i></i></div>
+    <div class="cell strand">
+      <p class="n">01</p>
+      <h3>Ageing &amp; senescence</h3>
+      <p>Understanding why senescence evolves and why ageing varies so dramatically across species. This includes inter- and transgenerational effects of parental age on offspring life histories, including maternal-age effects, the Lansing effect, and the evolutionary costs of longevity.</p>
     </div>
+    <div class="cell strand">
+      <p class="tag">&nbsp;</p>
+      <p class="n">02</p>
+      <h3>Environmental effects</h3>
+      <p>Investigating how environmental factors, particularly temperature and diet, shape life histories. This includes heat tolerance and adaptation in seed beetles, and the effects of dietary restriction and fasting within and across generations.</p>
+    </div>
+    <div class="cell strand">
+      <p class="tag">&nbsp;</p>
+      <p class="n">03</p>
+      <h3>Open &amp; reproducible science</h3>
+      <p>Developing tools, policies, and best practices that improve the transparency and reproducibility of ecological and evolutionary research, including code review, data and code sharing, preprints, and reporting standards.</p>
+    </div>
+  </section>
 
-    <div id="pubContainer">
-      <div class="pub-skeleton" id="pubSkeleton">
-        <div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div>
-      </div>
+  <section class="grid rv" id="output" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+    <div class="sechead"><span class="sn">05</span><h2>Output</h2><i></i></div>
+    <div class="cell">
+      <p class="tag">Output by year</p>
+      <div class="plot" id="plot" role="group" aria-label="Filter by year"></div>
+      <div class="key"><span><b class="kp"></b>Published</span><span><b class="kr"></b>Preprint or in review</span></div>
     </div>
-    <div id="pubMsg"></div>
-  </div>
-</section>
+    <div class="cell">
+      <p class="tag">Distribution by theme</p>
+      <div class="hbars" id="hbars"></div>
+    </div>
+  </section>
 
-<!-- ===================== OPEN SCIENCE ===================== -->
-<section class="section" id="open">
-  <div class="wrap">
-    <h2 class="section-title">Open Science</h2>
-            <p class="lead">A large part of my work is building standards, tools and culture that make ecology and evolutionary biology more open, reliable and reproducible.</p>
-    <div class="os-groups">
-      <div class="os">
-<h3>Leadership</h3>
-<ul class="os-list">
- <li>Advocacy Committee Co-Chair, SORTEE (2026-Present)</li>
-  <li>Past-President, <a href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE</a> (2026–present)</li>
-  <li>President, SORTEE (2025-2026)</li>
-  <li>President-Elect, SORTEE (2024-2025)</li>
-  <li>Secretary, SORTEE (2023-2024)</li>
-  <li>Board Member, SORTEE (2023–2025)</li>
-  <li>Conference Chair, SORTEE (2022-2023)</li>
-</ul>
+  <section class="grid rv" id="record">
+    <div class="sechead"><span class="sn">06</span><h2>Publications</h2><i></i></div>
+    <div class="cell">
+      <div class="tools-row">
+        <div class="filters" id="filters" role="group" aria-label="Filter by theme"></div>
+        <input class="q" id="q" type="search" placeholder="search" aria-label="Search publications">
       </div>
-      <div class="os">
-        <h3>Publications</h3>
-        <ul class="os-list">
-          <li><a href="https://doi.org/10.1098/rspb.2025.1394" target="_blank" rel="noopener">From Policy to Practice</a> · Proc. R. Soc. B, 2025</li>
-          <li><a href="https://doi.org/10.24072/pcjournal.687" target="_blank" rel="noopener">SORTEE Data &amp; Code QC Guidelines</a> · PCJ, 2026</li>
-          <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230" target="_blank" rel="noopener">Implementing Code Review</a> · J. Evol. Biol., 2023</li>
-          <li><a href="https://doi.org/10.32942/X2D93K" target="_blank" rel="noopener">TADA! code-sharing guidelines</a> · 2025</li>
-          <li><a href="https://www.nature.com/articles/s41467-023-37039-1" target="_blank" rel="noopener">MeRIT — transparent contributions</a> · Nat. Comms., 2023</li>
-          <li><a href="https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663" target="_blank" rel="noopener">Reproducible data extraction</a> · Res. Synth. Methods, 2023</li>
-          <li><a href="https://doi.org/10.1098/rspb.2025.0524" target="_blank" rel="noopener">Preprint Policies in EEB Journals</a> · Proc. R. Soc. B, 2025</li>
-          <li><a href="https://doi.org/10.1098/rspb.2024.1487" target="_blank" rel="noopener">Community-driven preprints</a> · Proc. R. Soc. B, 2025</li>
-          <li><a href="https://doi.org/10.32942/X2C37Q" target="_blank" rel="noopener">Pre-registration &amp; Registered Reports (SORTEE)</a> · preprint, 2025</li>
-        </ul>
+      <div id="rows" class="rows" aria-live="polite">
+        <div class="load"></div><div class="load"></div><div class="load"></div><div class="load"></div>
       </div>
-      <div class="os">
-        <h3>Journal editing</h3>
-        <ul class="os-list">
-          <li>Data Editor, <em>Ecology Letters</em></li>
-        </ul>
-      </div>
+      <div id="rowNote"></div>
     </div>
-    <p class="lead" style="margin-top:26px;font-size:1.02rem">See the <a href="#tools">tools &amp; apps</a> I've built to support this work.</p>
-  </div>
-</section>
+  </section>
 
-<!-- ===================== TOOLS & APPS ===================== -->
-<section class="section" id="tools">
-  <div class="wrap">
-    <h2 class="section-title">Tools &amp; apps</h2>
-    <p class="lead">Open-source R packages and Shiny / web apps I've built and contributed to, to make research easier and more reproducible.</p>
-    <div class="os-grid">
-      <div class="os"><h3>shinyDigitise</h3><p>A point-and-click GUI for the metaDigitise package — pull data straight from published figures.</p><a href="https://github.com/EIvimeyCook/shinyDigitise" target="_blank" rel="noopener">GitHub →</a></div>
-      <div class="os"><h3>READMEBuilder</h3><p>A Shiny app that walks you through writing a high-quality README for research data and code.</p><a href="https://github.com/EIvimeyCook/READMEBuilder" target="_blank" rel="noopener">GitHub →</a></div>
-      <div class="os"><h3>metRscreen</h3><p>A Shiny app for screening records in meta-analyses and systematic reviews in R.</p><a href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">GitHub →</a></div>
-      <div class="os"><h3>DCQC</h3><p>A web app for data &amp; code quality control under the SORTEE guidelines.</p><a href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">GitHub →</a></div>
-      <div class="os"><h3>squidSim</h3><p>An R package for structured, reproducible simulations in ecology &amp; evolution — co-authored (led by J. Pick).</p><a href="https://ecoevorxiv.org/repository/view/10186/" target="_blank" rel="noopener">EcoEvoRxiv →</a></div>
+  <section class="grid rv" id="open" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)">
+    <div class="sechead"><span class="sn">07</span><h2>Open science</h2><i></i></div>
+    <div class="cell">
+      <h2 class="head">Leadership</h2>
+      <div class="prose" style="font-size:14px">
+        <p>A large part of my work is building standards, tools and culture that make ecology and evolutionary biology more open, reliable and reproducible.</p>
+      </div>
+      <dl class="spec">
+        <div><dt>2026</dt><dd>Advocacy Co-Chair<i>SORTEE</i></dd></div>
+        <div><dt>2025&#8211;</dt><dd>Past-President<i>SORTEE</i></dd></div>
+        <div><dt>2025</dt><dd>President<i>SORTEE</i></dd></div>
+        <div><dt>2024</dt><dd>President-Elect<i>SORTEE</i></dd></div>
+        <div><dt>2023</dt><dd>Secretary<i>SORTEE</i></dd></div>
+        <div><dt>2023&#8211;25</dt><dd>Board Member<i>SORTEE</i></dd></div>
+        <div><dt>2022</dt><dd>Conference Chair<i>SORTEE</i></dd></div>
+      </dl>
+      <p class="tag" style="margin:1.6rem 0 .5rem">Journal editing</p>
+      <dl class="spec">
+        <div><dt>Current</dt><dd>Data Editor<i>Ecology Letters</i></dd></div>
+        <div><dt>Current</dt><dd>Publications Committee<i>Ecological Society of America</i></dd></div>
+      </dl>
+      <p style="margin-top:1.2rem"><a class="mono" style="font-size:10.5px;letter-spacing:.08em;color:var(--signal);border-bottom:1px solid currentColor" href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE board of directors</a></p>
     </div>
-  </div>
-</section>
+    <div class="cell">
+      <p class="tag">Open science publications</p>
+      <p class="prose" style="font-size:13.5px;margin-bottom:.4rem">Everything in the record classified as open science, drawn straight from the feed. This list keeps itself current.</p>
+      <div class="oslist" id="osList"></div>
+    </div>
+  </section>
 
-<!-- ===================== FOOTER / CONTACT ===================== -->
-<footer id="contact">
-  <div class="wrap foot-grid">
-    <div>
-      <h2>Contact</h2>
-      <div class="foot-links">
-        <a class="" href="mailto:e.ivimeycook@googlemail.com" style="font-family:var(--sans);font-weight:500">e.ivimeycook@googlemail.com</a>
-      </div>
-      <div class="foot-links">
-        <a href="https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a> ·
-        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID</a> ·
-        <a href="https://github.com/EIvimeyCook" target="_blank" rel="noopener">GitHub</a> ·
-        <a href="https://bsky.app/profile/eivimeycook.bsky.social" target="_blank" rel="noopener">Bluesky</a> ·
-        <a href="https://www.researchgate.net/profile/Edward-Ivimey-Cook" target="_blank" rel="noopener">ResearchGate</a>
+  <section class="grid rv" id="tools">
+    <div class="sechead"><span class="sn">08</span><h2>Tools &amp; apps</h2><i></i></div>
+    <div class="cell">
+      <p class="prose">Open-source R packages and Shiny / web apps I've built and contributed to, to make research easier and more reproducible.</p>
+      <div class="kit">
+        <div class="item"><div><h3>shinyDigitise</h3><p>A point-and-click GUI for the metaDigitise package, to pull data straight from published figures.</p><a class="go" href="https://github.com/EIvimeyCook/shinyDigitise" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>READMEBuilder</h3><p>A Shiny app that walks you through writing a high-quality README for research data and code.</p><a class="go" href="https://github.com/EIvimeyCook/READMEBuilder" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>metRscreen</h3><p>A Shiny app for screening records in meta-analyses and systematic reviews in R.</p><a class="go" href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>DCQC</h3><p>A web app for data &amp; code quality control under the SORTEE guidelines.</p><a class="go" href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">Web app</p></div>
+        <div class="item"><div><h3>squidSim</h3><p>An R package for structured, reproducible simulations in ecology &amp; evolution, co-authored and led by J. Pick.</p><a class="go" href="https://ecoevorxiv.org/repository/view/10186/" target="_blank" rel="noopener">Preprint &#8599;</a></div><p class="meta">R package</p></div>
       </div>
     </div>
-    <div>
-      <p class="colophon">Publications on this page update automatically from my <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a> — no rebuild required. <br><br><a class="to-top" href="#top">↑ Back to top</a></p>
+  </section>
+
+  <section class="grid rv" id="contact" role="contentinfo" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+    <div class="sechead"><span class="sn">09</span><h2>Contact</h2><i></i></div>
+    <div class="cell">
+      <p><a class="mail" href="mailto:e.ivimeycook@gmail.com">e.ivimeycook@gmail.com</a></p>
+      <div class="out" style="margin-top:1.4rem">
+        <a href="https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en" rel="me noopener" target="_blank">Scholar</a>
+        <a href="https://orcid.org/0000-0003-4910-0443" rel="me noopener" target="_blank">ORCID</a>
+        <a href="https://github.com/EIvimeyCook" rel="me noopener" target="_blank">GitHub</a>
+        <a href="https://bsky.app/profile/eivimeycook.bsky.social" rel="me noopener" target="_blank">Bluesky</a>
+        <a href="https://www.researchgate.net/profile/Edward-Ivimey-Cook" rel="me noopener" target="_blank">ResearchGate</a>
+      </div>
     </div>
-  </div>
-</footer>
+    <div class="cell">
+      <p class="tag">Colophon</p>
+      <p class="foot">Set in Archivo and DM Mono.<br>
+        Publications on this page update automatically from my
+        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>,
+        no rebuild required. Author lists come from
+        <a href="https://www.crossref.org/" target="_blank" rel="noopener">Crossref</a>.<br>
+        The curve behind the page is a Gompertz survivorship simulation, tied to
+        how far down you have scrolled.<br>
+        <a href="https://github.com/EIvimeyCook/EIvimeyCook.github.io" target="_blank" rel="noopener">Source repository</a><br><br>
+        <a href="#about">Return to top</a></p>
+    </div>
+  </section>
+
+</main>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Edward R. Ivimey-Cook",
+"url":"https://eivimeycook.github.io/","image":"https://eivimeycook.github.io/ed-1600.jpg",
+"jobTitle":"Lecturer in Biological Sciences","email":"mailto:e.ivimeycook@gmail.com",
+"affiliation":{"@type":"Organization","name":"University of East Anglia"},
+"identifier":"https://orcid.org/0000-0003-4910-0443",
+"sameAs":["https://orcid.org/0000-0003-4910-0443","https://github.com/EIvimeyCook",
+"https://bsky.app/profile/eivimeycook.bsky.social",
+"https://www.researchgate.net/profile/Edward-Ivimey-Cook",
+"https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ"]}
+</script>
 
 <script>
-/* ============================================================
-   THEME TOGGLE  (localStorage guarded for sandboxed previews)
-   ============================================================ */
-(function(){
-  const root = document.documentElement;
-  let saved = null;
-  try { saved = localStorage.getItem('eic-theme'); } catch(e){}
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  root.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+var CALM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var ORCID = '0000-0003-4910-0443';
 
-  const btn = document.getElementById('themeBtn');
-  const icon = document.getElementById('themeIcon');
-  const moon = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>';
-  const sun = '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"></path>';
-  function paint(){ icon.innerHTML = root.getAttribute('data-theme')==='dark' ? sun : moon; }
+/* ---------- chrome: theme, clock, reveals, section spy ---------- */
+(function () {
+  var root = document.documentElement, btn = document.getElementById('themeBtn');
+  function paint() {
+    var dark = root.dataset.theme === 'dark';
+    btn.textContent = dark ? 'Light' : 'Dark';
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = dark ? '#131311' : '#e7e6e2';
+    document.dispatchEvent(new CustomEvent('themechange'));
+  }
   paint();
-  btn.addEventListener('click', function(){
-    const next = root.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('eic-theme', next); } catch(e){}
+  btn.addEventListener('click', function () {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('eic-theme', root.dataset.theme); } catch (e) {}
     paint();
+  });
+
+  function go() { root.classList.add('ready'); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else addEventListener('load', go);
+
+  var clock = document.getElementById('clock');
+  function tick() {
+    var d = new Date();
+    clock.textContent = [d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()]
+      .map(function (n) { return String(n).padStart(2, '0'); }).join(':') + ' UTC';
+  }
+  tick(); setInterval(tick, 1000);
+
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.rv').forEach(function (n) { n.classList.add('in'); });
+    return;
+  }
+  var rv = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.rv').forEach(function (n) { rv.observe(n); });
+
+  var links = {};
+  document.querySelectorAll('.navlinks a').forEach(function (a) { links[a.hash.slice(1)] = a; });
+  var spy = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      Object.keys(links).forEach(function (k) { links[k].removeAttribute('aria-current'); });
+      if (links[e.target.id]) links[e.target.id].setAttribute('aria-current', 'true');
+    });
+  }, { rootMargin: '-18% 0px -70% 0px' });
+  Object.keys(links).forEach(function (id) {
+    var n = document.getElementById(id); if (n) spy.observe(n);
   });
 })();
 
-/* ============================================================
-   PUBLICATIONS — live from ORCID public API, with fallback
-   ============================================================ */
-(function(){
-  const ORCID = '0000-0003-4910-0443';
-  const ENDPOINT = 'https://pub.orcid.org/v3.0/' + ORCID + '/works';
+/* ---------- the page background: a cohort ageing as you scroll ----------
+   Scroll position is read as age. A Gompertz survivorship curve l(x) is traced
+   across the viewport, and a cohort of individuals scattered behind the page
+   winks out as their sampled lifespans are passed. By the foot of the page the
+   cohort is gone. Schematic: a and b are arbitrary, nothing here is fitted. */
+(function () {
+  var cv = document.getElementById('bg');
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
 
-  // -- Hand-curated fallback (also used to flag "selected" highlights) --
-  // Used verbatim if the ORCID API is ever unreachable.
-  const FALLBACK = [
+  var A = 0.0004, B = 0.075, XMAX = 110, N = 240;
+  var W = 0, H = 0, C = {}, dots = [], p = 0, shown = 0;
+  var raf = 0, running = false, queued = false;
+
+  function surv(x) { return Math.exp(-(A / B) * (Math.exp(B * x) - 1)); }
+
+  function seed() {
+    dots = [];
+    for (var i = 0; i < N; i++) {
+      // inverse transform sampling of a Gompertz lifespan
+      var u = Math.random();
+      var life = Math.log(1 - (B / A) * Math.log(u)) / B;
+      dots.push({
+        x: Math.random(), y: Math.random(),
+        life: Math.min(life, XMAX * 1.15),
+        r: 0.6 + Math.random() * 1.5
+      });
+    }
+  }
+
+  function colours() {
+    var cs = getComputedStyle(document.documentElement);
+    C.ink = cs.getPropertyValue('--ink-3').trim();
+    C.sig = cs.getPropertyValue('--signal').trim();
+    C.line = cs.getPropertyValue('--line-2').trim();
+  }
+
+  function size() {
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function progress() {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    return max > 8 ? Math.min(Math.max(scrollY / max, 0), 1) : 0;
+  }
+
+  function draw() {
+    var age = shown * XMAX;
+    var mx = Math.max(W * 0.06, 26), my = Math.max(H * 0.12, 40);
+    var pw = W - mx * 2, ph = H - my * 2;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // the cohort, thinning as the page is scrolled
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      if (d.life < age) continue;
+      var fade = Math.min((d.life - age) / 6, 1);
+      ctx.globalAlpha = 0.1 + 0.16 * fade;
+      ctx.fillStyle = fade < 0.4 ? C.sig : C.ink;
+      ctx.beginPath();
+      ctx.arc(mx + d.x * pw, my + d.y * ph, d.r, 0, 6.2832);
+      ctx.fill();
+    }
+
+    // l(x) across the full age range, faint
+    ctx.globalAlpha = 0.16;
+    ctx.strokeStyle = C.line;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (i = 0; i <= 160; i++) {
+      var x = XMAX * i / 160;
+      var X = mx + (x / XMAX) * pw, Y = my + (1 - surv(x)) * ph;
+      i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);
+    }
+    ctx.stroke();
+
+    // and the portion already lived, in the signal colour
+    if (shown > 0.002) {
+      ctx.globalAlpha = 0.3;
+      ctx.strokeStyle = C.sig;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      var steps = Math.max(2, Math.round(160 * shown));
+      for (i = 0; i <= steps; i++) {
+        var xx = age * i / steps;
+        var X2 = mx + (xx / XMAX) * pw, Y2 = my + (1 - surv(xx)) * ph;
+        i ? ctx.lineTo(X2, Y2) : ctx.moveTo(X2, Y2);
+      }
+      ctx.stroke();
+
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = C.sig;
+      ctx.beginPath();
+      ctx.arc(mx + shown * pw, my + (1 - surv(age)) * ph, 3, 0, 6.2832);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+  }
+
+  function loop() {
+    shown += (p - shown) * 0.12;
+    if (Math.abs(p - shown) < 0.0006) { shown = p; running = false; draw(); return; }
+    draw();
+    raf = requestAnimationFrame(loop);
+  }
+
+  function update() {
+    p = progress();
+    if (CALM) { shown = p; draw(); return; }
+    if (!running) { running = true; raf = requestAnimationFrame(loop); }
+  }
+
+  colours(); size(); seed();
+  shown = p = progress();
+  draw();
+
+  addEventListener('scroll', function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; update(); });
+  }, { passive: true });
+
+  addEventListener('resize', function () { size(); draw(); });
+  document.addEventListener('themechange', function () { colours(); draw(); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { cancelAnimationFrame(raf); running = false; }
+  });
+})();
+
+/* ---------- the record ---------- */
+(function () {
+
+  var FALLBACK = [
+    {y:2026,t:"The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology",j:"Peer Community Journal",u:"https://doi.org/10.24072/pcjournal.687"},
     {y:2025,t:"Within-individual changes in mitochondrial DNA copy number across the life course and links to individual performance",j:"Biology Letters",u:"https://doi.org/10.1098/rsbl.2025.0521"},
-    {y:2025,t:"Pre-registration and Registered Reports in Ecology and Evolutionary Biology: An Evidence-Based Appraisal by SORTEE",j:"Preprint · EcoEvoRxiv",u:"https://doi.org/10.32942/X2C37Q"},
+    {y:2025,t:"From Policy to Practice: Progress towards Data- and Code-Sharing in Ecology and Evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.1394"},
+    {y:2025,t:"Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis",j:"Aging Cell",u:"https://onlinelibrary.wiley.com/doi/10.1111/acel.70131"},
+    {y:2025,t:"Preprint Policies in Ecology and Evolutionary Biology Journals",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.0524"},
+    {y:2025,t:"The promise of community-driven preprints in ecology and evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2024.1487"},
+    {y:2025,t:"Pre-registration and Registered Reports in Ecology and Evolutionary Biology: An Evidence-Based Appraisal by SORTEE",j:"EcoEvoRxiv",u:"https://doi.org/10.32942/X2C37Q"},
+    {y:2025,t:"TADA! Simple guidelines to improve code sharing",j:"EcoEvoRxiv",u:"https://doi.org/10.32942/X2D93K"},
+    {y:2025,t:"Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus",j:"EcoEvoRxiv",s:"In review",u:"https://doi.org/10.32942/X2P919"},
+    {y:2024,t:"Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus",j:"Journal of Evolutionary Biology",u:"https://doi.org/10.1093/jeb/voad009"},
+    {y:2023,t:"Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230"},
+    {y:2023,t:"Advice for improving the reproducibility of data extraction in meta-analysis",j:"Research Synthesis Methods",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663"},
+    {y:2023,t:"No Time to Die: Evolution of a Post-Reproductive Life Stage",j:"Journal of Zoology",u:"https://zslpublications.onlinelibrary.wiley.com/doi/10.1111/jzo.13096"},
+    {y:2023,t:"Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions",j:"Nature Communications",d:"10.1038/s41467-023-37039-1",u:"https://www.nature.com/articles/s41467-023-37039-1"},
+    {y:2023,t:"Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556"},
+    {y:2023,t:"The distribution of the Lansing Effect across animal species",j:"Evolution",d:"10.1093/evolut/qpac045",u:"https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890"},
+    {y:2023,t:"Technology-enhanced simulation for healthcare professionals: A meta-analysis",j:"Frontiers in Medicine",u:"https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full"},
     {y:2023,t:"Editorial: Ecological and evolutionary relevance of phenotypic plasticity in a changing world",j:"Frontiers in Ecology and Evolution",u:"https://doi.org/10.3389/fevo.2023.1140343"},
-    {y:2026,t:"The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology",j:"Peer Community Journal",u:"https://doi.org/10.24072/pcjournal.687",c:"data"},
-    {y:2025,t:"From Policy to Practice: Progress towards Data- and Code-Sharing in Ecology and Evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.1394",c:"article",f:true},
-    {y:2025,t:"Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis",j:"Aging Cell",u:"https://onlinelibrary.wiley.com/doi/10.1111/acel.70131",c:"article",f:true},
-    {y:2025,t:"Preprint Policies in Ecology and Evolutionary Biology Journals",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.0524",c:"article"},
-    {y:2025,t:"The promise of community-driven preprints in ecology and evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2024.1487",c:"article"},
-    {y:2025,t:"TADA! Simple guidelines to improve code sharing",j:"Preprint · EcoEvoRxiv",u:"https://doi.org/10.32942/X2D93K",c:"preprint"},
-    {y:2025,t:"Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus",j:"In review · EcoEvoRxiv",u:"https://doi.org/10.32942/X2P919",c:"preprint"},
-    {y:2024,t:"Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus",j:"Journal of Evolutionary Biology",u:"https://doi.org/10.1093/jeb/voad009",c:"article",f:true},
-    {y:2023,t:"Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230",c:"article"},
-    {y:2023,t:"Advice for improving the reproducibility of data extraction in meta-analysis",j:"Research Synthesis Methods",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663",c:"article"},
-    {y:2023,t:"No Time to Die: Evolution of a Post-Reproductive Life Stage (T. H. Huxley Review)",j:"Journal of Zoology",u:"https://zslpublications.onlinelibrary.wiley.com/doi/10.1111/jzo.13096",c:"article",f:true},
-    {y:2023,t:"Technology-enhanced simulation for healthcare professionals: A meta-analysis",j:"Frontiers in Medicine",u:"https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full",c:"article"},
-    {y:2023,t:"Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556",c:"article"},
-    {y:2023,t:"Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions",j:"Nature Communications",u:"https://www.nature.com/articles/s41467-023-37039-1",c:"article"},
-    {y:2023,t:"The distribution of the Lansing Effect across animal species",j:"Evolution",u:"https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890",c:"article"},
-    {y:2022,t:"Triparental ageing in a laboratory population of an insect with maternal care",j:"Behavioral Ecology",u:"https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571",c:"article"},
-    {y:2021,t:"Fitness benefits of dietary restriction",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2021.1787",c:"article"},
-    {y:2021,t:"Ageing as 'early-life inertia': Disentangling life-history trade-offs along a lifetime of an individual",j:"Evolution Letters",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254",c:"article"},
-    {y:2021,t:"Inbreeding reduces fitness of seed beetles under thermal stress",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899",c:"article"},
-    {y:2021,t:"Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701",c:"article",f:true},
-    {y:2021,t:"Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728",c:"article"},
-    {y:2020,t:"The diversity of maternal-age effects upon pre-adult survival across animal species",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972",c:"article",f:true},
-    {y:2018,t:"Disentangling pre- and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care",j:"The American Naturalist",u:"https://www.journals.uchicago.edu/doi/full/10.1086/699654",c:"article"}
+    {y:2022,t:"Triparental ageing in a laboratory population of an insect with maternal care",j:"Behavioral Ecology",d:"10.1093/beheco/arac078",u:"https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571"},
+    {y:2021,t:"Fitness benefits of dietary restriction",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2021.1787"},
+    {y:2021,t:"Ageing as 'early-life inertia': Disentangling life-history trade-offs along a lifetime of an individual",j:"Evolution Letters",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254"},
+    {y:2021,t:"Inbreeding reduces fitness of seed beetles under thermal stress",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899"},
+    {y:2021,t:"Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701"},
+    {y:2021,t:"Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728"},
+    {y:2020,t:"The diversity of maternal-age effects upon pre-adult survival across animal species",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972"},
+    {y:2018,t:"Disentangling pre- and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care",j:"The American Naturalist",u:"https://www.journals.uchicago.edu/doi/full/10.1086/699654"}
   ];
 
-  // Assign each work to ONE research theme by keyword (rules checked in order).
-  const THEME_RULES = [
-    ['ageing',['ageing','aging','senescence','lifespan','longevity','rapamycin','metformin','dietary restriction','post-reproductive','early-life inertia','soma','no time to die','transgenerational','trans-generational','intergenerational','maternal-age','maternal age','parental','triparental','biparental','lansing','prenatal','postnatal','offspring']],
-    ['environmental',['thermal','heatwave','temperature','callosobruchus','seed beetle','fluctuating']],
-    ['open',['open ','reproducib','code shar','code-shar','code review','code quality','data shar','data-shar','data and code','data-and-code','data quality','data extraction','preprint','pre-registration','preregistration','registered report','transparen','merit','polic','guideline','quality control','digitise','method reporting','accountability']],
-    ['meta',['meta-analysis','meta analysis','metaanalysis','systematic review','data extraction','evidence synthesis']],
-    ['health',['healthcare','clinical','prostate','cancer','mediterranean','epic-norfolk','medical','nursing','patient','epidemiolog','simulation for']]
+  /* Keywords match on word boundaries, so "aging" no longer fires inside
+     "engaging" or "managing", and "soma" no longer fires inside "somatic".
+     A trailing * marks a stem (prefix match); anything else must match as a
+     whole word or phrase. Add to these lists to reclassify. */
+  var RULES = [
+    ['ageing', ['ageing', 'aging', 'senesc*', 'lifespan', 'longevity', 'rapamycin', 'metformin',
+      'dietary restriction', 'post-reproductive', 'early-life inertia', 'soma', 'life course',
+      'no time to die', 'transgenerational', 'trans-generational', 'intergenerational',
+      'maternal-age', 'maternal age', 'parental', 'triparental', 'biparental', 'lansing',
+      'prenatal', 'postnatal', 'offspring']],
+    ['environmental', ['thermal', 'heatwave*', 'temperature', 'callosobruchus', 'seed beetle*',
+      'fluctuating', 'plasticity in a changing world', 'heat toleran*']],
+    ['open', ['open science', 'open data', 'open access', 'reproducib*', 'code shar*', 'code-shar*',
+      'code review', 'code quality', 'data shar*', 'data-shar*', 'data and code', 'data-and-code',
+      'data quality', 'data extraction', 'preprint*', 'pre-registration', 'preregistration',
+      'registered report*', 'transparen*', 'merit', 'polic*', 'guideline*', 'quality control',
+      'digitise', 'method reporting', 'accountability', 'sortee', 'open research',
+      'fair data', 'version control', 'r package', 'peer review', 'questionable research practice*',
+      'replicat*', 'meta-research', 'metascience']],
+    ['meta', ['meta-analy*', 'meta analy*', 'metaanaly*', 'metanaly*',
+      'systematic review*', 'systematic map*', 'scoping review*', 'rapid review*',
+      'literature review', 'evidence synthes*', 'research synthes*', 'data extraction',
+      'effect size*', 'prisma', 'pooled analys*', 'publication bias', 'heterogeneity',
+      'phylogenetic comparative', 'comparative analys*', 'across animal species',
+      'across species', 'cross-species', 'multi-level model*', 'forest plot*']],
+    ['pedagogy', ['pedagog*', 'teaching', 'taught', 'educat*', 'curricul*', 'student*', 'learner*',
+      'classroom', 'undergraduate*', 'postgraduate*', 'lecturer*', 'technology-enhanced',
+      'simulation for healthcare', 'assessment*', 'assessing satisfaction', 'employab*',
+      'skills gap', 'higher education', 'student experience', 'learning and teaching',
+      'widening participation', 'we belong here']],
+    ['health', ['healthcare', 'clinical', 'prostate', 'cancer', 'mediterranean', 'epic-norfolk',
+      'medical', 'nursing', 'patient*', 'epidemiolog*', 'biomedical']]
   ];
-  const THEME_LABEL = {ageing:'Ageing & senescence', environmental:'Environmental effects', open:'Open science', meta:'Meta-analysis', health:'Health & biomedical'};
-  // Returns an ARRAY of themes — a paper can carry several; every paper gets at least one.
-  function themesOf(title, journal){
-    const s = ((title||'') + ' ' + (journal||'')).toLowerCase();
-    const out = [];
-    THEME_RULES.forEach(function(r){ if(r[1].some(function(k){return s.indexOf(k) > -1;})) out.push(r[0]); });
-    // Comparative cross-species syntheses confirmed as meta-analytic (their titles don't say "meta-analysis").
-    if((s.indexOf('diversity of maternal-age')>-1 || s.indexOf('distribution of the lansing')>-1) && out.indexOf('meta')<0) out.push('meta');
-    if((s.indexOf('fitness benefits of dietary restriction')>-1 || s.indexOf('transgenerational fitness effects of lifespan extension')>-1 || s.indexOf('fasting increases investment in soma')>-1) && out.indexOf('environmental')<0) out.push('environmental');
-    if(s.indexOf('mitochondrial dna copy number')>-1 && out.indexOf('ageing')<0) out.push('ageing');
-    if(s.indexOf('phenotypic plasticity in a changing world')>-1 && out.indexOf('environmental')<0) out.push('environmental');
+  var LABEL = {ageing:'Ageing', environmental:'Environment', open:'Open science',
+    meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
+
+  /* Force the themes for one work when the keywords cannot reasonably reach it.
+     `match` is tested, lower case, against the DOI and against the title, so
+     either a DOI or a distinctive phrase from the title will do. Whatever is
+     listed here replaces what the rules decided. This is the escape hatch: use
+     it rather than bending a keyword that would then misfire elsewhere. */
+  var OVERRIDES = [
+    // a call for meta-analysts to practise open science: the title carries no
+    // open-science keyword, so it is set here by hand
+    { match: 'lead by example', themes: ['open', 'meta'] }
+    // { match: '10.31219/osf.io/example', themes: ['pedagogy', 'meta'] },
+  ];
+
+  function overrideFor(url, title) {
+    var hay = ((url || '') + ' ' + (title || '')).toLowerCase();
+    for (var i = 0; i < OVERRIDES.length; i++) {
+      if (hay.indexOf(OVERRIDES[i].match.toLowerCase()) > -1) return OVERRIDES[i].themes;
+    }
+    return null;
+  }
+
+  function compileKey(k) {
+    var stem = k.charAt(k.length - 1) === '*';
+    var body = stem ? k.slice(0, -1) : k;
+    var esc = body.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('\\b' + esc + (stem ? '' : '\\b'), 'i');
+  }
+  var COMPILED = RULES.map(function (r) { return [r[0], r[1].map(compileKey)]; });
+
+  function themesOf(title, journal) {
+    var s = (title || '') + ' ' + (journal || '');
+    var out = [];
+    COMPILED.forEach(function (r) {
+      if (r[1].some(function (re) { return re.test(s); })) out.push(r[0]);
+    });
+    var l = s.toLowerCase();
+    // cross-species syntheses whose titles never say "meta-analysis"
+    if ((l.indexOf('diversity of maternal-age') > -1 || l.indexOf('distribution of the lansing') > -1)
+        && out.indexOf('meta') < 0) out.push('meta');
+    if ((l.indexOf('fitness benefits of dietary restriction') > -1
+        || l.indexOf('fasting increases investment in soma') > -1)
+        && out.indexOf('environmental') < 0) out.push('environmental');
+    // an unmatched work is labelled Other, never silently filed under a research theme
+    if (!out.length) out.push('other');
     return out;
   }
 
-  // Publication status: published / preprint / in review / software (NOT a filter, NOT searchable).
-  function statusOf(type, journal, doi){
-    const ty = (type||'').toLowerCase();
-    const hay = ((journal||'') + ' ' + (doi||'')).toLowerCase();
-    if(ty==='software' || ty==='data-set') return 'software';
-    if(hay.indexOf('in review')>-1 || hay.indexOf('in prep')>-1 || hay.indexOf('submitted')>-1) return 'review';
-    if(ty==='preprint' || hay.indexOf('preprint')>-1 || hay.indexOf('rxiv')>-1 || hay.indexOf('10.32942')>-1 || hay.indexOf('10.1101')>-1 || hay.indexOf('osf.io')>-1) return 'preprint';
-    return 'published';
-  }
-  // Derive a source label when ORCID has no journal-title for a work.
-  function sourceLabel(journal, doi, status){
-    if(journal) return journal;
-    const d = (doi||'').toLowerCase();
-    if(d.indexOf('10.32942')>-1) return 'EcoEvoRxiv';
-    if(d.indexOf('10.1101')>-1) return 'bioRxiv';
-    if(d.indexOf('osf.io')>-1) return 'OSF';
-    if(status==='software') return 'Software';
-    if(status==='preprint') return 'Preprint';
-    if(status==='review') return 'In review';
+  function statusOf(type, journal, doi) {
+    var ty = (type || '').toLowerCase();
+    var hay = ((journal || '') + ' ' + (doi || '')).toLowerCase();
+    if (ty === 'software' || ty === 'data-set') return 'Software';
+    if (/in review|in prep|submitted/.test(hay)) return 'In review';
+    // ORCID's own "preprint" type covers the live feed; the word/prefix test
+    // below is what a hand-written FALLBACK entry falls back on if its s: is
+    // left unset. It checks every server SERVERS knows, not just two of them,
+    // so adding a new prefix there also teaches statusOf to recognise it.
+    if (ty === 'preprint' || /preprint|rxiv|osf\.io/.test(hay) || SERVERS[prefixOf(doi || '')])
+      return 'Preprint';
     return '';
   }
- const EXTRAS = [];
-  // In-review / non-ORCID works to always merge into the list. (Apps now live in their own
-  // "Tools & apps" section near the foot of the page, not in the publications list.)
-  function normTitle(t){ return (t||'').toLowerCase().replace(/[^a-z0-9]+/g,''); }
-  function mergeExtras(list){
-    const have = list.map(function(p){return normTitle(p.t);});
-    EXTRAS.forEach(function(e){
-      const key = e.k || normTitle(e.t);
-      if(!have.some(function(h){return h.indexOf(key) > -1;})) list = list.concat([e]);
-    });
-    list.sort(function(a,b){ return (b.y-a.y) || ((b.m||0)-(a.m||0)) || a.t.localeCompare(b.t); });
-    return list;
+
+  /* Preprint servers, keyed by DOI prefix. The prefix is the only part that
+     identifies the server: EdArXiv, MetaArXiv, PsyArXiv and OSF Preprints all
+     carry "osf.io" in the *suffix*, because the Center for Open Science hosts
+     them all, so a substring test for "osf.io" files every one of them under
+     OSF. Test the prefix, anchored, and never the suffix. These labels are a
+     first guess only: Crossref is asked for the deposited server name and
+     corrects them in place when it answers (see the sourcenames event). */
+  var SERVERS = {
+    '10.32942': 'EcoEvoRxiv',
+    '10.35542': 'EdArXiv',
+    '10.31222': 'MetaArXiv',
+    '10.31234': 'PsyArXiv',
+    '10.31235': 'SocArXiv',
+    '10.31223': 'EarthArXiv',
+    '10.31219': 'OSF Preprints',
+    '10.1101':  'bioRxiv',
+    '10.48550': 'arXiv',
+    '10.21203': 'Research Square',
+    '10.2139':  'SSRN',
+    '10.20944': 'Preprints.org',
+    '10.26434': 'ChemRxiv'
+  };
+  function prefixOf(s) {
+    var m = (s || '').match(/(?:^|\/|\s)(10\.\d{4,9})\//);
+    return m ? m[1] : '';
+  }
+  /* A bare DOI out of either a DOI string or a publisher URL. Publisher URLs
+     append their own path after the DOI — Frontiers adds /full, OUP adds its
+     numeric article id — and carrying that into a Crossref lookup turns a
+     valid DOI into a 404. Only trailing segments that are certainly not
+     part of a DOI are removed: a bare trailing number is left alone, because
+     plenty of real DOIs end in one (10.1086/699654). Where a URL cannot be
+     trusted to yield the DOI, FALLBACK carries an explicit d: field. */
+  function doiOf(s) {
+    var m = (s || '').match(/10\.\d{4,9}\/[^\s"'<>?#]+/);
+    if (!m) return '';
+    return m[0]
+      .replace(/\/(full|fulltext|full-text|abstract|pdf|epub|html|meta|references|citations)\/?$/i, '')
+      .replace(/[.,;]$/, '')
+      .toLowerCase();
+  }
+  // ORCID often omits journal-title; recover a source from the DOI prefix
+  function sourceLabel(journal, doi, url) {
+    if (journal) return journal;
+    return SERVERS[prefixOf(doi || '')] || SERVERS[prefixOf(url || '')] || '';
   }
 
-  function el(tag, cls, html){ const e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
-  function esc(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function parse(data) {
+    var out = [];
+    ((data && data.group) || []).forEach(function (g) {
+      var s = g['work-summary'] && g['work-summary'][0];
+      if (!s) return;
+      var title = s.title && s.title.title && s.title.title.value;
+      if (!title) return;
+      if (/^(erratum|correction|corrigendum)/i.test(title) || /expression of concern/i.test(title)) return;
 
-  let ALL = [];                 // normalized {y,t,j,u,c}
-  let state = { filter:'all', q:'' };
+      var pd = s['publication-date'] || {};
+      var year = pd.year && pd.year.value, month = pd.month && pd.month.value;
+      var journal = s['journal-title'] && s['journal-title'].value;
 
-  function badgeFor(c){
-    return THEME_LABEL[c] ? '<span class="badge">'+THEME_LABEL[c]+'</span>' : '';
-  }
-  function badgesFor(arr){ return (arr||[]).map(badgeFor).join(''); }
-  const STATUS_MAP = {published:['Published','st-pub'], preprint:['Preprint','st-pre'], review:['In review','st-rev'], software:['App / software','st-soft']};
-  function statusTag(s){
-    const m = STATUS_MAP[s];
-    return m ? '<span class="status '+m[1]+'">'+m[0]+'</span>' : '';
-  }
-
-  function render(){
-    const container = document.getElementById('pubContainer');
-    container.innerHTML = '';
-    const q = state.q.trim().toLowerCase();
-    let items = ALL.filter(p=>{
-      const okF = state.filter==='all' ? true : (p.c||[]).indexOf(state.filter)>-1;
-      const okQ = !q || (p.t+' '+p.j+' '+p.y).toLowerCase().includes(q);
-      return okF && okQ;
-    });
-
-    if(!items.length){ container.appendChild(el('div','pub-msg','No publications match that filter.')); return; }
-
-    // group by year desc
-    const byYear = {};
-    items.forEach(p=>{ (byYear[p.y] = byYear[p.y]||[]).push(p); });
-    Object.keys(byYear).map(Number).sort((a,b)=>b-a).forEach(yr=>{
-      const row = el('div','pub-year');
-      row.appendChild(el('div','yr', yr || '—'));
-      const list = el('div','pub-list');
-      byYear[yr].forEach(p=>{
-        const a = el('a','pub');
-        a.href = p.u || ('https://orcid.org/'+ORCID); a.target='_blank'; a.rel='noopener';
-        a.innerHTML = '<span class="pt">'+esc(p.t)+'</span>'+
-          '<span class="meta">'+(p.j?'<span class="jrnl">'+esc(p.j)+'</span>':'')+ statusTag(p.s) + badgesFor(p.c) +'</span>';
-        list.appendChild(a);
+      var doi = null, url = null;
+      ((s['external-ids'] && s['external-ids']['external-id']) || []).forEach(function (id) {
+        var t = (id['external-id-type'] || '').toLowerCase();
+        var idurl = id['external-id-url'] && id['external-id-url'].value;
+        if (t === 'doi' && !doi) { doi = id['external-id-value']; url = idurl || 'https://doi.org/' + doi; }
+        else if (!url && idurl) { url = idurl; }
       });
-      row.appendChild(list);
-      container.appendChild(row);
-    });
-  }
+      if (!url && s.url && s.url.value) url = s.url.value;
 
-  function setStatus(text, live){
-    document.getElementById('pubStatusText').textContent = text;
-    const dot = document.querySelector('#pubStatus .dot');
-    dot.className = 'dot' + (live ? ' live' : '');
-  }
-
-  function useFallback(reason){
-    ALL = mergeExtras(FALLBACK.map(p=>({y:p.y,t:p.t,j:p.j,u:p.u,c:themesOf(p.t,p.j),s:statusOf('',p.j,p.u)})));
-    render();
-    setStatus('Showing curated list', false);
-    document.getElementById('pubMsg').innerHTML =
-      '<div class="pub-msg">Couldn\'t reach the live ORCID feed right now, so this is a hand-kept list. '+
-      'See the always-current record on <a href="https://orcid.org/'+ORCID+'" target="_blank" rel="noopener">ORCID</a>.</div>';
-  }
-
-  function parseOrcid(data){
-    const groups = (data && data.group) || [];
-    const out = [];
-    groups.forEach(g=>{
-      const s = g['work-summary'] && g['work-summary'][0];
-      if(!s) return;
-      const title = s.title && s.title.title && s.title.title.value;
-      if(!title) return;
-      const tl = title.toLowerCase();
-      if(tl.indexOf('erratum')===0 || tl.indexOf('correction')===0 || tl.indexOf('corrigendum')===0 || tl.indexOf('expression of concern')>-1) return;
-      const year = s['publication-date'] && s['publication-date'].year && s['publication-date'].year.value;
-      const month = s['publication-date'] && s['publication-date'].month && s['publication-date'].month.value;
-      const journal = s['journal-title'] && s['journal-title'].value;
-      const type = s.type;
-      // resolve a link: prefer DOI, then any external-id url, then the work url
-      let doi=null, url=null;
-      const ids = s['external-ids'] && s['external-ids']['external-id'] || [];
-      ids.forEach(id=>{
-        const t=(id['external-id-type']||'').toLowerCase();
-        const val=id['external-id-value'];
-        const idurl = id['external-id-url'] && id['external-id-url'].value;
-        if(t==='doi' && !doi){ doi=val; if(idurl) url=idurl; else url='https://doi.org/'+val; }
-        else if(!url && idurl){ url=idurl; }
-      });
-      if(!url && s.url && s.url.value) url = s.url.value;
-      const st = statusOf(type, journal, doi);
+      var themes = themesOf(title, journal);
+      var ov = overrideFor(url, title);
+      var st = statusOf(s.type, journal, doi);
+      var lab = sourceLabel(journal, doi, url);
+      // a preprint whose server is not in the table says so, rather than nothing
+      if (!lab && st === 'Preprint') lab = 'Preprint';
       out.push({
-        y: year ? parseInt(year,10) : 0,
-        m: month ? parseInt(month,10) : 0,
+        y: year ? parseInt(year, 10) : 0,
+        m: month ? parseInt(month, 10) : 0,
         t: title,
-        j: sourceLabel(journal, doi, st),
+        j: lab,
+        jg: !journal,
+        d: doiOf(doi || url),
         u: url,
-        c: themesOf(title, journal),
+        c: ov || themes,
         s: st
       });
     });
-    // sort year desc, then month desc, then title
-    out.sort((a,b)=> b.y-a.y || b.m-a.m || a.t.localeCompare(b.t));
+    out.sort(function (a, b) { return b.y - a.y || b.m - a.m || a.t.localeCompare(b.t); });
     return out;
   }
 
-  function load(){
-    const ctrl = ('AbortController' in window) ? new AbortController() : null;
-    const timer = setTimeout(()=>{ if(ctrl) ctrl.abort(); }, 9000);
-    fetch(ENDPOINT, { headers:{'Accept':'application/json'}, signal: ctrl?ctrl.signal:undefined })
-      .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(data=>{
-        clearTimeout(timer);
-        const parsed = parseOrcid(data);
-        if(!parsed.length) throw new Error('empty');
-        ALL = mergeExtras(parsed);
-        render();
-        const n = ALL.length;
-        const d = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-        setStatus(n+' works · auto-updated from ORCID · '+d, true);
-      })
-      .catch(err=>{ clearTimeout(timer); useFallback(err); });
+  function esc(s) {
+    return (s || '').replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+  function key(t) { return (t || '').toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 48); }
+
+  var ALL = [], state = { filter: 'all', q: '', year: null }, peak = 0;
+  var rows = document.getElementById('rows');
+  var plot = document.getElementById('plot');
+  var hbars = document.getElementById('hbars');
+
+  var ORDER = ['ageing', 'environmental', 'open', 'meta', 'pedagogy', 'health', 'other'];
+
+  document.getElementById('filters').innerHTML =
+    '<button data-filter="all" aria-pressed="true">All</button>' +
+    ORDER.map(function (c) {
+      return '<button data-filter="' + c + '" aria-pressed="false">' + LABEL[c] + '</button>';
+    }).join('');
+
+  function passesTheme(p) {
+    if (state.filter !== 'all' && (p.c || []).indexOf(state.filter) < 0) return false;
+    var q = state.q.trim().toLowerCase();
+    if (q && (p.t + ' ' + p.j + ' ' + p.y).toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  }
+  function matches(p) { return passesTheme(p) && (!state.year || p.y === state.year); }
+  function isPre(p) { return p.s === 'Preprint' || p.s === 'In review'; }
+
+  /* Crossref knows which server a preprint was posted to, because the server
+     deposited the record. Where the label here was guessed from the DOI prefix,
+     let the deposited name replace it. A journal title from ORCID is never
+     touched: only a guess can be corrected. */
+  document.addEventListener('sourcenames', function (e) {
+    var m = e.detail || {}, changed = false;
+    ALL.forEach(function (p) {
+      if (!p.jg || !p.d) return;
+      var name = m[p.d];
+      if (name && name !== p.j) { p.j = name; changed = true; }
+    });
+    if (changed) { render(); buildOpen(); }
+  });
+
+  function render() {
+    var was = new Map();
+    rows.querySelectorAll('.rec').forEach(function (el) { was.set(el.dataset.k, el.getBoundingClientRect()); });
+
+    var items = ALL.filter(matches);
+    if (!items.length) {
+      rows.innerHTML = '<p class="empty">No records match. Clear the search, or pick another year or theme.</p>';
+      return;
+    }
+
+    rows.innerHTML = items.map(function (p) {
+      // status and themes both shown, so nothing is ever left looking unclassified
+      var st = p.s ? '<b>' + esc(p.s) + '</b>' : '';
+      var th = (p.c || []).map(function (c) { return LABEL[c]; }).join(', ');
+      return '<a class="rec" data-k="' + key(p.t) + '" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '"' +
+             ' target="_blank" rel="noopener">' +
+             '<span class="yr">' + (p.y || '&#8212;&#8212;') + '</span>' +
+             '<span class="ti">' + esc(p.t) + '</span>' +
+             '<span class="src">' + esc(p.j || '') + '</span>' +
+             '<span class="cls">' + st + th + '</span>' + '</a>';
+    }).join('');
+
+    if (CALM || !rows.querySelector('.rec').animate) return;
+    rows.querySelectorAll('.rec').forEach(function (el, i) {
+      var old = was.get(el.dataset.k);
+      if (old) {
+        var now = el.getBoundingClientRect();
+        var dy = old.top - now.top;
+        if (Math.abs(dy) > 1) {
+          el.animate({ transform: ['translateY(' + dy + 'px)', 'none'] },
+            { duration: 480, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        }
+      } else {
+        el.animate({ opacity: [0, 1], transform: ['translateY(10px)', 'none'] },
+          { duration: 380, delay: Math.min(i * 18, 280), easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+      }
+    });
   }
 
-  // -- wire controls --
-  document.getElementById('pubPills').addEventListener('click', e=>{
-    const b = e.target.closest('.pill'); if(!b) return;
+  function countUp(el, to) {
+    if (CALM) { el.textContent = to; return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var k = Math.min((now - t0) / 850, 1);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  function tally(list) {
+    var c = {};
+    list.forEach(function (p) {
+      if (!p.y) return;
+      c[p.y] = c[p.y] || { pub: 0, pre: 0 };
+      isPre(p) ? c[p.y].pre++ : c[p.y].pub++;
+    });
+    return c;
+  }
+
+  function buildPlot() {
+    var c = tally(ALL);
+    var ys = Object.keys(c).map(Number).sort(function (a, b) { return a - b; });
+    if (!ys.length) { plot.style.display = 'none'; return; }
+    var full = [];
+    for (var y = ys[0]; y <= ys[ys.length - 1]; y++) full.push(y);
+    peak = Math.max.apply(null, full.map(function (y) {
+      return c[y] ? c[y].pub + c[y].pre : 0;
+    }));
+
+    plot.innerHTML = full.map(function (y, i) {
+      var e = c[y] || { pub: 0, pre: 0 }, n = e.pub + e.pre;
+      var f = n ? (n / peak) : 0;
+      return '<button class="pbar" style="--h:' + f + ';--i:' + i +
+             ';--pre:' + (n ? e.pre / n : 0) + ';--pub:' + (n ? e.pub / n : 0) + '"' +
+             ' data-year="' + y + '" aria-pressed="false"' +
+             ' aria-label="' + y + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review">' +
+             '<span class="pstack"><i class="pre"></i><i class="pub"></i></span>' +
+             '<span>' + String(y).slice(2) + '</span></button>';
+    }).join('');
+    setTimeout(function () { plot.classList.add('settled'); }, 1300);
+  }
+
+  function syncPlot() {
+    if (!peak) return;
+    var c = tally(ALL.filter(passesTheme));
+    plot.querySelectorAll('.pbar').forEach(function (b) {
+      var e = c[parseInt(b.dataset.year, 10)] || { pub: 0, pre: 0 };
+      var n = e.pub + e.pre;
+      b.style.setProperty('--h', n / peak);
+      b.style.setProperty('--pre', n ? e.pre / n : 0);
+      b.style.setProperty('--pub', n ? e.pub / n : 0);
+      b.dataset.empty = n ? 'false' : 'true';
+      b.setAttribute('aria-label', b.dataset.year + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review');
+    });
+  }
+
+  function buildBars() {
+    var counts = {};
+    ALL.forEach(function (p) { (p.c || []).forEach(function (c) { counts[c] = (counts[c] || 0) + 1; }); });
+    var top = Math.max.apply(null, ORDER.map(function (c) { return counts[c] || 0; })) || 1;
+    hbars.innerHTML = ORDER.map(function (c, i) {
+      var n = counts[c] || 0;
+      return '<div class="hb" style="--w:' + (n / top) + ';--i:' + i + '">' +
+             '<span>' + LABEL[c] + '</span><u><b></b></u><em>' + n + '</em></div>';
+    }).join('');
+  }
+
+  function buildOpen() {
+    var list = ALL.filter(function (p) { return (p.c || []).indexOf('open') > -1; });
+    var box = document.getElementById('osList');
+    if (!list.length) { box.innerHTML = '<p class="empty">Nothing classified as open science in the current feed.</p>'; return; }
+    box.innerHTML = list.map(function (p) {
+      return '<a class="os" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '" target="_blank" rel="noopener">' +
+             '<span class="y">' + (p.y || '&#8212;&#8212;') + '</span>' +
+             '<span class="t">' + esc(p.t) + '</span>' +
+             '<span class="j">' + esc(p.j || '') + (p.s ? ' &#183; ' + esc(p.s) : '') + '</span></a>';
+    }).join('');
+  }
+
+  function feed() { /* the masthead no longer carries a feed indicator */ }
+
+  function boot() {
+    buildPlot(); buildBars(); buildOpen(); render();
+    document.dispatchEvent(new CustomEvent('recordready', { detail: ALL }));
+  }
+
+  function useFallback() {
+    ALL = FALLBACK.map(function (p) {
+      var ov = overrideFor(p.u, p.t);
+      return { y: p.y, t: p.t, j: p.j, jg: false, d: p.d || doiOf(p.u), u: p.u,
+               c: ov || themesOf(p.t, p.j), s: p.s || statusOf('', p.j, p.u) };
+    });
+    boot();
+    feed('Feed: hand-kept', false);
+    document.getElementById('rowNote').innerHTML =
+      '<p class="note">The live ORCID feed could not be reached, so this is the fallback record. ' +
+      'The current version is always at <a href="https://orcid.org/' + ORCID + '" target="_blank" rel="noopener">orcid.org/' + ORCID + '</a>.</p>';
+  }
+
+  function load() {
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 9000);
+    fetch('https://pub.orcid.org/v3.0/' + ORCID + '/works', {
+      headers: { Accept: 'application/json' }, signal: ctrl ? ctrl.signal : undefined
+    })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        clearTimeout(timer);
+        var parsed = parse(data);
+        if (!parsed.length) throw new Error('empty');
+        ALL = parsed; boot(); feed('Feed: live', true);
+      })
+      .catch(function () { clearTimeout(timer); useFallback(); });
+  }
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
     state.filter = b.dataset.filter;
-    document.querySelectorAll('#pubPills .pill').forEach(p=>p.setAttribute('aria-pressed', p===b ? 'true':'false'));
+    this.querySelectorAll('button').forEach(function (x) {
+      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    });
+    syncPlot(); render();
+  });
+
+  plot.addEventListener('click', function (e) {
+    var b = e.target.closest('.pbar');
+    if (!b || b.dataset.empty === 'true') return;
+    var y = parseInt(b.dataset.year, 10);
+    state.year = state.year === y ? null : y;
+    this.querySelectorAll('.pbar').forEach(function (x) {
+      x.setAttribute('aria-pressed', parseInt(x.dataset.year, 10) === state.year ? 'true' : 'false');
+    });
     render();
   });
-  let qt;
-  document.getElementById('pubSearch').addEventListener('input', e=>{
-    clearTimeout(qt); const v=e.target.value;
-    qt=setTimeout(()=>{ state.q=v; render(); }, 120);
+
+  /* Clicking a node on the paper map lands you on that work in this list. */
+  document.addEventListener('showpaper', function (e) {
+    state.filter = 'all'; state.year = null; state.q = '';
+    document.getElementById('q').value = '';
+    document.querySelectorAll('#filters button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.filter === 'all' ? 'true' : 'false');
+    });
+    document.querySelectorAll('.pbar').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    syncPlot(); render();
+    var row = rows.querySelector('.rec[data-k="' + key(e.detail) + '"]');
+    if (!row) return;
+    row.scrollIntoView({ block: 'center', behavior: CALM ? 'auto' : 'smooth' });
+    row.classList.add('flash');
+    setTimeout(function () { row.classList.remove('flash'); }, 2400);
+  });
+
+  var deb;
+  document.getElementById('q').addEventListener('input', function (e) {
+    clearTimeout(deb); var v = e.target.value;
+    deb = setTimeout(function () { state.q = v; syncPlot(); render(); }, 140);
   });
 
   load();
+})();
+
+/* ---------- networks, from Crossref author lists ----------
+   One request to Crossref filtered by the DOIs the record already holds, so the
+   author lists are the publishers' own deposited metadata rather than anything
+   assembled here. If the request fails, both panels say so and draw nothing:
+   there is no synthetic fallback, because invented co-authors would be a lie. */
+(function () {
+  var paperCv = document.getElementById('paperNet');
+  var peopleCv = document.getElementById('peopleNet');
+  if (!paperCv || !paperCv.getContext) return;
+
+  var SELF = /ivimey/i;
+  var LABELS = {ageing:'Ageing', environmental:'Environment', open:'Open science',
+    meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
+  var G = { papers: null, people: null };
+
+  function panelFail(cv, msg) {
+    var wrap = cv.parentNode;
+    var ld = wrap.querySelector('.netload');
+    if (ld) ld.remove();
+    cv.remove();
+    var p = document.createElement('p');
+    p.className = 'netstate';
+    p.innerHTML = msg;
+    wrap.appendChild(p);
+  }
+
+  function norm(n) {
+    return (n || '').replace(/\s+/g, ' ').trim();
+  }
+  function nameOf(a) {
+    if (a.name) return norm(a.name);
+    var g = norm(a.given), f = norm(a.family);
+    if (!f) return g;
+    var init = g ? g.split(/[\s.-]+/).filter(Boolean).map(function (s) { return s[0].toUpperCase() + '.'; }).join(' ') : '';
+    return (init ? init + ' ' : '') + f;
+  }
+  function idOf(a) { return nameOf(a).toLowerCase().replace(/[^a-z]/g, ''); }
+
+  function build(works, byDoi) {
+    var papers = [], people = {}, pairs = {};
+
+    works.forEach(function (w) {
+      var doi = (w.DOI || '').toLowerCase();
+      var rec = byDoi[doi];
+      if (!rec) return;
+      var authors = (w.author || []).filter(function (a) { return nameOf(a); });
+      if (!authors.length) return;
+
+      papers.push({
+        doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u,
+        c: (rec.c || [])[0] || null, n: authors.length,
+        pre: rec.s === 'Preprint' || rec.s === 'In review',
+        ids: authors.map(idOf)
+      });
+
+      authors.forEach(function (a, i) {
+        var id = idOf(a);
+        if (SELF.test(nameOf(a))) return;
+        people[id] = people[id] || { id: id, name: nameOf(a), n: 0, works: [] };
+        people[id].n++;
+        // kept so a click on a person can list what the two of you wrote together
+        people[id].works.push({ t: rec.t, y: rec.y, j: rec.j, s: rec.s || '' });
+        for (var j = i + 1; j < authors.length; j++) {
+          var jd = idOf(authors[j]);
+          if (jd === id || SELF.test(nameOf(authors[j]))) continue;
+          var k = id < jd ? id + '|' + jd : jd + '|' + id;
+          pairs[k] = (pairs[k] || 0) + 1;
+        }
+      });
+    });
+
+    if (!papers.length) return null;
+
+    var pedges = [];
+    for (var i = 0; i < papers.length; i++) {
+      for (var j = i + 1; j < papers.length; j++) {
+        var shared = papers[i].ids.filter(function (x) { return papers[j].ids.indexOf(x) > -1; }).length;
+        if (shared > 1) pedges.push({ a: i, b: j, w: shared });
+      }
+    }
+
+    var plist = Object.keys(people).map(function (k) { return people[k]; })
+      .sort(function (a, b) { return b.n - a.n; });
+    var index = {};
+    plist.forEach(function (p, i) { index[p.id] = i; });
+    var hedges = Object.keys(pairs).map(function (k) {
+      var s = k.split('|');
+      return { a: index[s[0]], b: index[s[1]], w: pairs[k] };
+    }).filter(function (e) { return e.a !== undefined && e.b !== undefined; });
+
+    return { papers: papers, pedges: pedges, people: plist, hedges: hedges };
+  }
+
+  /* The name of the preprint server, as the server itself deposited it. Only
+     posted-content is considered: for a journal article, institution names the
+     authors' universities, which is not what the record's source column means. */
+  function serverNames(items) {
+    var out = {};
+    (items || []).forEach(function (w) {
+      if ((w.type || '') !== 'posted-content') return;
+      var doi = (w.DOI || '').toLowerCase();
+      if (!doi) return;
+      var name = '';
+      var inst = w.institution;
+      if (Array.isArray(inst) && inst.length) name = norm(inst[0] && inst[0].name);
+      else if (inst && inst.name) name = norm(inst.name);
+      if (!name) name = norm(w['group-title']);
+      if (name) out[doi] = name;
+    });
+    return out;
+  }
+
+  /* a small force-directed layout: repulsion, spring edges, gentle centring */
+  function Sim(cv, tipEl, nodes, edges, opts) {
+    var ctx = cv.getContext('2d');
+    var W = 0, H = 0, C = {}, raf = 0, running = false, hot = null, drag = null;
+    var pointer = { x: -999, y: -999 };
+    var calm = opts.calm || 0.06;
+    var alpha = 1;
+
+    var gkeys = [];
+    if (opts.group) {
+      nodes.forEach(function (n) {
+        var k = opts.group(n);
+        if (k != null && gkeys.indexOf(k) < 0) gkeys.push(k);
+      });
+    }
+    nodes.forEach(function (n, i) {
+      var a = (i / nodes.length) * Math.PI * 2, rad = 60 + Math.random() * 40;
+      if (opts.group) {
+        // start each group in its own quadrant so the clusters do not have to unpick
+        var gi = gkeys.indexOf(opts.group(n));
+        if (gi >= 0) {
+          var ga = (gi / Math.max(gkeys.length, 1)) * Math.PI * 2;
+          n.x = Math.cos(ga) * 110 + (Math.random() - 0.5) * 40;
+          n.y = Math.sin(ga) * 110 + (Math.random() - 0.5) * 40;
+          n.vx = 0; n.vy = 0;
+          return;
+        }
+      }
+      n.x = Math.cos(a) * rad; n.y = Math.sin(a) * rad;
+      n.vx = 0; n.vy = 0;
+    });
+
+    function colours() {
+      var cs = getComputedStyle(document.documentElement);
+      C.ink = cs.getPropertyValue('--ink').trim();
+      C.ink2 = cs.getPropertyValue('--ink-2').trim();
+      C.ink3 = cs.getPropertyValue('--ink-3').trim();
+      C.line = cs.getPropertyValue('--line-2').trim();
+      C.sig = cs.getPropertyValue('--signal').trim();
+      C.sig2 = cs.getPropertyValue('--signal-2').trim();
+      C.ground = cs.getPropertyValue('--ground').trim();
+    }
+
+    function size() {
+      var r = cv.getBoundingClientRect();
+      if (!r.width || !r.height) return false;
+      var dpr = Math.min(devicePixelRatio || 1, 2);
+      W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return true;
+    }
+
+    function step() {
+      var i, j, a, b, dx, dy, d, f;
+      var k = opts.spring, rep = opts.repel;
+
+      for (i = 0; i < nodes.length; i++) {
+        a = nodes[i];
+        if (a.off) continue;
+        for (j = i + 1; j < nodes.length; j++) {
+          b = nodes[j];
+          if (b.off) continue;
+          dx = b.x - a.x; dy = b.y - a.y;
+          d = Math.sqrt(dx * dx + dy * dy) || 0.01;
+          if (d > 260) continue;
+          f = rep / (d * d);
+          dx /= d; dy /= d;
+          a.vx -= dx * f; a.vy -= dy * f;
+          b.vx += dx * f; b.vy += dy * f;
+        }
+      }
+      edges.forEach(function (e) {
+        a = nodes[e.a]; b = nodes[e.b];
+        if (!a || !b || a.off || b.off) return;
+        dx = b.x - a.x; dy = b.y - a.y;
+        d = Math.sqrt(dx * dx + dy * dy) || 0.01;
+        f = (d - opts.rest) * k * Math.min(e.w, 3);
+        dx /= d; dy /= d;
+        a.vx += dx * f; a.vy += dy * f;
+        b.vx -= dx * f; b.vy -= dy * f;
+      });
+      if (opts.group && opts.cluster) {
+        var gx = {}, gy = {}, gn = {};
+        nodes.forEach(function (n) {
+          var k = opts.group(n);
+          if (k == null || n.off) return;
+          gx[k] = (gx[k] || 0) + n.x; gy[k] = (gy[k] || 0) + n.y; gn[k] = (gn[k] || 0) + 1;
+        });
+        nodes.forEach(function (n) {
+          var k = opts.group(n);
+          if (k == null || n.off || !gn[k]) return;
+          n.vx += (gx[k] / gn[k] - n.x) * opts.cluster;
+          n.vy += (gy[k] / gn[k] - n.y) * opts.cluster;
+        });
+      }
+
+      var cx = 0, cy = 0, live = 0;
+      var aspect = H > 0 ? Math.max(W / H, 1) : 1;
+      nodes.forEach(function (n) {
+        if (n.off) return;
+        n.vx -= n.x * opts.centre;
+        n.vy -= n.y * opts.centre * aspect;
+        if (n === drag) { n.vx = n.vy = 0; }
+        else {
+          n.vx *= 0.86; n.vy *= 0.86;
+          n.x += n.vx * alpha; n.y += n.vy * alpha;
+        }
+        cx += n.x; cy += n.y; live++;
+      });
+      if (live) {
+        cx /= live; cy /= live;
+        nodes.forEach(function (n) { if (!n.off) { n.x -= cx; n.y -= cy; } });
+      }
+      alpha = Math.max(alpha * 0.995, calm);
+    }
+
+    var view = { sx: 1, sy: 1, ox: 0, oy: 0 };
+    function project() {
+      var pad = opts.labels ? 52 : 34, i, ex = 1, ey = 1;
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].off) continue;
+        ex = Math.max(ex, Math.abs(nodes[i].x));
+        ey = Math.max(ey, Math.abs(nodes[i].y));
+      }
+      var fx = (W / 2 - pad) / ex, fy = (H / 2 - pad) / ey;
+      var base = Math.min(fx, fy);
+      // node positions carry no units, so a mild stretch to the panel's shape
+      // costs nothing and stops a wide panel sitting mostly empty
+      view.sx = Math.min(fx, base * 1.7);
+      view.sy = Math.min(fy, base * 1.7);
+      view.ox = W / 2; view.oy = H / 2;
+    }
+    function sx(n) { return view.ox + n.x * view.sx; }
+    function sy(n) { return view.oy + n.y * view.sy; }
+
+    function pick() {
+      var best = null, bd = 16 * 16;
+      nodes.forEach(function (n) {
+        if (n.off) return;
+        var dx = pointer.x - sx(n), dy = pointer.y - sy(n);
+        var d = dx * dx + dy * dy;
+        if (d < bd) { bd = d; best = n; }
+      });
+      return best;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      project();
+
+      edges.forEach(function (e) {
+        var a = nodes[e.a], b = nodes[e.b];
+        if (!a || !b || a.off || b.off) return;
+        var lit = hot && (a === hot || b === hot);
+        ctx.strokeStyle = lit ? C.sig : C.line;
+        ctx.globalAlpha = lit ? 0.85 : 0.34;
+        ctx.lineWidth = lit ? 1.4 : Math.min(0.5 + e.w * 0.35, 2);
+        ctx.beginPath();
+        ctx.moveTo(sx(a), sy(a)); ctx.lineTo(sx(b), sy(b));
+        ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+
+      nodes.forEach(function (n) {
+        if (n.off) return;
+        var r = opts.radius(n);
+        var lit = n === hot;
+        var col = lit ? C.sig : opts.fill(n, C);
+        // a hollow node reads as "not yet published" without needing a legend key
+        if (opts.hollow && opts.hollow(n)) {
+          ctx.fillStyle = C.ground;
+          ctx.beginPath(); ctx.arc(sx(n), sy(n), r, 0, 6.2832); ctx.fill();
+          ctx.strokeStyle = col; ctx.lineWidth = 1.6;
+          ctx.stroke();
+          return;
+        }
+        ctx.fillStyle = col;
+        ctx.beginPath(); ctx.arc(sx(n), sy(n), r, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = C.ground; ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+
+      if (opts.labels) {
+        ctx.font = '400 10px ' + (getComputedStyle(cv).fontFamily || 'monospace');
+        ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+        nodes.forEach(function (n) {
+          if (n.off || !opts.labels(n)) return;
+          ctx.fillStyle = n === hot ? C.ink : C.ink3;
+          ctx.fillText(opts.labels(n), sx(n), sy(n) - opts.radius(n) - 4);
+        });
+      }
+    }
+
+    function tip() {
+      if (!hot) {
+        // parked at the origin, so a resize can never find it out at the old width
+        if (tipEl.style.opacity !== '0') {
+          tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
+        }
+        return;
+      }
+      tipEl.innerHTML = opts.tip(hot);
+      tipEl.style.opacity = 1;
+      var w = tipEl.offsetWidth, h = tipEl.offsetHeight;
+      var x = Math.min(Math.max(sx(hot) + 14, 6), W - w - 6);
+      var y = Math.min(Math.max(sy(hot) - h - 12, 6), H - h - 6);
+      tipEl.style.left = x + 'px';
+      tipEl.style.top = y + 'px';
+    }
+
+    function loop() { step(); draw(); tip(); raf = requestAnimationFrame(loop); }
+    function start() { if (!running && !CALM) { running = true; raf = requestAnimationFrame(loop); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    function settle(n) { for (var i = 0; i < n; i++) step(); draw(); }
+
+    colours();
+    if (!size()) return null;
+    // run the layout to rest off screen; the panel shows a loader until it is done
+    settle(700);
+    alpha = calm;
+    // revealPanel owns the fade in, so the canvas stays hidden until it says so
+    if (opts.done) opts.done(); else cv.classList.add('up');
+    if (!CALM) start();
+
+    document.addEventListener('themechange', function () { colours(); if (CALM) draw(); });
+    addEventListener('resize', function () { if (size() && CALM) draw(); });
+
+    cv.addEventListener('pointermove', function (e) {
+      var r = cv.getBoundingClientRect();
+      pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
+      if (drag) {
+        drag.x = (pointer.x - view.ox) / view.sx;
+        drag.y = (pointer.y - view.oy) / view.sy;
+        alpha = Math.max(alpha, 0.55);
+      }
+      hot = drag || pick();
+      cv.style.cursor = hot ? 'grab' : 'default';
+      if (CALM) { draw(); tip(); }
+    });
+    var downAt = null;
+    cv.addEventListener('pointerdown', function (e) {
+      drag = pick();
+      downAt = { x: e.clientX, y: e.clientY, n: drag };
+      if (drag) { cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; }
+    });
+    cv.addEventListener('pointerup', function (e) {
+      // a press that did not move is a click, not a drag
+      if (downAt && downAt.n && opts.click &&
+          Math.abs(e.clientX - downAt.x) < 5 && Math.abs(e.clientY - downAt.y) < 5) {
+        opts.click(downAt.n);
+      }
+      downAt = null; drag = null; cv.style.cursor = 'grab';
+    });
+    cv.addEventListener('pointerleave', function () {
+      drag = null; hot = null; pointer.x = pointer.y = -999;
+      tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
+      if (CALM) draw();
+    });
+
+    if ('IntersectionObserver' in window && !CALM) {
+      new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); },
+        { threshold: 0 }).observe(cv);
+    }
+    /* Called when nodes are switched in or out. The layout is warmed up again
+       so the remaining nodes redistribute rather than sitting in the holes the
+       hidden ones left behind. */
+    function refresh() {
+      hot = null; drag = null;
+      tipEl.style.opacity = 0;
+      alpha = 0.85;
+      settle(CALM ? 320 : 90);
+      if (!CALM) start();
+    }
+
+    return { draw: draw, refresh: refresh };
+  }
+
+  var THEME_COLOUR = {
+    ageing: '--signal', environmental: '--signal-2', open: '--ink',
+    meta: '--ink-2', pedagogy: '--signal-2', health: '--ink-3', other: '--ink-3'
+  };
+
+  function go(records) {
+    // the record has already worked out each DOI, and cleaned publisher URL
+    // cruft off it: use that rather than parsing the URL a second time here
+    var dois = records.map(function (p) { return p.d || null; }).filter(Boolean);
+
+    if (!dois.length) {
+      panelFail(paperCv, 'No DOIs in the current record, so the paper network cannot be built.');
+      panelFail(peopleCv, 'No DOIs in the current record, so the collaboration network cannot be built.');
+      return;
+    }
+
+    var byDoi = {};
+    records.forEach(function (p) { if (p.d) byDoi[p.d] = p; });
+
+    var filter = dois.map(function (d) { return 'doi:' + d; }).join(',');
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 12000);
+
+    function ask(select) {
+      return fetch('https://api.crossref.org/works?rows=200&select=' + select +
+                   '&filter=' + filter + '&mailto=e.ivimeycook@gmail.com',
+                   { headers: { Accept: 'application/json' }, signal: ctrl ? ctrl.signal : undefined })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    }
+
+    /* institution and group-title carry the name of the server a preprint was
+       posted to, which is the only authoritative answer to "where is this?" —
+       the publisher field is no use, because the Center for Open Science is the
+       publisher of EdArXiv, MetaArXiv, PsyArXiv and OSF Preprints alike. If
+       Crossref rejects those fields the maps must still be drawn, so fall back
+       to the two fields the networks actually need. */
+    ask('DOI,author,type,institution,group-title')
+      .catch(function () { return ask('DOI,author'); })
+      .then(function (j) {
+        clearTimeout(timer);
+        var items = (j && j.message && j.message.items) || [];
+        // correct the source labels first: the record objects in byDoi are the
+        // very ones the maps copy from, so the maps inherit the fixed names
+        var names = serverNames(items);
+        if (Object.keys(names).length) {
+          document.dispatchEvent(new CustomEvent('sourcenames', { detail: names }));
+        }
+        var g = build(items, byDoi);
+        if (!g) throw new Error('no authors');
+        G = g;
+        renderPapers(g);
+        renderPeople(g);
+        var pl = document.getElementById('peopleLoad');
+        if (pl) pl.firstChild.textContent = 'Computing layout';
+        var pk = document.getElementById('peopleCount');
+        if (pk) pk.textContent = g.people.length + ' co-authors across ' + g.papers.length + ' works. ';
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        var msg = 'Author lists could not be retrieved from Crossref, so this network is not drawn. ' +
+          'Nothing is shown rather than something invented. ' +
+          'The works themselves are listed in the record above.';
+        panelFail(paperCv, msg);
+        panelFail(peopleCv, msg);
+
+      });
+  }
+
+  /* The layout settles off screen, which is fast enough that a visitor scrolling
+     down would meet a finished map with no sign it was ever built. Hold the
+     loading state until the panel has been on screen for a beat, then fade in. */
+  function revealPanel(loadId, cv) {
+    var ld = document.getElementById(loadId);
+    function go() {
+      if (ld) {
+        ld.style.opacity = '0';
+        setTimeout(function () { if (ld.parentNode) ld.parentNode.removeChild(ld); }, 420);
+      }
+      cv.classList.add('up');
+    }
+    if (!('IntersectionObserver' in window)) { setTimeout(go, 700); return; }
+    var done = false;
+    var io = new IntersectionObserver(function (es) {
+      if (done || !es[0].isIntersecting) return;
+      done = true; io.disconnect();
+      setTimeout(go, CALM ? 0 : 850);
+    }, { threshold: 0.2 });
+    io.observe(cv.parentNode);
+  }
+
+  function renderPapers(g) {
+    // wrapped, so the layout's x/y never overwrite a work's own year
+    var nodes = g.papers.map(function (p) { return { d: p }; });
+    var sim = Sim(paperCv, document.getElementById('paperTip'), nodes, g.pedges, {
+      spring: 0.0014, repel: 700, rest: 52, centre: 0.0013,
+      /* Works of the same theme pull together, so the map groups by subject.
+         Preprints are their own group whatever their subject: what has been
+         posted but not yet published is a question about the record, not about
+         the research, and it is easier to read as one cluster. */
+      group: function (n) { return n.d.pre ? 'preprint' : (n.d.c || 'other'); },
+      cluster: 0.019, calm: 0.05,
+      done: function () { revealPanel('paperLoad', paperCv); },
+      radius: function (n) { return 4 + Math.min(Math.sqrt(n.d.n) * 1.9, 11); },
+      hollow: function (n) { return !!n.d.pre; },
+      fill: function (n, C) {
+        var v = THEME_COLOUR[n.d.c];
+        if (!v) return C.ink3;
+        return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || C.ink3;
+      },
+      labels: null,
+      click: function (n) {
+        document.dispatchEvent(new CustomEvent('showpaper', { detail: n.d.t }));
+      },
+      tip: function (n) {
+        return escapeHtml(n.d.t) + '<b>' + (n.d.y || '') +
+          (n.d.j ? ' &#183; ' + escapeHtml(n.d.j) : '') +
+          (n.d.c ? ' &#183; ' + (LABELS[n.d.c] || n.d.c) : '') +
+          (n.d.pre ? ' &#183; preprint' : '') + '<br>Click to find it below</b>';
+      }
+    });
+
+    var pre = nodes.filter(function (n) { return n.d.pre; });
+    var bar = document.getElementById('paperBar');
+    var btn = document.getElementById('preToggle');
+    var cnt = document.getElementById('paperCount');
+    if (!bar || !btn) return;
+    if (cnt) {
+      cnt.textContent = g.papers.length + ' works · ' + g.pedges.length +
+        ' shared-author links · ' + pre.length + ' preprint' + (pre.length === 1 ? '' : 's');
+    }
+    if (!pre.length) { btn.disabled = true; btn.textContent = 'No preprints in the map'; }
+    bar.hidden = false;
+    btn.addEventListener('click', function () {
+      var hide = btn.getAttribute('aria-pressed') === 'true';
+      pre.forEach(function (n) { n.off = hide; });
+      btn.setAttribute('aria-pressed', hide ? 'false' : 'true');
+      btn.textContent = hide ? 'Preprints hidden' : 'Preprints shown';
+      if (sim) sim.refresh();
+    });
+  }
+
+  function renderPeople(g) {
+    var picked = g.people.slice(0, 90);
+    var nodes = picked.map(function (q) { return { d: q }; });
+    var keep = {};
+    picked.forEach(function (q, i) { keep[q.id] = i; });
+    var edges = g.hedges.filter(function (e) {
+      return g.people[e.a] && g.people[e.b] &&
+        keep[g.people[e.a].id] !== undefined && keep[g.people[e.b].id] !== undefined;
+    }).map(function (e) {
+      return { a: keep[g.people[e.a].id], b: keep[g.people[e.b].id], w: e.w };
+    });
+    Sim(peopleCv, document.getElementById('peopleTip'), nodes, edges, {
+      spring: 0.0022, repel: 700, rest: 48, centre: 0.0026, calm: 0.05,
+      done: function () { revealPanel('peopleLoad', peopleCv); },
+      radius: function (n) { return 3.5 + Math.min(Math.sqrt(n.d.n) * 2.6, 12); },
+      fill: function (n, C) { return n.d.n > 2 ? C.sig : C.ink3; },
+      labels: function (n) { return n.d.n >= 3 ? n.d.name : null; },
+      click: function (n) { openPerson(n.d); },
+      tip: function (n) {
+        return escapeHtml(n.d.name) + '<b>' + (n.d.n === 1 ? 'one work' : n.d.n + ' works') +
+          ' together<br>Click to list them</b>';
+      }
+    });
+  }
+
+  /* Clicking a co-author lists what the two of them wrote; clicking one of those
+     titles hands off to the record below, which already knows how to find and
+     flash a row by title. */
+  var panel = document.getElementById('peoplePanel');
+
+  function closePerson() {
+    if (panel) { panel.hidden = true; panel.innerHTML = ''; }
+  }
+
+  function openPerson(p) {
+    if (!panel) return;
+    var works = (p.works || []).slice().sort(function (a, b) {
+      return (b.y || 0) - (a.y || 0) || String(a.t).localeCompare(String(b.t));
+    });
+    panel.innerHTML =
+      '<header><h3>' + escapeHtml(p.name) +
+        '<em>' + (works.length === 1 ? 'one work' : works.length + ' works') + ' together</em></h3>' +
+        '<button type="button" class="x" aria-label="Close">&#215;</button></header>' +
+      '<ol>' + works.map(function (w, i) {
+        return '<li><button type="button" class="w" data-i="' + i + '">' +
+          escapeHtml(w.t) +
+          '<b>' + (w.y || '') + (w.j ? ' &#183; ' + escapeHtml(w.j) : '') +
+          (w.s ? ' &#183; ' + escapeHtml(w.s) : '') + '</b></button></li>';
+      }).join('') + '</ol>';
+    panel.hidden = false;
+
+    panel.querySelector('.x').addEventListener('click', closePerson);
+    panel.querySelectorAll('button.w').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var w = works[parseInt(b.dataset.i, 10)];
+        if (!w) return;
+        closePerson();
+        document.dispatchEvent(new CustomEvent('showpaper', { detail: w.t }));
+      });
+    });
+  }
+
+  if (peopleCv) {
+    // a press anywhere on the canvas dismisses first; a press on a node reopens
+    // on pointerup, so clicking straight from one person to another still works
+    peopleCv.addEventListener('pointerdown', closePerson);
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePerson();
+  });
+
+  function escapeHtml(s) {
+    return (s || '').replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  document.addEventListener('recordready', function (e) { go(e.detail); });
 })();
 </script>
 </body>

@@ -507,7 +507,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
         <span id="paperCount"></span>
       </div>
-      <p class="cap tag">One node per work, joined where two works share at least one author. Authors come from Crossref. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about.</p>
+      <p class="cap tag">One node per work in the record, joined where two works share at least one author. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about.</p>
     </div>
   </section>
 
@@ -631,8 +631,8 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
       <p class="tag">Colophon</p>
       <p class="foot">Set in Archivo and DM Mono.<br>
         Publications on this page update automatically from my
-        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>.
-        Author lists come from
+        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>,
+        no rebuild required. Author lists come from
         <a href="https://www.crossref.org/" target="_blank" rel="noopener">Crossref</a>.<br>
         The curve behind the page is a Gompertz survivorship simulation, tied to
         how far down you have scrolled.<br>
@@ -1346,20 +1346,31 @@ var ORCID = '0000-0003-4910-0443';
 
   function build(works, byDoi) {
     var papers = [], people = {}, pairs = {};
-
-    works.forEach(function (w) {
+    var byWorkDoi = {};
+    (works || []).forEach(function (w) {
       var doi = (w.DOI || '').toLowerCase();
+      if (doi) byWorkDoi[doi] = w;
+    });
+
+    /* One node per work in the record, full stop — every paper Ed has, not
+       only the ones Crossref happens to have an author list for. A brand-new
+       self-deposited preprint can sit in ORCID for a while before Crossref
+       indexes its authors; it still belongs on the map, just alone, rather
+       than silently missing. Only where Crossref *does* return authors can
+       shared authorship connect it to anything else. */
+    Object.keys(byDoi).forEach(function (doi) {
       var rec = byDoi[doi];
-      if (!rec) return;
-      var authors = (w.author || []).filter(function (a) { return nameOf(a); });
-      if (!authors.length) return;
+      var w = byWorkDoi[doi];
+      var authors = w ? (w.author || []).filter(function (a) { return nameOf(a); }) : [];
 
       papers.push({
         doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u,
-        c: (rec.c || [])[0] || null, n: authors.length,
+        c: (rec.c || [])[0] || null, n: authors.length || 1,
         pre: rec.s === 'Preprint' || rec.s === 'In review',
         ids: authors.map(idOf)
       });
+
+      if (!authors.length) return;  // nothing to add to the co-author graph
 
       authors.forEach(function (a, i) {
         var id = idOf(a);
@@ -1813,7 +1824,9 @@ var ORCID = '0000-0003-4910-0443';
         return escapeHtml(n.d.t) + '<b>' + (n.d.y || '') +
           (n.d.j ? ' &#183; ' + escapeHtml(n.d.j) : '') +
           (n.d.c ? ' &#183; ' + (LABELS[n.d.c] || n.d.c) : '') +
-          (n.d.pre ? ' &#183; preprint' : '') + '<br>Click to find it below</b>';
+          (n.d.pre ? ' &#183; preprint' : '') +
+          (n.d.ids.length ? '' : ' &#183; no author list from Crossref yet') +
+          '<br>Click to find it below</b>';
       }
     });
 
@@ -1838,7 +1851,9 @@ var ORCID = '0000-0003-4910-0443';
   }
 
   function renderPeople(g) {
-    var picked = g.people.slice(0, 90);
+    // every co-author, however many that turns out to be: some of Ed's papers
+    // are large SORTEE-style consortium works, so this can run well past 100
+    var picked = g.people;
     var nodes = picked.map(function (q) { return { d: q }; });
     var keep = {};
     picked.forEach(function (q, i) { keep[q.id] = i; });

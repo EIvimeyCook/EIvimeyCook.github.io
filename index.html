@@ -580,18 +580,18 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <p>A large part of my work is building standards, tools and culture that make ecology and evolutionary biology more open, reliable and reproducible.</p>
       </div>
       <dl class="spec">
-        <div><dt>2026-2027</dt><dd>Advocacy Co-Chair<i>SORTEE</i></dd></div>
-        <div><dt>2025-Present</dt><dd>Past-President<i>SORTEE</i></dd></div>
-        <div><dt>2025-2026</dt><dd>President<i>SORTEE</i></dd></div>
-        <div><dt>2024-2025</dt><dd>President-Elect<i>SORTEE</i></dd></div>
-        <div><dt>2023-2024</dt><dd>Secretary<i>SORTEE</i></dd></div>
-        <div><dt>2023-2025</dt><dd>Board Member<i>SORTEE</i></dd></div>
-        <div><dt>2022-2023</dt><dd>Conference Chair<i>SORTEE</i></dd></div>
+        <div><dt>2026</dt><dd>Advocacy Co-Chair<i>SORTEE</i></dd></div>
+        <div><dt>2025&#8211;</dt><dd>Past-President<i>SORTEE</i></dd></div>
+        <div><dt>2025</dt><dd>President<i>SORTEE</i></dd></div>
+        <div><dt>2024</dt><dd>President-Elect<i>SORTEE</i></dd></div>
+        <div><dt>2023</dt><dd>Secretary<i>SORTEE</i></dd></div>
+        <div><dt>2023&#8211;25</dt><dd>Board Member<i>SORTEE</i></dd></div>
+        <div><dt>2022</dt><dd>Conference Chair<i>SORTEE</i></dd></div>
       </dl>
       <p class="tag" style="margin:1.6rem 0 .5rem">Journal editing</p>
       <dl class="spec">
-        <div><dt>2024-Present</dt><dd>Data Editor<i>Ecology Letters</i></dd></div>
-        <div><dt>2026-2029</dt><dd>Publications Committee<i>Ecological Society of America</i></dd></div>
+        <div><dt>Current</dt><dd>Data Editor<i>Ecology Letters</i></dd></div>
+        <div><dt>Current</dt><dd>Publications Committee<i>Ecological Society of America</i></dd></div>
       </dl>
       <p style="margin-top:1.2rem"><a class="mono" style="font-size:10.5px;letter-spacing:.08em;color:var(--signal);border-bottom:1px solid currentColor" href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE board of directors</a></p>
     </div>
@@ -1344,6 +1344,78 @@ var ORCID = '0000-0003-4910-0443';
   }
   function idOf(a) { return nameOf(a).toLowerCase().replace(/[^a-z]/g, ''); }
 
+  /* The initials an author was deposited with, as an array of single
+     letters — kept apart from the id so two deposits of the same person
+     that differ only in how much given-name detail was recorded ("J.
+     Moorad" on one paper, "J. A. Moorad" on another) can be told apart from
+     two different people with the same surname later on. */
+  function initialsOf(a) {
+    if (a.name) {
+      var parts = norm(a.name).split(/\s+/).filter(Boolean);
+      return parts.slice(0, -1).map(function (s) { return (s[0] || '').toUpperCase(); }).filter(Boolean);
+    }
+    var g = norm(a.given);
+    if (!g) return [];
+    return g.split(/[\s.-]+/).filter(Boolean).map(function (s) { return s[0].toUpperCase(); });
+  }
+  function familyOf(a) {
+    if (a.name) {
+      var parts = norm(a.name).split(/\s+/).filter(Boolean);
+      return (parts[parts.length - 1] || '').toLowerCase();
+    }
+    return norm(a.family).toLowerCase();
+  }
+
+  /* Two initials sequences are compatible if the shorter is a prefix of the
+     longer letter for letter: ["J"] and ["J","A"] are, ["J"] and ["K"] are
+     not, and two blank sequences are never treated as compatible — no
+     information to go on is not the same as a match. */
+  function initialsCompatible(x, y) {
+    var s = x.length <= y.length ? x : y, l = x.length <= y.length ? y : x;
+    if (!s.length) return false;
+    for (var k = 0; k < s.length; k++) if (s[k] !== l[k]) return false;
+    return true;
+  }
+
+  /* Crossref deposits are not one identity system: the same person can be
+     given a different amount of given-name detail on every paper they're
+     on, so left alone "J. Moorad" and "J. A. Moorad" become two co-author
+     nodes for one real person. Group every author appearance in the whole
+     record by surname and merge the ones that are clearly the same person —
+     but do it most-specific-first, so two fuller names that genuinely
+     conflict ("J. A. Moorad" and "J. K. Moorad") are locked in as separate
+     people *before* a bare "J. Moorad" is considered, rather than merging
+     transitively through it and dragging two different people together by
+     way of a vaguer shared entry. If that bare entry then turns out to be
+     compatible with more than one already-separated cluster, it is
+     genuinely ambiguous and is left on its own rather than guessed into
+     either. The canonical id and name for a cluster is whichever appearance
+     in it carried the most initials — the most specific form actually seen. */
+  function clusterAuthors(list) {
+    var buckets = {};
+    list.forEach(function (a, i) { (buckets[a.family] = buckets[a.family] || []).push(i); });
+
+    var canonOf = new Array(list.length);
+    Object.keys(buckets).forEach(function (fam) {
+      var idxs = buckets[fam].slice().sort(function (p, q) {
+        return list[q].initials.length - list[p].initials.length;
+      });
+      var clusters = []; // { initials, canon }
+      idxs.forEach(function (i) {
+        var a = list[i];
+        var matches = fam ? clusters.filter(function (c) { return initialsCompatible(a.initials, c.initials); }) : [];
+        var cluster = matches.length === 1 ? matches[0] : { initials: a.initials, canon: a };
+        if (matches.length !== 1) clusters.push(cluster);
+        canonOf[i] = cluster.canon;
+      });
+    });
+
+    return list.map(function (a, i) {
+      var c = canonOf[i];
+      return { id: idOf(c.raw), name: c.name };
+    });
+  }
+
   function build(works, byDoi) {
     var papers = [], people = {}, pairs = {};
     var byWorkDoi = {};
@@ -1358,31 +1430,50 @@ var ORCID = '0000-0003-4910-0443';
        indexes its authors; it still belongs on the map, just alone, rather
        than silently missing. Only where Crossref *does* return authors can
        shared authorship connect it to anything else. */
+    var perDoi = {};
     Object.keys(byDoi).forEach(function (doi) {
-      var rec = byDoi[doi];
       var w = byWorkDoi[doi];
-      var authors = w ? (w.author || []).filter(function (a) { return nameOf(a); }) : [];
+      var authors = (w ? (w.author || []) : [])
+        .filter(function (a) { return nameOf(a); })
+        .map(function (a) { return { raw: a, name: nameOf(a), family: familyOf(a), initials: initialsOf(a) }; });
+      perDoi[doi] = { rec: byDoi[doi], authors: authors };
+    });
+
+    // cluster every author appearance across the whole record at once, so
+    // the same person is recognised the same way from paper to paper
+    var flat = [], flatAt = [];
+    Object.keys(perDoi).forEach(function (doi) {
+      perDoi[doi].authors.forEach(function (a, i) { flat.push(a); flatAt.push([doi, i]); });
+    });
+    clusterAuthors(flat).forEach(function (resolved, k) {
+      var doi = flatAt[k][0], i = flatAt[k][1];
+      perDoi[doi].authors[i].id = resolved.id;
+      perDoi[doi].authors[i].canonName = resolved.name;
+    });
+
+    Object.keys(perDoi).forEach(function (doi) {
+      var rec = perDoi[doi].rec;
+      var authors = perDoi[doi].authors;
 
       papers.push({
         doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u,
         c: (rec.c || [])[0] || null, n: authors.length || 1,
         pre: rec.s === 'Preprint' || rec.s === 'In review',
-        ids: authors.map(idOf)
+        ids: authors.map(function (a) { return a.id; })
       });
 
       if (!authors.length) return;  // nothing to add to the co-author graph
 
       authors.forEach(function (a, i) {
-        var id = idOf(a);
-        if (SELF.test(nameOf(a))) return;
-        people[id] = people[id] || { id: id, name: nameOf(a), n: 0, works: [] };
-        people[id].n++;
+        if (SELF.test(a.name)) return;
+        people[a.id] = people[a.id] || { id: a.id, name: a.canonName, n: 0, works: [] };
+        people[a.id].n++;
         // kept so a click on a person can list what the two of you wrote together
-        people[id].works.push({ t: rec.t, y: rec.y, j: rec.j, s: rec.s || '' });
+        people[a.id].works.push({ t: rec.t, y: rec.y, j: rec.j, s: rec.s || '' });
         for (var j = i + 1; j < authors.length; j++) {
-          var jd = idOf(authors[j]);
-          if (jd === id || SELF.test(nameOf(authors[j]))) continue;
-          var k = id < jd ? id + '|' + jd : jd + '|' + id;
+          var b = authors[j];
+          if (b.id === a.id || SELF.test(b.name)) continue;
+          var k = a.id < b.id ? a.id + '|' + b.id : b.id + '|' + a.id;
           pairs[k] = (pairs[k] || 0) + 1;
         }
       });

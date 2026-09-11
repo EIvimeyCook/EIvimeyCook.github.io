@@ -22,9 +22,11 @@
 
 <script>
   (function () {
-    var r = document.documentElement, saved = null;
+    var r = document.documentElement, saved = null, savedSize = null;
     try { saved = localStorage.getItem('eic-theme'); } catch (e) {}
+    try { savedSize = localStorage.getItem('eic-textsize'); } catch (e) {}
     r.dataset.theme = saved === 'light' ? 'light' : 'dark';
+    if (savedSize) r.style.setProperty('--tscale', (parseInt(savedSize, 10) / 100));
     r.classList.add('js');
     setTimeout(function () { r.classList.add('ready'); }, 1500);
   })();
@@ -36,8 +38,8 @@
   --panel:#1a1a17;
   --panel-2:#232320;
   --ink:#f1efe8;
-  --ink-2:#b4b0a5;
-  --ink-3:#8b8679;
+  --ink-2:#c7c3b7;
+  --ink-3:#9d988a;
   --line:#2d2c27;
   --line-2:#423f39;
   --signal:#ff5c3a;
@@ -49,6 +51,7 @@
   --ease:cubic-bezier(.2,.8,.2,1);
   --navh:44px;
   --pad:clamp(.9rem,2.2vw,1.6rem);
+  --tscale:1;
 }
 :root[data-theme="light"]{
   --ground:#e7e6e2;
@@ -98,6 +101,10 @@ p:last-child{margin-bottom:0}
 #bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 .rig{max-width:1560px;margin-inline:auto;position:relative;z-index:1;
   border-left:1px solid var(--line);border-right:1px solid var(--line)}
+/* the text-size slider scales everything below the masthead (not the sticky
+   bar itself, so the controls stay a stable size); zoom keeps font, spacing
+   and line-height all in proportion without touching every font-size rule */
+main.rig{zoom:var(--tscale,1)}
 .grid{display:grid;border-top:1px solid var(--line)}
 .cell{border-bottom:1px solid var(--line);padding:calc(var(--pad) + 12px) var(--pad) var(--pad);
   position:relative;min-width:0}
@@ -135,6 +142,22 @@ p:last-child{margin-bottom:0}
 .tbtn{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
   background:none;border:0;color:var(--ink-3);cursor:pointer;padding:0;transition:color .2s}
 .tbtn:hover{color:var(--ink)}
+.tsize{display:flex;align-items:center;gap:.5rem}
+.tsize label{margin:0}
+.tsize input[type=range]{-webkit-appearance:none;appearance:none;width:72px;height:2px;
+  background:var(--line-2);outline:none;cursor:pointer;vertical-align:middle}
+.tsize input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:10px;height:10px;background:var(--ink-3);border:1px solid var(--ground);cursor:pointer;
+  transition:background .2s}
+.tsize input[type=range]::-moz-range-track{background:var(--line-2);height:2px;border:0}
+.tsize input[type=range]::-moz-range-thumb{width:10px;height:10px;background:var(--ink-3);
+  border:1px solid var(--ground);border-radius:0;cursor:pointer;transition:background .2s}
+.tsize input[type=range]:hover::-webkit-slider-thumb,
+.tsize input[type=range]:focus-visible::-webkit-slider-thumb{background:var(--signal)}
+.tsize input[type=range]:hover::-moz-range-thumb,
+.tsize input[type=range]:focus-visible::-moz-range-thumb{background:var(--signal)}
+.tsize .val{font-family:var(--mono);font-size:10px;color:var(--ink-3);min-width:2.6em}
+@media (max-width:640px){.tsize{display:none}}
 
 /* ---------- hero ---------- */
 .hero{grid-template-columns:minmax(0,1.62fr) minmax(0,1fr)}
@@ -430,6 +453,11 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
     <a href="#contact">Contact</a>
   </nav>
   <div class="b spacer clock"><span class="tag mono" id="clock">00:00:00 UTC</span></div>
+  <div class="b tsize">
+    <label class="tag mono" for="textSize">Aa</label>
+    <input type="range" id="textSize" min="85" max="140" step="5" value="100" aria-label="Text size">
+    <span class="val" id="textSizeVal">100%</span>
+  </div>
   <div class="b"><button class="tbtn" id="themeBtn" aria-label="Switch colour theme">Light</button></div>
 </header>
 
@@ -676,6 +704,23 @@ var ORCID = '0000-0003-4910-0443';
     try { localStorage.setItem('eic-theme', root.dataset.theme); } catch (e) {}
     paint();
   });
+
+  var sizeInput = document.getElementById('textSize'), sizeVal = document.getElementById('textSizeVal');
+  function applySize(pct, persist) {
+    root.style.setProperty('--tscale', pct / 100);
+    sizeVal.textContent = pct + '%';
+    if (persist) { try { localStorage.setItem('eic-textsize', pct); } catch (e) {} }
+    // the papers/co-author graphs size their canvas off getBoundingClientRect()
+    // on window resize; the zoom slider doesn't fire that on its own, so ask
+    // for it here once the browser has actually applied the new zoom
+    requestAnimationFrame(function () { dispatchEvent(new Event('resize')); });
+  }
+  var savedSize = null;
+  try { savedSize = localStorage.getItem('eic-textsize'); } catch (e) {}
+  var startSize = savedSize ? parseInt(savedSize, 10) : 100;
+  sizeInput.value = startSize;
+  applySize(startSize, false);
+  sizeInput.addEventListener('input', function () { applySize(parseInt(sizeInput.value, 10), true); });
 
   function go() { root.classList.add('ready'); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else addEventListener('load', go);

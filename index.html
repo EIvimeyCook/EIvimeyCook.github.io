@@ -1935,6 +1935,15 @@ cv.addEventListener('pointerleave', function () {
   tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
   if (CALM) draw();
 });
+        var zctl = cv.parentNode && cv.parentNode.querySelector('.zoomctl');
+    if (zctl) {
+      zctl.addEventListener('click', function (e) {
+        var b = e.target.closest('button[data-z]');
+        if (!b) return;
+        if (b.dataset.z === 'reset') { camera.scale = 1; camera.tx = 0; camera.ty = 0; if (CALM) draw(); }
+        else zoomBy(b.dataset.z === 'in' ? 1.3 : 1 / 1.3, view.ox, view.oy);
+      });
+    }
 
     if ('IntersectionObserver' in window && !CALM) {
       new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); },

@@ -334,7 +334,15 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
    narrowed after a hover would leave it sticking out past the page edge and
    the whole document scrolling sideways. Clip it to the panel it belongs to. */
 #paperWrap,#peopleWrap{overflow:hidden}
-
+  
+.zoomctl{position:absolute;right:var(--pad);bottom:var(--pad);z-index:3;
+  display:flex;flex-direction:column;gap:2px}
+.zbtn{width:26px;height:26px;padding:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:15px;line-height:1;color:var(--ink-2);
+  background:var(--panel);border:1px solid var(--line-2);cursor:pointer;transition:.2s}
+.zbtn:hover{color:var(--ink);border-color:var(--ink-3)}
+.zbtn:active{background:var(--panel-2)}
+.zbtn[data-z="reset"]{font-size:12px}
 /* ---------- record ---------- */
 .tools-row{display:flex;flex-wrap:wrap;gap:.6rem 1.1rem;align-items:center;
   padding:.7rem 0 .8rem;border-bottom:1px solid var(--line)}
@@ -530,7 +538,11 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <canvas id="paperNet" role="img" aria-label="Network diagram of publications, joined where they share an author. The same works are listed, in accessible form, in the Publications section below."></canvas>
         <div class="tipbox" id="paperTip"></div>
         <div class="netload" id="paperLoad"><span>Fetching author lists</span><b></b></div>
-      </div>
+        <div class="zoomctl">
+  <button type="button" class="zbtn" data-z="in" aria-label="Zoom in">+</button>
+  <button type="button" class="zbtn" data-z="out" aria-label="Zoom out">&#8722;</button>
+  <button type="button" class="zbtn" data-z="reset" aria-label="Reset zoom">&#8634;</button>
+</div>
       <div class="netbar" id="paperBar" hidden>
         <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
         <span id="paperCount"></span>
@@ -547,6 +559,11 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <div class="tipbox" id="peopleTip"></div>
         <div class="netload" id="peopleLoad"><span>Fetching author lists</span><b></b></div>
         <div class="netpanel" id="peoplePanel" hidden role="dialog" aria-label="Works with this co-author"></div>
+        <div class="zoomctl">
+  <button type="button" class="zbtn" data-z="in" aria-label="Zoom in">+</button>
+  <button type="button" class="zbtn" data-z="out" aria-label="Zoom out">&#8722;</button>
+  <button type="button" class="zbtn" data-z="reset" aria-label="Reset zoom">&#8634;</button>
+</div>
       </div>
       <p class="cap tag"><span id="peopleCount"></span>One node per co-author, joined where two people appear on the same work. Node size is the number of works shared with me. Click a person to list what the two of them wrote, and any title in that list to find it in the record below. Drawn from Crossref author lists, so it reflects what publishers have deposited.</p>
     </div>
@@ -1573,6 +1590,11 @@ var ORCID = '0000-0003-4910-0443';
     var pointer = { x: -999, y: -999 };
     var calm = opts.calm || 0.06;
     var alpha = 1;
+    // manual zoom/pan on top of the auto-fit projection below: scale is centred
+// on the panel, tx/ty is a screen-space pan offset layered on top of it
+var camera = { scale: 1, tx: 0, ty: 0 };
+var pointers = {}; // active pointers by id, for pinch
+var pinchDist = null, pinchMid = null, pan = null;
 
     var gkeys = [];
     if (opts.group) {
@@ -1699,8 +1721,22 @@ var ORCID = '0000-0003-4910-0443';
       view.sy = Math.min(fy, base * 1.7);
       view.ox = W / 2; view.oy = H / 2;
     }
-    function sx(n) { return view.ox + n.x * view.sx; }
-    function sy(n) { return view.oy + n.y * view.sy; }
+function sx(n) { return view.ox + n.x * view.sx * camera.scale + camera.tx; }
+function sy(n) { return view.oy + n.y * view.sy * camera.scale + camera.ty; }
+
+/* Zoom by factor k, keeping the screen point (mx, my) - relative to the
+   canvas, e.g. the cursor or the pinch midpoint - fixed in place. Clamped
+   to [1, 4]: 1 is the auto-fit view above, so it never zooms out past
+   "everything visible", only in from there. */
+function zoomBy(k, mx, my) {
+  var next = Math.min(4, Math.max(1, camera.scale * k));
+  var applied = next / camera.scale;
+  camera.tx = mx - view.ox - (mx - view.ox - camera.tx) * applied;
+  camera.ty = my - view.oy - (my - view.oy - camera.ty) * applied;
+  camera.scale = next;
+  if (next === 1) { camera.tx = 0; camera.ty = 0; }
+  if (CALM) draw();
+}
 
     function pick() {
       var best = null, bd = 16 * 16;
@@ -1794,32 +1830,120 @@ var ORCID = '0000-0003-4910-0443';
     document.addEventListener('themechange', function () { colours(); if (CALM) draw(); });
     addEventListener('resize', function () { if (size() && CALM) draw(); });
 
-    cv.addEventListener('pointermove', function (e) {
-      var r = cv.getBoundingClientRect();
-      pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
-      if (drag) {
-        drag.x = (pointer.x - view.ox) / view.sx;
-        drag.y = (pointer.y - view.oy) / view.sy;
-        alpha = Math.max(alpha, 0.55);
-      }
-      hot = drag || pick();
-      cv.style.cursor = hot ? 'grab' : 'default';
-      if (CALM) { draw(); tip(); }
-    });
-    var downAt = null;
-    cv.addEventListener('pointerdown', function (e) {
-      drag = pick();
-      downAt = { x: e.clientX, y: e.clientY, n: drag };
-      if (drag) { cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; }
-    });
-    cv.addEventListener('pointerup', function (e) {
-      // a press that did not move is a click, not a drag
-      if (downAt && downAt.n && opts.click &&
-          Math.abs(e.clientX - downAt.x) < 5 && Math.abs(e.clientY - downAt.y) < 5) {
-        opts.click(downAt.n);
-      }
-      downAt = null; drag = null; cv.style.cursor = 'grab';
-    });
+// Ctrl/Cmd+wheel zooms, anchored on the cursor - the same convention as
+// Google Maps and Figma, so a plain scroll still scrolls the page past the
+// graph rather than getting trapped zooming it. A trackpad pinch already
+// arrives as a wheel event with ctrlKey set, in every browser that does
+// this, so it works the same way with no separate handling.
+cv.addEventListener('wheel', function (e) {
+  if (!e.ctrlKey && !e.metaKey) return;
+  e.preventDefault();
+  var r = cv.getBoundingClientRect();
+  zoomBy(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - r.left, e.clientY - r.top);
+}, { passive: false });
+
+cv.addEventListener('pointermove', function (e) {
+  var r = cv.getBoundingClientRect();
+  var x = e.clientX - r.left, y = e.clientY - r.top;
+  if (pointers[e.pointerId]) pointers[e.pointerId] = { x: x, y: y };
+
+  // two fingers down: this is a pinch, and takes over from any single-
+  // pointer drag or hover that might have been mid-flight when the second
+  // finger landed (pointerdown below already cleared those)
+  var ids = Object.keys(pointers);
+  if (ids.length >= 2 && pinchDist != null) {
+    var pts = ids.slice(0, 2).map(function (id) { return pointers[id]; });
+    var dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+    var mid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+    zoomBy(dist / pinchDist, pinchMid.x, pinchMid.y);
+    // a two-finger drag pans as well as pinching
+    camera.tx += mid.x - pinchMid.x; camera.ty += mid.y - pinchMid.y;
+    pinchDist = dist; pinchMid = mid;
+    return;
+  }
+
+  pointer.x = x; pointer.y = y;
+  if (drag) {
+    drag.x = (pointer.x - view.ox - camera.tx) / (view.sx * camera.scale);
+    drag.y = (pointer.y - view.oy - camera.ty) / (view.sy * camera.scale);
+    alpha = Math.max(alpha, 0.55);
+  } else if (pan) {
+    camera.tx += pointer.x - pan.x; camera.ty += pointer.y - pan.y;
+    pan = { x: pointer.x, y: pointer.y };
+  }
+  hot = drag || pick();
+  cv.style.cursor = hot ? 'grab' : (pan ? 'grabbing' : 'default');
+  if (CALM) { draw(); tip(); }
+});
+// Every touch is followed by a synthetic compatibility mousedown/mouseup/
+// click a few milliseconds later, for pages that only listen for mouse
+// events - aimed at whatever now sits under that point, which by then
+// can be a button this same tap just opened (the co-author panel, say).
+// Without this it lands on that button and closes the panel right back -
+// which reads as "it flashes and disappears" or "nothing happens"
+// depending on timing. Calling preventDefault() on the pointer events
+// below does not stop it (tested: it doesn't); touchend is the one that
+// actually suppresses it, and by then any scroll-vs-tap decision has
+// already been made, so it does not interfere with the page still
+// scrolling through this element on a real drag.
+cv.addEventListener('touchend', function (e) { e.preventDefault(); }, { passive: false });
+
+var downAt = null;
+cv.addEventListener('pointerdown', function (e) {
+  var r = cv.getBoundingClientRect();
+  pointers[e.pointerId] = { x: e.clientX - r.left, y: e.clientY - r.top };
+  var ids = Object.keys(pointers);
+  if (ids.length >= 2) {
+    // a second finger just landed: stop whatever the first one was doing
+    // and start a pinch instead
+    drag = null; pan = null; downAt = null;
+    var pts = ids.slice(0, 2).map(function (id) { return pointers[id]; });
+    pinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+    pinchMid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+    return;
+  }
+  pointer.x = pointers[e.pointerId].x; pointer.y = pointers[e.pointerId].y;
+  drag = pick();
+  downAt = { x: e.clientX, y: e.clientY, n: drag };
+  if (drag) {
+    cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing';
+  } else if (e.pointerType !== 'touch') {
+    // click-drag empty space to pan; skipped on touch, where a single
+    // finger there is left free to scroll the page as normal. Captured
+    // too, so the pan keeps tracking smoothly if the cursor drifts past
+    // the (fairly small) edge of the panel mid-drag.
+    pan = { x: pointer.x, y: pointer.y };
+    cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing';
+  }
+});
+function endPointer(e, allowClick) {
+  delete pointers[e.pointerId];
+  if (Object.keys(pointers).length < 2) { pinchDist = null; pinchMid = null; }
+  // a press that did not move is a click, not a drag
+  if (allowClick && downAt && downAt.n && opts.click &&
+      Math.abs(e.clientX - downAt.x) < 5 && Math.abs(e.clientY - downAt.y) < 5) {
+    opts.click(downAt.n);
+    hot = null; // the tooltip is redundant once whatever it opened is on screen
+  }
+  downAt = null; drag = null; pan = null; cv.style.cursor = 'grab';
+}
+cv.addEventListener('pointerup', function (e) { endPointer(e, true); });
+cv.addEventListener('pointercancel', function (e) { endPointer(e, false); });
+cv.addEventListener('pointerleave', function () {
+  drag = null; pan = null; hot = null; pointer.x = pointer.y = -999;
+  tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
+  if (CALM) draw();
+});
+
+var zctl = cv.parentNode && cv.parentNode.querySelector('.zoomctl');
+if (zctl) {
+  zctl.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-z]');
+    if (!b) return;
+    if (b.dataset.z === 'reset') { camera.scale = 1; camera.tx = 0; camera.ty = 0; if (CALM) draw(); }
+    else zoomBy(b.dataset.z === 'in' ? 1.3 : 1 / 1.3, view.ox, view.oy);
+  });
+}
     cv.addEventListener('pointerleave', function () {
       drag = null; hot = null; pointer.x = pointer.y = -999;
       tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';

@@ -1358,7 +1358,9 @@ var ORCID = '0000-0003-4910-0443';
     if (!row) return;
     row.scrollIntoView({ block: 'center', behavior: CALM ? 'auto' : 'smooth' });
     row.classList.add('flash');
+    row.style.pointerEvents = 'none';
     setTimeout(function () { row.classList.remove('flash'); }, 2400);
+    setTimeout(function () { row.style.pointerEvents = ''; }, 400);
   });
 
   var deb;
@@ -2158,6 +2160,8 @@ cv.addEventListener('pointerleave', function () {
           (w.s ? ' &#183; ' + escapeHtml(w.s) : '') + '</b></button></li>';
       }).join('') + '</ol>';
     panel.hidden = false;
+    panel.style.pointerEvents = 'none';
+    setTimeout(function () { panel.style.pointerEvents = ''; }, 400);
 
     panel.querySelector('.x').addEventListener('click', closePerson);
     panel.querySelectorAll('button.w').forEach(function (b) {

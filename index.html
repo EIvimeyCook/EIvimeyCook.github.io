@@ -543,6 +543,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
   <button type="button" class="zbtn" data-z="out" aria-label="Zoom out">&#8722;</button>
   <button type="button" class="zbtn" data-z="reset" aria-label="Reset zoom">&#8634;</button>
 </div>
+      </div>
       <div class="netbar" id="paperBar" hidden>
         <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
         <span id="paperCount"></span>
@@ -1934,21 +1935,6 @@ cv.addEventListener('pointerleave', function () {
   tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
   if (CALM) draw();
 });
-
-var zctl = cv.parentNode && cv.parentNode.querySelector('.zoomctl');
-if (zctl) {
-  zctl.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-z]');
-    if (!b) return;
-    if (b.dataset.z === 'reset') { camera.scale = 1; camera.tx = 0; camera.ty = 0; if (CALM) draw(); }
-    else zoomBy(b.dataset.z === 'in' ? 1.3 : 1 / 1.3, view.ox, view.oy);
-  });
-}
-    cv.addEventListener('pointerleave', function () {
-      drag = null; hot = null; pointer.x = pointer.y = -999;
-      tipEl.style.opacity = 0; tipEl.style.left = '0px'; tipEl.style.top = '0px';
-      if (CALM) draw();
-    });
 
     if ('IntersectionObserver' in window && !CALM) {
       new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); },

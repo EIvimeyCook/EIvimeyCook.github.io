@@ -681,8 +681,10 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>,
         no rebuild required. Author lists come from
         <a href="https://www.crossref.org/" target="_blank" rel="noopener">Crossref</a>.<br>
-        The curve behind the page is a Gompertz survivorship simulation, tied to
-        how far down you have scrolled.<br>
+        The curve behind the page is a <span id="curveModel">Gompertz</span> survivorship
+        simulation &#8212; <span id="curveBlurb">a hazard that rises exponentially with age</span> &#8212;
+        tied to how far down you have scrolled. A different textbook mortality model is
+        picked at random each time this page loads.<br>
         <a href="https://github.com/EIvimeyCook/EIvimeyCook.github.io" target="_blank" rel="noopener">Source repository</a><br><br>
         <a href="#about">Return to top</a></p>
     </div>
@@ -775,30 +777,89 @@ var ORCID = '0000-0003-4910-0443';
 })();
 
 /* ---------- the page background: a cohort ageing as you scroll ----------
-   Scroll position is read as age. A Gompertz survivorship curve l(x) is traced
-   across the viewport, and a cohort of individuals scattered behind the page
-   winks out as their sampled lifespans are passed. By the foot of the page the
-   cohort is gone. Schematic: a and b are arbitrary, nothing here is fitted. */
+   Scroll position is read as age. A survivorship curve l(x) is traced across
+   the viewport, and a cohort of individuals scattered behind the page winks
+   out as their sampled lifespans (drawn from that same curve) are passed. By
+   the foot of the page the cohort is gone. Which mortality model draws that
+   curve is picked at random each time the page loads, from five textbook
+   ones below - the colophon names whichever this load landed on. Schematic
+   throughout: every parameter is arbitrary, nothing here is fitted. */
 (function () {
   var cv = document.getElementById('bg');
   if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d');
 
-  var A = 0.0004, B = 0.075, XMAX = 110, N = 240;
+  var XMAX = 110, N = 240;
   var W = 0, H = 0, C = {}, dots = [], p = 0, shown = 0;
   var raf = 0, running = false, queued = false;
 
-  function surv(x) { return Math.exp(-(A / B) * (Math.exp(B * x) - 1)); }
+  // solves S(t) = u for t by bisection, for the two models below whose
+  // inverse survivorship has no closed form - 40 halvings is far more
+  // precision than a background decoration needs
+  function invert(S, u) {
+    var lo = 0, hi = XMAX * 2;
+    for (var i = 0; i < 40; i++) {
+      var mid = (lo + hi) / 2;
+      if (S(mid) > u) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  var MODELS = [
+    { name: 'Gompertz', blurb: 'a hazard that rises exponentially with age',
+      make: function () {
+        var A = 0.0004, B = 0.075;
+        var S = function (x) { return Math.exp(-(A / B) * (Math.exp(B * x) - 1)); };
+        return { S: S, sample: function () {
+          return Math.log(1 - (B / A) * Math.log(Math.random())) / B;
+        } };
+      } },
+    { name: 'Gompertz–Makeham', blurb: 'Gompertz ageing plus a flat, age-independent background hazard',
+      make: function () {
+        var A = 0.00028, B = 0.075, K = 0.0016;
+        var S = function (x) { return Math.exp(-K * x - (A / B) * (Math.exp(B * x) - 1)); };
+        return { S: S, sample: function () { return invert(S, Math.random()); } };
+      } },
+    { name: 'Weibull', blurb: 'a power-law hazard, steeper with age than Gompertz’s exponential one',
+      make: function () {
+        var LAM = 73, K = 3;
+        var S = function (x) { return Math.exp(-Math.pow(x / LAM, K)); };
+        return { S: S, sample: function () {
+          return LAM * Math.pow(-Math.log(Math.random()), 1 / K);
+        } };
+      } },
+    { name: 'Exponential', blurb: 'a constant hazard at every age — no ageing at all, death by chance alone',
+      make: function () {
+        var A = 0.0107;
+        var S = function (x) { return Math.exp(-A * x); };
+        return { S: S, sample: function () { return -Math.log(Math.random()) / A; } };
+      } },
+    { name: 'Siler', blurb: 'high mortality in youth, a flat middle, then a Gompertz-like rise — the demographer’s bathtub',
+      make: function () {
+        var A1 = 0.2, B1 = 1.1, A2 = 0.001, A3 = 0.00028, B3 = 0.085;
+        var S = function (x) {
+          var H = (A1 / B1) * (1 - Math.exp(-B1 * x)) + A2 * x + (A3 / B3) * (Math.exp(B3 * x) - 1);
+          return Math.exp(-H);
+        };
+        return { S: S, sample: function () { return invert(S, Math.random()); } };
+      } }
+  ];
+
+  var model = MODELS[Math.floor(Math.random() * MODELS.length)];
+  var built = model.make();
+  function surv(x) { return built.S(x); }
+
+  var nameEl = document.getElementById('curveModel');
+  if (nameEl) nameEl.textContent = model.name;
+  var blurbEl = document.getElementById('curveBlurb');
+  if (blurbEl) blurbEl.textContent = model.blurb;
 
   function seed() {
     dots = [];
     for (var i = 0; i < N; i++) {
-      // inverse transform sampling of a Gompertz lifespan
-      var u = Math.random();
-      var life = Math.log(1 - (B / A) * Math.log(u)) / B;
       dots.push({
         x: Math.random(), y: Math.random(),
-        life: Math.min(life, XMAX * 1.15),
+        life: Math.min(built.sample(), XMAX * 1.15),
         r: 0.6 + Math.random() * 1.5
       });
     }

@@ -56,11 +56,16 @@ holds, and returns the author list for each work.
 
 ## The background
 
-The curve behind the page is a Gompertz survivorship simulation tied to scroll
-position. A cohort of individuals with sampled lifespans thins out as you descend,
-and l(x) is traced across the viewport. It is schematic, with arbitrary parameters,
-and is not fitted to anything. The constants sit at the top of that module: `A`,
-`B`, `XMAX` and `N`.
+The curve behind the page is a survivorship simulation tied to scroll position —
+one of five textbook mortality models, **picked at random each time the page
+loads**: Gompertz, Gompertz–Makeham, Weibull, Exponential, and Siler. A cohort of
+individuals, their lifespans sampled from whichever model was picked, thins out
+as you descend, and l(x) is traced across the viewport. The colophon at the foot
+of the page names and describes the model this load landed on. It is schematic
+throughout, with arbitrary parameters not fitted to anything. Each model's own
+parameters sit inside its entry in the `MODELS` array, alongside `XMAX` and `N`
+at the top of that module.
+
 
 ## Citation
 

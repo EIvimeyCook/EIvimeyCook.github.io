@@ -796,8 +796,8 @@ var ORCID = '0000-0003-4910-0443';
   // solves S(t) = u for t by bisection, for the two models below whose
   // inverse survivorship has no closed form - 40 halvings is far more
   // precision than a background decoration needs
-  function invert(S, u) {
-    var lo = 0, hi = XMAX * 2;
+function invert(S, u, hi) {
+    var lo = 0; hi = hi || XMAX * 2;
     for (var i = 0; i < 40; i++) {
       var mid = (lo + hi) / 2;
       if (S(mid) > u) lo = mid; else hi = mid;
@@ -847,6 +847,15 @@ var ORCID = '0000-0003-4910-0443';
 
   var model = MODELS[Math.floor(Math.random() * MODELS.length)];
   var built = model.make();
+    (function calibrate() {
+    var xT = invert(built.S, 0.05, XMAX * 6);
+    var k = XMAX / xT;
+    var rawS = built.S, rawSample = built.sample;
+    built = {
+      S: function (x) { return rawS(x / k); },
+      sample: function () { return rawSample() * k; }
+    };
+  })();
   function surv(x) { return built.S(x); }
 
   var nameEl = document.getElementById('curveModel');

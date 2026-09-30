@@ -17,18 +17,19 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <script>
   (function () {
     var r = document.documentElement, saved = null, savedSize = null;
     try { saved = localStorage.getItem('eic-theme'); } catch (e) {}
     try { savedSize = localStorage.getItem('eic-textsize'); } catch (e) {}
-    r.dataset.theme = saved === 'light' ? 'light' : 'dark';
+    if (saved !== 'light' && saved !== 'dark') {
+      saved = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+    }
+    r.dataset.theme = saved;
     if (savedSize) r.style.setProperty('--tscale', (parseInt(savedSize, 10) / 100));
     r.classList.add('js');
-    setTimeout(function () { r.classList.add('ready'); }, 1500);
   })();
 </script>
 
@@ -264,7 +265,7 @@ main.rig{zoom:var(--tscale,1)}
 .prose{font-size:15.5px;line-height:1.62;max-width:66ch;color:var(--ink-2)}
 .prose em{font-style:italic}
 .prose strong{color:var(--ink);font-weight:500}
-h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing:-.03em}
+.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing:-.03em}
 .spec{border-top:1px solid var(--line);margin-top:1.1rem}
 .spec div{display:flex;gap:1rem;justify-content:space-between;align-items:baseline;
   padding:.5rem 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
@@ -316,7 +317,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
 /* ---------- networks ---------- */
 .net{padding:0;display:flex;flex-direction:column}
 .net > .tag:first-child{position:absolute;top:9px;left:var(--pad);z-index:2}
-.net canvas{width:100%;display:block;flex:1;min-height:360px;cursor:pointer;max-height:min(64vh,540px);
+.net canvas{width:100%;display:block;flex:1;min-height:360px;max-height:min(64vh,540px);
   touch-action:pan-y;cursor:grab}
 @media (max-width:860px){.net canvas{min-height:300px}}
 .cap{text-transform:none;letter-spacing:.04em;line-height:1.6;margin-top:.9rem}
@@ -436,7 +437,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
 @media (prefers-reduced-motion:reduce){
   .js .rv{opacity:1;transform:none;transition:none}
   .pstack,.hb b{transform:none;transition:none}
-  .led[data-on="true"],.load{animation:none}
+  .load{animation:none}
 }
 .skip{position:absolute;left:-9999px}
 .skip:focus{left:.5rem;top:.5rem;z-index:99;background:var(--ground);color:var(--ink);
@@ -466,7 +467,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
     <input type="range" id="textSize" min="85" max="140" step="5" value="100" aria-label="Text size">
     <span class="val" id="textSizeVal">100%</span>
   </div>
-  <div class="b"><button class="tbtn" id="themeBtn" aria-label="Switch colour theme">Light</button></div>
+  <div class="b"><button class="tbtn" id="themeBtn" title="Switch colour theme">Light</button></div>
 </header>
 
 <main class="rig">
@@ -475,7 +476,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
     <div class="sechead"><span class="sn">01</span><p class="ht">About</p><i></i></div>
     <div class="cell">
       <p class="eyebrow"><span>Evolutionary Biology &#183; Ageing &#183; Open Science</span><i></i></p>
-      <h1>Edward R.<em>Ivimey-Cook</em></h1>
+      <h1>Edward R. <em>Ivimey-Cook</em></h1>
       <p class="role">Lecturer in Biological Sciences &#183; University of East Anglia</p>
       <div class="chips">
         <span class="chip"><b>UEA</b> &#183; Lecturer</span>
@@ -615,13 +616,14 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
         <div class="load"></div><div class="load"></div><div class="load"></div><div class="load"></div>
       </div>
       <div id="rowNote"></div>
+      <noscript><p class="note">The publication list is loaded from ORCID and needs JavaScript. The full record is at <a href="https://orcid.org/0000-0003-4910-0443">orcid.org/0000-0003-4910-0443</a>.</p></noscript>
     </div>
   </section>
 
   <section class="grid rv" id="open" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)">
     <div class="sechead"><span class="sn">07</span><h2>Open science</h2><i></i></div>
     <div class="cell">
-      <h2 class="head">Leadership</h2>
+      <h3 class="head">Leadership</h3>
       <div class="prose" style="font-size:14px">
         <p>A large part of my work is building guidelines, tools, and research culture that make ecology and evolutionary biology more open, reliable, and transparent.</p>
       </div>
@@ -663,7 +665,7 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
     </div>
   </section>
 
-  <section class="grid rv" id="contact" role="contentinfo" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
+  <section class="grid rv" id="contact" style="grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)">
     <div class="sechead"><span class="sn">09</span><h2>Contact</h2><i></i></div>
     <div class="cell">
       <p><a class="mail" href="mailto:e.ivimeycook@gmail.com">e.ivimeycook@gmail.com</a></p>
@@ -708,6 +710,13 @@ h2.head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing
 <script>
 var CALM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 var ORCID = '0000-0003-4910-0443';
+var LABEL = {ageing:'Ageing', environmental:'Environment', open:'Open science',
+  meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
+function esc(s) {
+  return (s || '').replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+  });
+}
 
 /* ---------- chrome: theme, clock, reveals, section spy ---------- */
 (function () {
@@ -742,9 +751,6 @@ var ORCID = '0000-0003-4910-0443';
   sizeInput.value = startSize;
   applySize(startSize, false);
   sizeInput.addEventListener('input', function () { applySize(parseInt(sizeInput.value, 10), true); });
-
-  function go() { root.classList.add('ready'); }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else addEventListener('load', go);
 
   var clock = document.getElementById('clock');
   function tick() {
@@ -797,7 +803,7 @@ var ORCID = '0000-0003-4910-0443';
   // solves S(t) = u for t by bisection, for the two models below whose
   // inverse survivorship has no closed form - 40 halvings is far more
   // precision than a background decoration needs
-function invert(S, u, hi) {
+  function invert(S, u, hi) {
     var lo = 0; hi = hi || XMAX * 2;
     for (var i = 0; i < 40; i++) {
       var mid = (lo + hi) / 2;
@@ -848,7 +854,7 @@ function invert(S, u, hi) {
 
   var model = MODELS[Math.floor(Math.random() * MODELS.length)];
   var built = model.make();
-    (function calibrate() {
+  (function calibrate() {
     var xT = invert(built.S, 0.05, XMAX * 6);
     var k = XMAX / xT;
     var rawS = built.S, rawSample = built.sample;
@@ -1044,8 +1050,6 @@ function invert(S, u, hi) {
     ['health', ['healthcare', 'clinical', 'prostate', 'cancer', 'mediterranean', 'epic-norfolk',
       'medical', 'nursing', 'patient*', 'epidemiolog*', 'biomedical']]
   ];
-  var LABEL = {ageing:'Ageing', environmental:'Environment', open:'Open science',
-    meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
 
   /* Force the themes for one work when the keywords cannot reasonably reach it.
      `match` is tested, lower case, against the DOI and against the title, so
@@ -1194,11 +1198,6 @@ function invert(S, u, hi) {
     return out;
   }
 
-  function esc(s) {
-    return (s || '').replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  }
   function key(t) { return (t || '').toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 48); }
 
   var ALL = [], state = { filter: 'all', q: '', year: null }, peak = 0;
@@ -1356,8 +1355,6 @@ function invert(S, u, hi) {
     }).join('');
   }
 
-  function feed() { /* the masthead no longer carries a feed indicator */ }
-
   function boot() {
     buildPlot(); buildBars(); buildOpen(); render();
     document.dispatchEvent(new CustomEvent('recordready', { detail: ALL }));
@@ -1370,7 +1367,6 @@ function invert(S, u, hi) {
                c: ov || themesOf(p.t, p.j), s: p.s || statusOf('', p.j, p.u) };
     });
     boot();
-    feed('Feed: hand-kept', false);
     document.getElementById('rowNote').innerHTML =
       '<p class="note">The live ORCID feed could not be reached, so this is the fallback record. ' +
       'The current version is always at <a href="https://orcid.org/' + ORCID + '" target="_blank" rel="noopener">orcid.org/' + ORCID + '</a>.</p>';
@@ -1387,7 +1383,7 @@ function invert(S, u, hi) {
         clearTimeout(timer);
         var parsed = parse(data);
         if (!parsed.length) throw new Error('empty');
-        ALL = parsed; boot(); feed('Feed: live', true);
+        ALL = parsed; boot();
       })
       .catch(function () { clearTimeout(timer); useFallback(); });
   }
@@ -1450,8 +1446,6 @@ function invert(S, u, hi) {
   if (!paperCv || !paperCv.getContext) return;
 
   var SELF = /ivimey/i;
-  var LABELS = {ageing:'Ageing', environmental:'Environment', open:'Open science',
-    meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
   var G = { papers: null, people: null };
 
   function panelFail(cv, msg) {
@@ -1876,11 +1870,14 @@ function zoomBy(k, mx, my) {
       }
       tipEl.innerHTML = opts.tip(hot);
       tipEl.style.opacity = 1;
-      var w = tipEl.offsetWidth, h = tipEl.offsetHeight;
+      // the text-size slider zooms <main>: the canvas is measured in on-screen
+      // pixels, but the tooltip's left/top are CSS pixels that get zoomed again
+      var z = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tscale')) || 1;
+      var w = tipEl.offsetWidth * z, h = tipEl.offsetHeight * z;
       var x = Math.min(Math.max(sx(hot) + 14, 6), W - w - 6);
       var y = Math.min(Math.max(sy(hot) - h - 12, 6), H - h - 6);
-      tipEl.style.left = x + 'px';
-      tipEl.style.top = y + 'px';
+      tipEl.style.left = (x / z) + 'px';
+      tipEl.style.top = (y / z) + 'px';
     }
 
     function loop() { step(); draw(); tip(); raf = requestAnimationFrame(loop); }
@@ -2051,7 +2048,7 @@ cv.addEventListener('pointerleave', function () {
     var byDoi = {};
     records.forEach(function (p) { if (p.d) byDoi[p.d] = p; });
 
-    var filter = dois.map(function (d) { return 'doi:' + d; }).join(',');
+    var filter = dois.map(function (d) { return 'doi:' + encodeURIComponent(d); }).join(',');
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
     var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 12000);
 
@@ -2146,9 +2143,9 @@ cv.addEventListener('pointerleave', function () {
         document.dispatchEvent(new CustomEvent('showpaper', { detail: n.d.t }));
       },
       tip: function (n) {
-        return escapeHtml(n.d.t) + '<b>' + (n.d.y || '') +
-          (n.d.j ? ' &#183; ' + escapeHtml(n.d.j) : '') +
-          (n.d.c ? ' &#183; ' + (LABELS[n.d.c] || n.d.c) : '') +
+        return esc(n.d.t) + '<b>' + (n.d.y || '') +
+          (n.d.j ? ' &#183; ' + esc(n.d.j) : '') +
+          (n.d.c ? ' &#183; ' + (LABEL[n.d.c] || n.d.c) : '') +
           (n.d.pre ? ' &#183; preprint' : '') +
           (n.d.ids.length ? '' : ' &#183; no author list from Crossref yet') +
           '<br>Click to find it below</b>';
@@ -2196,7 +2193,7 @@ cv.addEventListener('pointerleave', function () {
       labels: function (n) { return n.d.n >= 3 ? n.d.name : null; },
       click: function (n) { openPerson(n.d); },
       tip: function (n) {
-        return escapeHtml(n.d.name) + '<b>' + (n.d.n === 1 ? 'one work' : n.d.n + ' works') +
+        return esc(n.d.name) + '<b>' + (n.d.n === 1 ? 'one work' : n.d.n + ' works') +
           ' together<br>Click to list them</b>';
       }
     });
@@ -2217,14 +2214,14 @@ cv.addEventListener('pointerleave', function () {
       return (b.y || 0) - (a.y || 0) || String(a.t).localeCompare(String(b.t));
     });
     panel.innerHTML =
-      '<header><h3>' + escapeHtml(p.name) +
+      '<header><h3>' + esc(p.name) +
         '<em>' + (works.length === 1 ? 'one work' : works.length + ' works') + ' together</em></h3>' +
         '<button type="button" class="x" aria-label="Close">&#215;</button></header>' +
       '<ol>' + works.map(function (w, i) {
         return '<li><button type="button" class="w" data-i="' + i + '">' +
-          escapeHtml(w.t) +
-          '<b>' + (w.y || '') + (w.j ? ' &#183; ' + escapeHtml(w.j) : '') +
-          (w.s ? ' &#183; ' + escapeHtml(w.s) : '') + '</b></button></li>';
+          esc(w.t) +
+          '<b>' + (w.y || '') + (w.j ? ' &#183; ' + esc(w.j) : '') +
+          (w.s ? ' &#183; ' + esc(w.s) : '') + '</b></button></li>';
       }).join('') + '</ol>';
     panel.hidden = false;
     panel.style.pointerEvents = 'none';
@@ -2249,12 +2246,6 @@ cv.addEventListener('pointerleave', function () {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closePerson();
   });
-
-  function escapeHtml(s) {
-    return (s || '').replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  }
 
   document.addEventListener('recordready', function (e) { go(e.detail); });
 })();

@@ -17,7 +17,8 @@ EIvimeyCook.github.io/
 ├── index.html    # the whole site: markup, styles and scripts
 ├── ed-1600.jpg   # photograph used in the header
 ├── ed-800.jpg    # smaller variant, served to narrow viewports
-├── Ed.JPG        # the original, full-resolution photograph
+├── CITATION.cff  # citation metadata for GitHub's "Cite this repository"
+├── LICENSE.md    # MIT licence
 └── README.md
 ```
 
@@ -41,7 +42,7 @@ After the record loads, one request goes to
 [Crossref](https://api.crossref.org/), filtered to the DOIs the record already
 holds, and returns the author list for each work.
 
-- **Map of papers** puts one node per work and joins two works that share an author.
+- **Map of papers** puts one node per work and joins two works that share at least one co-author besides me.
   Node size is the number of authors, colour is the primary theme, and works of the
   same theme attract one another so the map groups by subject. **Preprints are their
   own group** whatever their subject, and are drawn hollow. The
@@ -56,7 +57,7 @@ holds, and returns the author list for each work.
 
 ## The background
 
-The curve behind the page is a survivorship simulation tied to scroll position — one of five textbook mortality models, picked at random each time the page loads: Gompertz, Gompertz–Makeham, Weibull, Exponential, and Siler. A cohort of individuals, their lifespans sampled from whichever model was picked, thins out as you descend, and l(x) is traced across the viewport. The colophon at the foot of the page names and describes the model this load landed on. Each model is also rescaled at load time so its own "98% dead" point falls just shy of the literal foot of the page — otherwise the Gompertz-shaped models finish early and Exponential barely starts g by the time you've actually scrolled to the bottom. 
+The curve behind the page is a survivorship simulation tied to scroll position — one of five textbook mortality models, picked at random each time the page loads: Gompertz, Gompertz–Makeham, Weibull, Exponential, and Siler. A cohort of individuals, their lifespans sampled from whichever model was picked, thins out as you descend, and l(x) is traced across the viewport. The colophon at the foot of the page names and describes the model this load landed on. Each model is also rescaled at load time so its own "95% dead" point lands at the foot of the page — otherwise the Gompertz-shaped models finish early and Exponential barely starts by the time you've actually scrolled to the bottom. 
 
 ## Citation
 

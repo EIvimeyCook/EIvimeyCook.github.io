@@ -33,7 +33,7 @@ EIvimeyCook.github.io/
 | 05 | Output | `#output` | Works per year, and the spread across themes |
 | 06 | Publications | `#record` | The full filterable record |
 | 07 | Open science | `#open` | SORTEE roles, editing, and an auto-filled paper list |
-| 08 | Tools & apps | `#tools` | R packages and Shiny apps |
+| 08 | Tools & apps | `#tools` | Shiny and web apps |
 | 09 | Contact | `#contact` | Email, profile links |
 
 ## The two maps
@@ -51,8 +51,8 @@ holds, and returns the author list for each work.
   redistributes into the space instead of leaving holes.
 - **Map of co-authors** puts one node per person and joins two people who appear on
   the same work. Node size is the number of works shared. **Clicking a person lists
-  what the two of them wrote**, and clicking any title in that list hands off to the
-  record below, which finds and flashes the row. Escape, the close button, or a
+  what we've written together**, and clicking any title in that list hands off to the
+  Publications list below, which finds and flashes the row. Escape, the close button, or a
   press on the canvas dismisses the list.
 
 ## The background

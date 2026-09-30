@@ -458,7 +458,7 @@ main.rig{zoom:var(--tscale,1)}
     <a href="#people">People</a>
     <a href="#research">Research</a>
     <a href="#output">Output</a>
-    <a href="#record">Record</a>
+    <a href="#record">Publications</a>
     <a href="#open">Open science</a>
     <a href="#tools">Tools</a>
     <a href="#contact">Contact</a>
@@ -511,7 +511,7 @@ main.rig{zoom:var(--tscale,1)}
       <div class="prose">
         <p>I'm interested in understanding and investigating the huge diversity of ageing patterns that exists across the tree of life, from insects with elaborate parental care to fish, worms and birds.</p>
         <p>My current research focuses on <strong>evolutionary theory, maternal senescence, the inter- and transgenerational effects of parental age and diet, and thermal tolerance across a range of study systems.</strong> Underpinning all of this work is a strong commitment to <strong>open science</strong> and to improving the reproducibility of research in ecology and evolutionary biology.</p>
-        <p>I completed my PhD at the University of Edinburgh with Dr Jacob Moorad, where I studied maternal ageing in the burying beetle <em>Nicrophorus vespilloides</em>. I subsequently held postdoctoral positions at UEA with Prof. Alexei Maklakov, working on the nematode worm <em>C. elegans</em>, and at the University of Glasgow with Prof. Pat Monaghan, working on zebra finches, before joining UEA as a Lecturer.</p>
+        <p>I completed my PhD at the University of Edinburgh with Dr Jacob Moorad, where I studied maternal ageing in the burying beetle <em>Nicrophorus vespilloides</em>. I subsequently held postdoctoral positions at UEA with Prof Alexei Maklakov, working on the nematode <em>Caenorhabditis elegans</em>, and at the University of Glasgow with Prof Pat Monaghan, working on zebra finches, before joining UEA as a lecturer.</p>
       </div>
     </div>
     <div class="cell">
@@ -527,7 +527,7 @@ main.rig{zoom:var(--tscale,1)}
         <h3>Previously</h3>
         <ol class="past">
           <li><p class="r">Postdoc &#183; University of Glasgow</p><p class="w">with Prof Pat Monaghan &#183; zebra finch</p><p class="p">Intergenerational transfer of ageing: the Lansing Effect</p></li>
-          <li><p class="r">Postdoc &#183; University of East Anglia</p><p class="w">with Prof Alexei Maklakov &#183; <em>Caenorhabditis elegans</em></p><p class="p">The cost of longevity: transgenerational consequences of parental lifespan extension</p></li>
+          <li><p class="r">Postdoc &#183; University of East Anglia</p><p class="w">with Prof Alexei Maklakov &#183; <em>C. elegans</em></p><p class="p">The cost of longevity: transgenerational consequences of parental lifespan extension</p></li>
           <li><p class="r">PhD &#183; University of Edinburgh</p><p class="w">with Dr Jacob Moorad &#183; burying beetle</p><p class="p">Experimental &amp; comparative analyses of maternal age and senescence</p></li>
         </ol>
       </div>
@@ -538,7 +538,7 @@ main.rig{zoom:var(--tscale,1)}
     <div class="sechead"><span class="sn">02</span><h2>Map of papers</h2><i></i></div>
     <div class="cell net">
       <div id="paperWrap" style="position:relative;display:flex;flex-direction:column;flex:1">
-        <canvas id="paperNet" role="img" aria-label="Network diagram of publications, joined where they share an author. The same works are listed, in accessible form, in the Publications section below."></canvas>
+        <canvas id="paperNet" role="img" aria-label="Network diagram of publications, joined where they share a co-author besides me. The same works are listed, in accessible form, in the Publications section below."></canvas>
         <div class="tipbox" id="paperTip"></div>
         <div class="netload" id="paperLoad"><span>Fetching author lists</span><b></b></div>
         <div class="zoomctl">
@@ -551,7 +551,7 @@ main.rig{zoom:var(--tscale,1)}
         <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
         <span id="paperCount"></span>
       </div>
-      <p class="cap tag">One node per work in the record, joined where two works share at least one co-author besides me. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
+      <p class="cap tag">One node per work listed in Publications, joined where two works share at least one co-author besides me. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
     </div>
   </section>
 
@@ -569,7 +569,7 @@ main.rig{zoom:var(--tscale,1)}
   <button type="button" class="zbtn" data-z="reset" aria-label="Reset zoom">&#8634;</button>
 </div>
       </div>
-      <p class="cap tag"><span id="peopleCount"></span>One node per co-author, joined where two people appear on the same work. Node size is the number of works shared with me. Click a person to list what we've written together, and any title in that list to find it in the record below. Drawn from Crossref author lists, so it reflects what publishers have deposited. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
+      <p class="cap tag"><span id="peopleCount"></span>One node per co-author, joined where two people appear on the same work. Node size is the number of works shared with me. Click a person to list what we've written together, and any title in that list to find it in Publications below. Drawn from Crossref author lists, so it reflects what publishers have deposited. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
     </div>
   </section>
 
@@ -578,7 +578,7 @@ main.rig{zoom:var(--tscale,1)}
     <div class="cell strand">
       <p class="n">01</p>
       <h3>Ageing &amp; senescence</h3>
-      <p>Understanding why senescence evolves and why ageing varies so dramatically across species. This includes inter- and transgenerational effects of parental age on offspring life histories, including maternal-age effects, the Lansing Effect, and the evolutionary costs of longevity.</p>
+      <p>Understanding why senescence evolves and why ageing varies so dramatically across species. This includes inter- and transgenerational effects of parental age on offspring life histories, such as maternal-age effects, the Lansing Effect, and the evolutionary costs of longevity.</p>
     </div>
     <div class="cell strand">
       <p class="tag">&nbsp;</p>
@@ -654,13 +654,13 @@ main.rig{zoom:var(--tscale,1)}
   <section class="grid rv" id="tools">
     <div class="sechead"><span class="sn">08</span><h2>Tools &amp; apps</h2><i></i></div>
     <div class="cell">
-      <p class="prose">Open-source Shiny and web apps I've built to help support reproducible research.</p>
+      <p class="prose">Open-source Shiny and web apps I've built to support reproducible research.</p>
       <div class="kit">
         <div class="item"><div><h3>shinyDigitise</h3><p>A point-and-click GUI for the metaDigitise package, to pull data straight from published figures.</p><a class="go" href="https://github.com/EIvimeyCook/shinyDigitise" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
         <div class="item"><div><h3>READMEBuilder</h3><p>A Shiny app that walks you through writing a high-quality README for research data and code.</p><a class="go" href="https://github.com/EIvimeyCook/READMEBuilder" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>metRscreen</h3><p>A Shiny app for screening records in meta-analyses and systematic reviews in R.</p><a class="go" href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>DCQC Web App</h3><p>A web app for data &amp; code quality control under the SORTEE guidelines.</p><a class="go" href="https://eivimeycook.github.io/DCQC/" target="_blank" rel="noopener">Live app &#8599;</a><a class="go" href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Web app</p></div>
-        <div class="item"><div><h3>DCQC Shiny App</h3><p>A Shiny app for data &amp; code quality control under the SORTEE guidelines.</p><a class="go" href="https://github.com/SORTEE/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>metRscreen</h3><p>A Shiny app for screening records in meta-analyses and systematic reviews.</p><a class="go" href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>DCQC Shiny App</h3><p>A Shiny app for data &amp; code quality control following the SORTEE guidelines.</p><a class="go" href="https://github.com/SORTEE/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <div class="item"><div><h3>DCQC Web App</h3><p>The same DCQC app, running entirely in your browser, with nothing to install.</p><a class="go" href="https://eivimeycook.github.io/DCQC/" target="_blank" rel="noopener">Live app &#8599;</a><a class="go" href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Web app</p></div>
         <div class="item"><div><h3>shinySim</h3><p>A Shiny app for structured, reproducible simulations in ecology &amp; evolution.</p><a class="go" href="https://github.com/squidgroup/shinySim" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
         <div class="item"><div><h3>disappR</h3><p>A Shiny app to model ageing and selective [dis]appearance.</p><a class="go" href="https://github.com/EIvimeyCook/disappR" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
       </div>
@@ -683,8 +683,8 @@ main.rig{zoom:var(--tscale,1)}
       <p class="tag">Colophon</p>
       <p class="foot">Set in Archivo and DM Mono.<br>
         Publications on this page update automatically from my
-        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>,
-        no rebuild required. Author lists come from
+        <a href="https://orcid.org/0000-0003-4910-0443" target="_blank" rel="noopener">ORCID record</a>
+        &#8212; no rebuild required. Author lists come from
         <a href="https://www.crossref.org/" target="_blank" rel="noopener">Crossref</a>.<br>
         The curve behind the page is a <span id="curveModel">Gompertz</span> survivorship
         simulation &#8212; <span id="curveBlurb">a hazard that rises exponentially with age</span> &#8212;
@@ -829,7 +829,7 @@ function esc(s) {
         var S = function (x) { return Math.exp(-K * x - (A / B) * (Math.exp(B * x) - 1)); };
         return { S: S, sample: function () { return invert(S, Math.random()); } };
       } },
-    { name: 'Weibull', blurb: 'a power-law hazard, steeper with age than Gompertz’s exponential one',
+    { name: 'Weibull', blurb: 'a hazard that rises as a power of age, rather than exponentially as in Gompertz',
       make: function () {
         var LAM = 73, K = 3;
         var S = function (x) { return Math.exp(-Math.pow(x / LAM, K)); };
@@ -2091,7 +2091,7 @@ cv.addEventListener('pointerleave', function () {
       .catch(function () {
         clearTimeout(timer);
         var msg = 'Author lists could not be retrieved from Crossref, so this network is not drawn. ' +
-          'The works themselves are listed in the record above.';
+          'The works themselves are listed in Publications below.';
         panelFail(paperCv, msg);
         panelFail(peopleCv, msg);
 

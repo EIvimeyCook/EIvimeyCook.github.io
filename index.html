@@ -904,8 +904,12 @@ function esc(s) {
 
   function draw() {
     var age = shown * XMAX;
-    var mx = Math.max(W * 0.06, 26), my = Math.max(H * 0.12, 40);
-    var pw = W - mx * 2, ph = H - my * 2;
+    // keep the curve and cohort inside the page column (max 1560px, centred),
+    // not spread across the empty margins of a wide window
+    var colW = Math.min(W, 1560), x0 = (W - colW) / 2;
+    var inset = Math.max(colW * 0.06, 26);
+    var mx = x0 + inset, my = Math.max(H * 0.12, 40);
+    var pw = colW - inset * 2, ph = H - my * 2;
 
     ctx.clearRect(0, 0, W, H);
 

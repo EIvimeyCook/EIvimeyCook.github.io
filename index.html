@@ -28,7 +28,8 @@
       saved = (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
     }
     r.dataset.theme = saved;
-    if (savedSize) r.style.setProperty('--tscale', (parseInt(savedSize, 10) / 100));
+    var pct = parseInt(savedSize, 10);
+    if (pct >= 85 && pct <= 140) r.style.setProperty('--tscale', pct / 100);
     r.classList.add('js');
   })();
 </script>
@@ -46,6 +47,19 @@
   --signal:#ff5c3a;
   --signal-2:#8fb8c8;
   --grain:.05;
+  /* paper-map theme colours. Every pair stays apart for everyone, colour-blind
+     readers included (all-pairs OKLab ΔE ≥ 8 under protan/deutan simulation,
+     ≥ 15 for normal vision), in this mode and the light one, and each is ≥ 3:1
+     against the ground. They are spread in lightness as well as hue, because
+     seven hues at one lightness cannot all be told apart. Each theme keeps its
+     hue across the two modes; only the step changes. */
+  --th-ageing:#c8635d;
+  --th-open:#8dbefd;
+  --th-environmental:#89ce97;
+  --th-meta:#9964e5;
+  --th-pedagogy:#df9b44;
+  --th-health:#f07ec2;
+  --th-other:#f1efe8;
 
   --sans:"Archivo",-apple-system,"Helvetica Neue",Arial,sans-serif;
   --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -70,13 +84,21 @@
   --signal:#c22a13;
   --signal-2:#356b80;
   --grain:.028;
+  --th-ageing:#721216;
+  --th-open:#5682bb;
+  --th-environmental:#2c6d3e;
+  --th-meta:#50038f;
+  --th-pedagogy:#b17000;
+  --th-health:#ab3f84;
+  --th-other:#141312;
 }
 
 *,*::before,*::after{box-sizing:border-box}
 /* an author-level display: rule outranks the browser's own [hidden] rule, so
    anything toggled with the hidden attribute needs this to actually disappear */
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%}
+/* a link to a section lands it below the sticky masthead, not under it */
+html{-webkit-text-size-adjust:100%;scroll-padding-top:var(--navh)}
 body{
   margin:0;background:var(--ground);color:var(--ink-2);
   font-family:var(--sans);font-size:15px;line-height:1.55;
@@ -236,8 +258,13 @@ main.rig{zoom:var(--tscale,1)}
   border:1.5px solid currentColor;background:currentColor;transition:.2s}
 .netbar button[aria-pressed="false"]{color:var(--ink-3)}
 .netbar button[aria-pressed="false"]::before{background:transparent}
-.netbar button:hover{border-color:var(--signal);color:var(--signal)}
+@media (hover:hover){.netbar button:not(:disabled):hover{border-color:var(--signal);color:var(--signal)}}
 .netbar span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3)}
+.mapkey{display:flex;flex-wrap:wrap;gap:.35rem 1rem;flex-basis:100%}
+.mapkey span{display:inline-flex;align-items:center;gap:.4rem;color:var(--ink-2)}
+.mapkey i{width:9px;height:9px;border-radius:50%;display:block;flex:none}
+.mapkey i.hollow{border:1.5px solid var(--ink-3);background:transparent}
+.mapkey i.split{background:linear-gradient(90deg,var(--ink-2) 0 50%,var(--line-2) 50% 100%)}
 
 /* ---------- co-author panel ---------- */
 .netpanel{position:absolute;z-index:4;right:var(--pad);top:var(--pad);
@@ -283,36 +310,73 @@ main.rig{zoom:var(--tscale,1)}
 
 /* ---------- charts ---------- */
 .plot{display:flex;align-items:flex-end;gap:2px;height:118px;margin-top:.4rem}
-.pbar{flex:1;min-width:0;background:none;border:0;padding:0;cursor:pointer;height:100%;
+/* the year label sits in the bar's bottom padding, out of the flow: in the
+   flow it ate into the column, and the tallest bars were squashed to fit */
+.pbar{flex:1;min-width:0;background:none;border:0;padding:0 0 20px;cursor:pointer;height:100%;
   display:flex;flex-direction:column;justify-content:flex-end;position:relative;
   font-family:var(--mono);color:var(--ink-3)}
 .pstack{display:flex;flex-direction:column;justify-content:flex-end;
   height:calc(var(--h) * 100%);min-height:2px;transform:scaleY(0);transform-origin:bottom;
   transition:transform .7s var(--ease) calc(var(--i) * 40ms),height .45s var(--ease)}
 .rv.in .pstack{transform:scaleY(1)}
-.plot.settled .pstack{transition:transform .3s var(--ease),height .4s var(--ease)}
-.pstack i{display:block;transition:height .4s var(--ease),background .2s}
+.plot.settled .pstack{transition:transform .3s var(--ease),height .4s var(--ease),opacity .25s}
+.pstack i{display:block;transition:height .4s var(--ease),background .2s,opacity .25s}
 .pstack .pre{height:calc(var(--pre) * 100%);background:var(--signal-2)}
 .pstack .pub{height:calc(var(--pub) * 100%);background:var(--ink-3)}
-.pbar:hover .pstack .pub,.pbar[aria-pressed="true"] .pstack .pub{background:var(--signal)}
-.pbar span{font-size:9.5px;letter-spacing:.04em;margin-top:5px;text-align:center}
+/* the whole column answers, not one segment: a picked year keeps its colour
+   while the others fade, and a picked status fades the other segment */
+.plot.picked .pbar:not([aria-pressed="true"]) .pstack{opacity:.3}
+.plot[data-status="pub"] .pstack .pre,.plot[data-status="pre"] .pstack .pub{opacity:.25}
+.pbar .yl{position:absolute;left:0;right:0;bottom:0;font-size:9.5px;letter-spacing:.04em;
+  line-height:14px;text-align:center}
+.pbar[aria-pressed="true"] .yl{color:var(--signal);font-weight:600}
+/* hover only where there is a real pointer, so a tap on a phone does not
+   leave the bar it touched stuck in its hover state */
+@media (hover:hover){
+  .pbar:hover .pstack{opacity:.75}
+  .plot.picked .pbar:not([aria-pressed="true"]):hover .pstack{opacity:.55}
+  .plot.picked .pbar[aria-pressed="true"] .pstack{opacity:1}
+  .pbar:hover .yl{color:var(--ink)}
+  .pbar[aria-pressed="true"]:hover .yl{color:var(--signal)}
+  .pbar[data-empty="true"]:hover .pstack{opacity:1}
+}
 .pbar[data-empty="true"]{cursor:default}
 .pbar[data-empty="true"] .pstack i{background:var(--line-2)}
-.key{display:flex;gap:1.1rem;margin-top:.9rem;font-family:var(--mono);font-size:10px;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.key span{display:flex;align-items:center;gap:.4rem}
+.key{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem}
+.key button{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:none;
+  border:1px solid transparent;padding:.22rem .45rem;cursor:pointer;transition:.2s}
+@media (hover:hover){.key button:hover{color:var(--ink);border-color:var(--line-2)}}
+.key button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink-3)}
 .key b{width:9px;height:9px;display:block}
 .key .kp{background:var(--ink-3)}
 .key .kr{background:var(--signal-2)}
-@media (max-width:640px){.plot{height:82px}.pbar span{font-size:8.5px}}
+.pnote{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);margin-top:.7rem;
+  display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:baseline}
+.pnote a,.pnote button{color:var(--signal);border:0;border-bottom:1px solid currentColor;
+  background:none;padding:0;font:inherit;cursor:pointer}
+@media (max-width:640px){.plot{height:82px}.pbar .yl{font-size:8.5px}}
 
 .hbars{margin-top:.3rem}
 .hb{display:grid;grid-template-columns:92px minmax(0,1fr) 2.2rem;gap:.6rem;align-items:center;
-  padding:.32rem 0;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+  padding:.32rem 0;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);
+  width:100%;background:none;border:0;text-align:left;cursor:pointer}
+.hb:disabled{cursor:default}
+.hb:disabled b{min-width:0}
+/* each bar wears its theme's paper-map colour (--c, set per bar); a picked
+   theme keeps it while the others fade, as the year bars do */
+.hb[aria-pressed="true"]{color:var(--ink)}
+.hbars.picked .hb:not([aria-pressed="true"]) b{opacity:.3}
+@media (hover:hover){
+  .hb:not(:disabled):hover{color:var(--ink)}
+  .hb:not(:disabled):hover b{opacity:.75}
+  .hbars.picked .hb:not([aria-pressed="true"]):not(:disabled):hover b{opacity:.55}
+  .hbars.picked .hb[aria-pressed="true"]:hover b{opacity:1}
+}
 .hb span:first-child{letter-spacing:.05em;text-transform:uppercase}
-.hb b{height:7px;background:var(--ink-3);display:block;width:calc(var(--w) * 100%);min-width:2px;
+.hb b{height:7px;background:var(--c,var(--ink-3));display:block;width:calc(var(--w) * 100%);min-width:2px;
   transform:scaleX(0);transform-origin:left;
-  transition:transform .7s var(--ease) calc(var(--i) * 55ms),width .4s var(--ease)}
+  transition:transform .7s var(--ease) calc(var(--i) * 55ms),width .4s var(--ease),opacity .25s}
 .rv.in .hb b{transform:scaleX(1)}
 .hb em{font-style:normal;text-align:right;color:var(--ink)}
 .hb u{display:block;background:var(--panel-2);height:7px}
@@ -331,7 +395,9 @@ main.rig{zoom:var(--tscale,1)}
 .netstate a{color:var(--signal);border-bottom:1px solid currentColor}
 .tipbox{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line-2);
   padding:.45rem .6rem;font-family:var(--mono);font-size:10.5px;color:var(--ink);
-  max-width:min(22rem,calc(100vw - 2.5rem));
+  /* measured against the map, not the window: the text-size zoom enlarges a
+     vw width but leaves the map's own share of the page the same */
+  max-width:min(22rem,calc(100% - 12px));
   opacity:0;transition:opacity .15s;z-index:4;line-height:1.5}
 .tipbox b{color:var(--signal);font-weight:400;display:block;margin-top:.2rem}
 /* The tooltip holds whatever coordinates the last hover gave it, so a window
@@ -353,7 +419,11 @@ main.rig{zoom:var(--tscale,1)}
 .filters{display:flex;flex-wrap:wrap;gap:.35rem}
 .filters button{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
   background:none;border:1px solid var(--line-2);color:var(--ink-3);padding:.28rem .55rem;
-  cursor:pointer;transition:.2s}
+  cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:.4rem}
+/* the theme's paper-map colour, as on the tags below; ringed in the ground
+   colour so it still stands out on a pressed button's red */
+.filters button i{width:7px;height:7px;border-radius:50%;flex:none}
+.filters button[aria-pressed="true"] i{box-shadow:0 0 0 1.5px var(--ground)}
 .filters button:hover{color:var(--ink);border-color:var(--ink-3)}
 .filters button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--ground)}
 .q{font-family:var(--mono);font-size:11.5px;color:var(--ink);background:var(--panel);
@@ -379,10 +449,15 @@ main.rig{zoom:var(--tscale,1)}
 .rec .cls{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
   color:var(--ink-3);line-height:1.6}
 .rec .cls b{color:var(--signal);font-weight:400;display:block}
+/* each theme tag carries a dot in its paper-map colour; the words stay in
+   the ink colour so they read the same in every theme */
+.rec .cls .th{display:inline-flex;align-items:center;gap:.35rem;margin-right:.7rem;white-space:nowrap}
+.rec .cls .th i{width:7px;height:7px;border-radius:50%;flex:none}
 @media (max-width:900px){
   .rec{grid-template-columns:3rem minmax(0,1fr);gap:.4rem 1rem}
   .rec .src,.rec .cls{grid-column:2}
-  .rec .cls b{display:inline}
+  /* on one line with the themes, so it needs its own gap */
+  .rec .cls b{display:inline;margin-right:.7rem}
 }
 .empty{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);padding:1.4rem 0}
 .note{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);border-left:2px solid var(--signal);
@@ -441,6 +516,8 @@ main.rig{zoom:var(--tscale,1)}
 @media (prefers-reduced-motion:reduce){
   .js .rv{opacity:1;transform:none;transition:none}
   .pstack,.hb b{transform:none;transition:none}
+  /* .plot.settled outranks the line above and would bring the motion back */
+  .plot.settled .pstack,.pstack i{transition:none}
   .load{animation:none}
 }
 .skip{position:absolute;left:-9999px}
@@ -552,8 +629,9 @@ main.rig{zoom:var(--tscale,1)}
       <div class="netbar" id="paperBar" hidden>
         <button type="button" id="preToggle" aria-pressed="true">Preprints shown</button>
         <span id="paperCount"></span>
+        <div class="mapkey" id="paperKey" role="group" aria-label="Colour key"></div>
       </div>
-      <p class="cap tag">One node per work listed in Publications, joined where two works share at least one co-author besides me. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the primary theme. Works of the same theme are pulled together, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
+      <p class="cap tag">One node per work listed in Publications, joined where two works share at least one co-author besides me. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the theme, as in the key above and the tags in Publications: a work with more than one theme is split into equal slices, one per theme, in the same order as its tags. Works are pulled together by their first theme, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to pull the layout about. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
     </div>
   </section>
 
@@ -601,11 +679,15 @@ main.rig{zoom:var(--tscale,1)}
     <div class="cell">
       <p class="tag">Output by year</p>
       <div class="plot" id="plot" role="group" aria-label="Filter by year"></div>
-      <div class="key"><span><b class="kp"></b>Published</span><span><b class="kr"></b>Preprint or in review</span></div>
+      <div class="key" id="plotKey" role="group" aria-label="Filter by status">
+        <button data-status="pub" aria-pressed="false"><b class="kp"></b>Published</button>
+        <button data-status="pre" aria-pressed="false"><b class="kr"></b>Preprint or in review</button>
+      </div>
+      <p class="pnote" id="plotNote" aria-live="polite" hidden></p>
     </div>
     <div class="cell">
       <p class="tag">Distribution by theme</p>
-      <div class="hbars" id="hbars"></div>
+      <div class="hbars" id="hbars" role="group" aria-label="Filter by theme"></div>
     </div>
   </section>
 
@@ -616,7 +698,7 @@ main.rig{zoom:var(--tscale,1)}
         <div class="filters" id="filters" role="group" aria-label="Filter by theme"></div>
         <input class="q" id="q" type="search" placeholder="search" aria-label="Search publications">
       </div>
-      <div id="rows" class="rows" aria-live="polite">
+      <div id="rows" class="rows">
         <div class="load"></div><div class="load"></div><div class="load"></div><div class="load"></div>
       </div>
       <div id="rowNote"></div>
@@ -752,6 +834,8 @@ function esc(s) {
   var savedSize = null;
   try { savedSize = localStorage.getItem('eic-textsize'); } catch (e) {}
   var startSize = savedSize ? parseInt(savedSize, 10) : 100;
+  // anything the slider itself could not have produced falls back to 100%
+  if (!(startSize >= 85 && startSize <= 140)) startSize = 100;
   sizeInput.value = startSize;
   applySize(startSize, false);
   sizeInput.addEventListener('input', function () { applySize(parseInt(sizeInput.value, 10), true); });
@@ -1127,14 +1211,18 @@ function esc(s) {
      identifies the server: EdArXiv, MetaArXiv, PsyArXiv and OSF Preprints all
      carry "osf.io" in the *suffix*, because the Center for Open Science hosts
      them all, so a substring test for "osf.io" files every one of them under
-     OSF. Test the prefix, anchored, and never the suffix. These labels are a
-     first guess only: Crossref is asked for the deposited server name and
-     corrects them in place when it answers (see the sourcenames event). */
+     OSF. Test the prefix, anchored, and never the suffix. A preprint whose
+     prefix is not listed here is labelled plain "Preprint" at first, and
+     Crossref is then asked for the server's deposited name, which replaces
+     that label when it answers (see nameServers and the sourcenames event). */
   var SERVERS = {
     '10.32942': 'EcoEvoRxiv',
     '10.35542': 'EdArXiv',
     '10.31222': 'MetaArXiv',
     '10.31219': 'OSF Preprints',
+    // OSF's own DataCite prefix: Crossref holds nothing for it, so it can only
+    // be named here
+    '10.17605': 'OSF',
     '10.1101':  'bioRxiv',
     '10.48550': 'arXiv',
     '10.21203': 'Research Square',
@@ -1212,8 +1300,11 @@ function esc(s) {
   }
 
   function key(t) { return (t || '').toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 48); }
+  // a preprint and its published version usually share a title, so a row is
+  // known by its DOI where it has one, and by its title only where it has not
+  function rowKey(p) { return p.d || key(p.t); }
 
-  var ALL = [], state = { filter: 'all', q: '', year: null }, peak = 0;
+  var ALL = [], state = { filter: 'all', q: '', year: null, status: null }, peak = 0;
   var rows = document.getElementById('rows');
   var plot = document.getElementById('plot');
   var hbars = document.getElementById('hbars');
@@ -1223,7 +1314,8 @@ function esc(s) {
   document.getElementById('filters').innerHTML =
     '<button data-filter="all" aria-pressed="true">All</button>' +
     ORDER.map(function (c) {
-      return '<button data-filter="' + c + '" aria-pressed="false">' + LABEL[c] + '</button>';
+      return '<button data-filter="' + c + '" aria-pressed="false">' +
+             '<i style="background:var(--th-' + c + ')"></i>' + LABEL[c] + '</button>';
     }).join('');
 
   function passesTheme(p) {
@@ -1232,13 +1324,47 @@ function esc(s) {
     if (q && (p.t + ' ' + p.j + ' ' + p.y).toLowerCase().indexOf(q) < 0) return false;
     return true;
   }
-  function matches(p) { return passesTheme(p) && (!state.year || p.y === state.year); }
+  function matches(p) {
+    return passesTheme(p) && (!state.year || p.y === state.year) &&
+           (!state.status || (state.status === 'pre') === isPre(p));
+  }
   function isPre(p) { return p.s === 'Preprint' || p.s === 'In review'; }
 
+  /* The year bars, the status key, the theme bars and the theme buttons all
+     write to the same state, so every one of them is redrawn from it here. */
+  function syncControls() {
+    plot.classList.toggle('picked', !!state.year);
+    hbars.classList.toggle('picked', state.filter !== 'all');
+    if (state.status) plot.dataset.status = state.status; else delete plot.dataset.status;
+    plot.querySelectorAll('.pbar').forEach(function (x) {
+      x.setAttribute('aria-pressed', parseInt(x.dataset.year, 10) === state.year ? 'true' : 'false');
+    });
+    document.querySelectorAll('#plotKey button').forEach(function (x) {
+      x.setAttribute('aria-pressed', x.dataset.status === state.status ? 'true' : 'false');
+    });
+    document.querySelectorAll('#filters button, #hbars .hb').forEach(function (x) {
+      x.setAttribute('aria-pressed', x.dataset.filter === state.filter ? 'true' : 'false');
+    });
+
+    var note = document.getElementById('plotNote');
+    var q = state.q.trim();
+    if (!state.year && !state.status && state.filter === 'all' && !q) { note.hidden = true; return; }
+    var n = ALL.filter(matches).length, bits = [];
+    if (state.year) bits.push(state.year);
+    if (state.status) bits.push(state.status === 'pre' ? 'preprint or in review' : 'published');
+    if (state.filter !== 'all') bits.push(LABEL[state.filter].toLowerCase());
+    if (q) bits.push('“' + q + '”');
+    note.innerHTML = '<span>' + n + (n === 1 ? ' record' : ' records') + ' &#183; ' + bits.map(function (b) { return esc(String(b)); }).join(' &#183; ') + '</span>' +
+                     '<a href="#record">view list</a><button type="button" data-clear>clear</button>';
+    note.hidden = false;
+  }
+  function refresh() { syncControls(); syncPlot(); render(); }
+
   /* Crossref knows which server a preprint was posted to, because the server
-     deposited the record. Where the label here was guessed from the DOI prefix,
-     let the deposited name replace it. A journal title from ORCID is never
-     touched: only a guess can be corrected. */
+     deposited the record. Where the label here is only a guess, let the
+     deposited name replace it. A journal title from ORCID is never touched:
+     only a guess can be corrected. The search reads the source column, so the
+     counts and bars are redrawn along with the list. */
   document.addEventListener('sourcenames', function (e) {
     var m = e.detail || {}, changed = false;
     ALL.forEach(function (p) {
@@ -1246,7 +1372,7 @@ function esc(s) {
       var name = m[p.d];
       if (name && name !== p.j) { p.j = name; changed = true; }
     });
-    if (changed) { render(); buildOpen(); }
+    if (changed) { refresh(); buildOpen(); }
   });
 
   function render() {
@@ -1255,15 +1381,17 @@ function esc(s) {
 
     var items = ALL.filter(matches);
     if (!items.length) {
-      rows.innerHTML = '<p class="empty">No records match. Clear the search, or pick another year or theme.</p>';
+      rows.innerHTML = '<p class="empty">No records match. Clear the search, or pick another year, status or theme.</p>';
       return;
     }
 
     rows.innerHTML = items.map(function (p) {
       // status and themes both shown, so nothing is ever left looking unclassified
       var st = p.s ? '<b>' + esc(p.s) + '</b>' : '';
-      var th = (p.c || []).map(function (c) { return LABEL[c]; }).join(', ');
-      return '<a class="rec" data-k="' + key(p.t) + '" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '"' +
+      var th = (p.c || []).map(function (c) {
+        return '<span class="th"><i style="background:var(--th-' + c + ')"></i>' + LABEL[c] + '</span>';
+      }).join('');
+      return '<a class="rec" data-k="' + esc(rowKey(p)) + '" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '"' +
              ' target="_blank" rel="noopener">' +
              '<span class="yr">' + (p.y || '&#8212;&#8212;') + '</span>' +
              '<span class="ti">' + esc(p.t) + '</span>' +
@@ -1286,16 +1414,6 @@ function esc(s) {
           { duration: 380, delay: Math.min(i * 18, 280), easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
       }
     });
-  }
-
-  function countUp(el, to) {
-    if (CALM) { el.textContent = to; return; }
-    var t0 = performance.now();
-    (function step(now) {
-      var k = Math.min((now - t0) / 850, 1);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
-      if (k < 1) requestAnimationFrame(step);
-    })(t0);
   }
 
   function tally(list) {
@@ -1324,9 +1442,10 @@ function esc(s) {
       return '<button class="pbar" style="--h:' + f + ';--i:' + i +
              ';--pre:' + (n ? e.pre / n : 0) + ';--pub:' + (n ? e.pub / n : 0) + '"' +
              ' data-year="' + y + '" aria-pressed="false"' +
+             ' data-empty="' + (n ? 'false' : 'true') + '" aria-disabled="' + (n ? 'false' : 'true') + '"' +
              ' aria-label="' + y + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review">' +
              '<span class="pstack"><i class="pre"></i><i class="pub"></i></span>' +
-             '<span>' + String(y).slice(2) + '</span></button>';
+             '<span class="yl">' + String(y).slice(2) + '</span></button>';
     }).join('');
     setTimeout(function () { plot.classList.add('settled'); }, 1300);
   }
@@ -1335,12 +1454,16 @@ function esc(s) {
     if (!peak) return;
     var c = tally(ALL.filter(passesTheme));
     plot.querySelectorAll('.pbar').forEach(function (b) {
-      var e = c[parseInt(b.dataset.year, 10)] || { pub: 0, pre: 0 };
+      var y = parseInt(b.dataset.year, 10);
+      var e = c[y] || { pub: 0, pre: 0 };
       var n = e.pub + e.pre;
+      // with a status picked, a year with none of that status has nothing to show
+      var m = state.status === 'pre' ? e.pre : state.status === 'pub' ? e.pub : n;
       b.style.setProperty('--h', n / peak);
       b.style.setProperty('--pre', n ? e.pre / n : 0);
       b.style.setProperty('--pub', n ? e.pub / n : 0);
-      b.dataset.empty = n ? 'false' : 'true';
+      b.dataset.empty = m ? 'false' : 'true';
+      b.setAttribute('aria-disabled', !m && state.year !== y ? 'true' : 'false');
       b.setAttribute('aria-label', b.dataset.year + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review');
     });
   }
@@ -1351,8 +1474,10 @@ function esc(s) {
     var top = Math.max.apply(null, ORDER.map(function (c) { return counts[c] || 0; })) || 1;
     hbars.innerHTML = ORDER.map(function (c, i) {
       var n = counts[c] || 0;
-      return '<div class="hb" style="--w:' + (n / top) + ';--i:' + i + '">' +
-             '<span>' + LABEL[c] + '</span><u><b></b></u><em>' + n + '</em></div>';
+      return '<button class="hb" style="--w:' + (n / top) + ';--i:' + i + ';--c:var(--th-' + c + ')"' +
+             ' data-filter="' + c + '" aria-pressed="false"' + (n ? '' : ' disabled') +
+             ' aria-label="' + LABEL[c] + ': ' + n + (n === 1 ? ' record' : ' records') + '">' +
+             '<span>' + LABEL[c] + '</span><u><b></b></u><em>' + n + '</em></button>';
     }).join('');
   }
 
@@ -1404,33 +1529,53 @@ function esc(s) {
   document.getElementById('filters').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     state.filter = b.dataset.filter;
-    this.querySelectorAll('button').forEach(function (x) {
-      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
-    });
-    syncPlot(); render();
+    refresh();
+  });
+
+  // a theme bar works like its button below, and a second click lets it go
+  hbars.addEventListener('click', function (e) {
+    var b = e.target.closest('.hb'); if (!b) return;
+    state.filter = state.filter === b.dataset.filter ? 'all' : b.dataset.filter;
+    refresh();
   });
 
   plot.addEventListener('click', function (e) {
     var b = e.target.closest('.pbar');
-    if (!b || b.dataset.empty === 'true') return;
+    if (!b) return;
     var y = parseInt(b.dataset.year, 10);
+    // a picked year a later theme, status or search has emptied can still be let go
+    if (b.dataset.empty === 'true' && state.year !== y) return;
     state.year = state.year === y ? null : y;
-    this.querySelectorAll('.pbar').forEach(function (x) {
-      x.setAttribute('aria-pressed', parseInt(x.dataset.year, 10) === state.year ? 'true' : 'false');
-    });
-    render();
+    refresh();
+  });
+
+  document.getElementById('plotKey').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    state.status = state.status === b.dataset.status ? null : b.dataset.status;
+    refresh();
+  });
+
+  document.getElementById('plotNote').addEventListener('click', function (e) {
+    if (!e.target.closest('[data-clear]')) return;
+    state.filter = 'all'; state.year = null; state.status = null; state.q = '';
+    clearTimeout(deb);
+    document.getElementById('q').value = '';
+    refresh();
   });
 
   /* Clicking a node on the paper map lands you on that work in this list. */
   document.addEventListener('showpaper', function (e) {
-    state.filter = 'all'; state.year = null; state.q = '';
+    state.filter = 'all'; state.year = null; state.status = null; state.q = '';
+    // a search still waiting on its debounce would otherwise filter the row away
+    clearTimeout(deb);
     document.getElementById('q').value = '';
-    document.querySelectorAll('#filters button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.filter === 'all' ? 'true' : 'false');
+    refresh();
+    // compared directly, not through a selector, because a DOI can hold
+    // characters a selector would have to escape
+    var row = null;
+    rows.querySelectorAll('.rec').forEach(function (el) {
+      if (!row && el.dataset.k === e.detail) row = el;
     });
-    document.querySelectorAll('.pbar').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    syncPlot(); render();
-    var row = rows.querySelector('.rec[data-k="' + key(e.detail) + '"]');
     if (!row) return;
     row.scrollIntoView({ block: 'center', behavior: CALM ? 'auto' : 'smooth' });
     row.classList.add('flash');
@@ -1442,7 +1587,7 @@ function esc(s) {
   var deb;
   document.getElementById('q').addEventListener('input', function (e) {
     clearTimeout(deb); var v = e.target.value;
-    deb = setTimeout(function () { state.q = v; syncPlot(); render(); }, 140);
+    deb = setTimeout(function () { state.q = v; refresh(); }, 140);
   });
 
   load();
@@ -1463,8 +1608,8 @@ function esc(s) {
 
   function panelFail(cv, msg) {
     var wrap = cv.parentNode;
-    var ld = wrap.querySelector('.netload');
-    if (ld) ld.remove();
+    // the loader, and the zoom buttons and tooltip that only serve a drawn map
+    wrap.querySelectorAll('.netload, .zoomctl, .tipbox').forEach(function (n) { n.remove(); });
     cv.remove();
     var p = document.createElement('p');
     p.className = 'netstate';
@@ -1593,13 +1738,25 @@ function esc(s) {
 
     Object.keys(perDoi).forEach(function (doi) {
       var rec = perDoi[doi].rec;
-      var authors = perDoi[doi].authors;
+      // a deposit can list one person twice (10.32942/x2ss46 has Elina Takola
+      // twice), which would count that work twice towards them
+      var seen = {};
+      var authors = perDoi[doi].authors.filter(function (a) {
+        if (seen[a.id]) return false;
+        seen[a.id] = true;
+        return true;
+      });
 
       papers.push({
         doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u,
-        c: (rec.c || [])[0] || null, n: authors.length || 1,
+        // c, the first theme, decides which cluster a work joins; cs, all of
+        // them in the same order as its tags in the list, colours the node
+        c: (rec.c || [])[0] || null, cs: (rec.c || []).slice(), n: authors.length || 1,
         pre: rec.s === 'Preprint' || rec.s === 'In review',
-        ids: authors.map(function (a) { return a.id; })
+        // co-authors other than me: these are what join two works on the map
+        ids: authors.filter(function (a) { return !SELF.test(a.name); })
+                    .map(function (a) { return a.id; }),
+        listed: authors.length > 0
       });
 
       if (!authors.length) return;  // nothing to add to the co-author graph
@@ -1609,7 +1766,7 @@ function esc(s) {
         people[a.id] = people[a.id] || { id: a.id, name: a.canonName, n: 0, works: [] };
         people[a.id].n++;
         // kept so a click on a person can list what the two of you wrote together
-        people[a.id].works.push({ t: rec.t, y: rec.y, j: rec.j, s: rec.s || '' });
+        people[a.id].works.push({ d: doi, t: rec.t, y: rec.y, j: rec.j, s: rec.s || '' });
         for (var j = i + 1; j < authors.length; j++) {
           var b = authors[j];
           if (b.id === a.id || SELF.test(b.name)) continue;
@@ -1625,7 +1782,7 @@ function esc(s) {
     for (var i = 0; i < papers.length; i++) {
       for (var j = i + 1; j < papers.length; j++) {
         var shared = papers[i].ids.filter(function (x) { return papers[j].ids.indexOf(x) > -1; }).length;
-        if (shared > 1) pedges.push({ a: i, b: j, w: shared });
+        if (shared > 0) pedges.push({ a: i, b: j, w: shared });
       }
     }
 
@@ -1641,23 +1798,42 @@ function esc(s) {
     return { papers: papers, pedges: pedges, people: plist, hedges: hedges };
   }
 
-  /* The name of the preprint server, as the server itself deposited it. Only
+  /* The name of the server a preprint was posted to, as the server deposited
+     it. Crossref keeps that in `institution`, which only the single-work route
+     returns: the list route rejects it outright, and its group-title is usually
+     a subject area ("Evolutionary Biology"), not a server. The DOI prefix
+     already names the server for every prefix SERVERS knows, so only a preprint
+     still labelled plain "Preprint" is looked up, one request each. Only
      posted-content is considered: for a journal article, institution names the
-     authors' universities, which is not what the record's source column means. */
-  function serverNames(items) {
-    var out = {};
-    (items || []).forEach(function (w) {
-      if ((w.type || '') !== 'posted-content') return;
-      var doi = (w.DOI || '').toLowerCase();
-      if (!doi) return;
-      var name = '';
-      var inst = w.institution;
-      if (Array.isArray(inst) && inst.length) name = norm(inst[0] && inst[0].name);
-      else if (inst && inst.name) name = norm(inst.name);
-      if (!name) name = norm(w['group-title']);
-      if (name) out[doi] = name;
+     authors' universities, which is not what the source column means. */
+  function nameServers(items, byDoi) {
+    var unknown = (items || []).filter(function (w) {
+      var rec = byDoi[(w.DOI || '').toLowerCase()];
+      return w.type === 'posted-content' && rec && rec.jg && rec.j === 'Preprint';
+    }).map(function (w) { return w.DOI.toLowerCase(); });
+    if (!unknown.length) return;
+
+    Promise.all(unknown.map(function (doi) {
+      return fetch('https://api.crossref.org/works/' + encodeURIComponent(doi) +
+                   '?mailto=e.ivimeycook@gmail.com', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          var inst = j && j.message && j.message.institution;
+          if (Array.isArray(inst)) inst = inst[0];
+          return [doi, norm(inst && inst.name)];
+        })
+        .catch(function () { return [doi, '']; });
+    })).then(function (pairs) {
+      var names = {};
+      pairs.forEach(function (p) { if (p[1]) names[p[0]] = p[1]; });
+      if (!Object.keys(names).length) return;
+      document.dispatchEvent(new CustomEvent('sourcenames', { detail: names }));
+      // the maps took their own copy of each label when they were built
+      G.papers.forEach(function (p) { if (names[p.doi]) p.j = names[p.doi]; });
+      G.people.forEach(function (q) {
+        q.works.forEach(function (w) { if (names[w.d]) w.j = names[w.d]; });
+      });
     });
-    return out;
   }
 
   /* a small force-directed layout: repulsion, spring edges, gentle centring */
@@ -1706,6 +1882,11 @@ var pinchDist = null, pinchMid = null, pan = null;
       C.sig = cs.getPropertyValue('--signal').trim();
       C.sig2 = cs.getPropertyValue('--signal-2').trim();
       C.ground = cs.getPropertyValue('--ground').trim();
+      // read once per theme, not once per node per frame
+      C.theme = {};
+      Object.keys(THEME_COLOUR).forEach(function (k) {
+        C.theme[k] = cs.getPropertyValue(THEME_COLOUR[k]).trim();
+      });
     }
 
     function size() {
@@ -1845,21 +2026,50 @@ function zoomBy(k, mx, my) {
 
       nodes.forEach(function (n) {
         if (n.off) return;
-        var r = opts.radius(n);
-        var lit = n === hot;
-        var col = lit ? C.sig : opts.fill(n, C);
+        var r = opts.radius(n), x = sx(n), y = sy(n);
+        // fill gives one colour, or several for a node split into equal
+        // slices, clockwise from twelve o'clock
+        var cols = [].concat(opts.fill(n, C));
+        var seg = 6.2832 / cols.length, top = -Math.PI / 2;
         // a hollow node reads as "not yet published" without needing a legend key
         if (opts.hollow && opts.hollow(n)) {
           ctx.fillStyle = C.ground;
-          ctx.beginPath(); ctx.arc(sx(n), sy(n), r, 0, 6.2832); ctx.fill();
-          ctx.strokeStyle = col; ctx.lineWidth = 1.6;
-          ctx.stroke();
-          return;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+          // a split ring leaves a small gap between its arcs, so two colours
+          // that meet read as two
+          var gap = cols.length > 1 ? Math.min(0.5, 3 / r) : 0;
+          ctx.lineWidth = cols.length > 1 ? 2 : 1.6;
+          cols.forEach(function (c, i) {
+            ctx.strokeStyle = c;
+            ctx.beginPath();
+            ctx.arc(x, y, r, top + i * seg + gap / 2, top + (i + 1) * seg - gap / 2);
+            ctx.stroke();
+          });
+        } else {
+          cols.forEach(function (c, i) {
+            ctx.fillStyle = c;
+            ctx.beginPath(); ctx.moveTo(x, y);
+            ctx.arc(x, y, r, top + i * seg, top + (i + 1) * seg);
+            ctx.closePath(); ctx.fill();
+          });
+          ctx.strokeStyle = C.ground; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke();
+          // and a hairline of ground between slices, for the same reason
+          if (cols.length > 1) {
+            ctx.lineWidth = 1;
+            for (var s = 0; s < cols.length; s++) {
+              var a = top + s * seg;
+              ctx.beginPath(); ctx.moveTo(x, y);
+              ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); ctx.stroke();
+            }
+          }
         }
-        ctx.fillStyle = col;
-        ctx.beginPath(); ctx.arc(sx(n), sy(n), r, 0, 6.2832); ctx.fill();
-        ctx.strokeStyle = C.ground; ctx.lineWidth = 1.5;
-        ctx.stroke();
+        // the hovered node keeps its own colour, which is what identifies it,
+        // and is picked out by a ring instead
+        if (n === hot) {
+          ctx.strokeStyle = C.ink; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(x, y, r + 3, 0, 6.2832); ctx.stroke();
+        }
       });
 
       if (opts.labels) {
@@ -2042,10 +2252,26 @@ cv.addEventListener('pointerleave', function () {
     return { draw: draw, refresh: refresh };
   }
 
-  var THEME_COLOUR = {
-    ageing: '--signal', environmental: '--signal-2', open: '--ink',
-    meta: '--ink-2', pedagogy: '--signal-2', health: '--ink-3', other: '--ink-3'
-  };
+  var THEME_COLOUR = {};
+  Object.keys(LABEL).forEach(function (k) { THEME_COLOUR[k] = '--th-' + k; });
+
+  /* The key under the paper map: one entry per theme that is actually on it,
+     in the record's own theme order, then the split mark for a work with
+     more than one theme and the hollow mark for a preprint. */
+  function paperKey(papers) {
+    var el = document.getElementById('paperKey');
+    if (!el) return;
+    var here = {}, split = false;
+    papers.forEach(function (p) {
+      (p.cs.length ? p.cs : ['other']).forEach(function (k) { here[k] = true; });
+      if (p.cs.length > 1) split = true;
+    });
+    el.innerHTML = Object.keys(LABEL).filter(function (k) { return here[k]; }).map(function (k) {
+      return '<span><i style="background:var(--th-' + k + ')"></i>' + LABEL[k] + '</span>';
+    }).join('') +
+      (split ? '<span><i class="split"></i>More than one theme</span>' : '') +
+      '<span><i class="hollow"></i>Preprint</span>';
+  }
 
   function go(records) {
     // the record has already worked out each DOI, and cleaned publisher URL
@@ -2072,28 +2298,20 @@ cv.addEventListener('pointerleave', function () {
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
     }
 
-    /* institution and group-title carry the name of the server a preprint was
-       posted to, which is the only authoritative answer to "where is this?" —
-       the publisher field is no use, because the Center for Open Science is the
-       publisher of EdArXiv, MetaArXiv, PsyArXiv and OSF Preprints alike. If
-       Crossref rejects those fields the maps must still be drawn, so fall back
+    /* type is asked for so nameServers can tell a preprint from an article.
+       If Crossref ever refuses it the maps must still be drawn, so fall back
        to the two fields the networks actually need. */
-    ask('DOI,author,type,institution,group-title')
+    ask('DOI,author,type')
       .catch(function () { return ask('DOI,author'); })
       .then(function (j) {
         clearTimeout(timer);
         var items = (j && j.message && j.message.items) || [];
-        // correct the source labels first: the record objects in byDoi are the
-        // very ones the maps copy from, so the maps inherit the fixed names
-        var names = serverNames(items);
-        if (Object.keys(names).length) {
-          document.dispatchEvent(new CustomEvent('sourcenames', { detail: names }));
-        }
         var g = build(items, byDoi);
         if (!g) throw new Error('no authors');
         G = g;
         renderPapers(g);
         renderPeople(g);
+        nameServers(items, byDoi);
         var pl = document.getElementById('peopleLoad');
         if (pl) pl.firstChild.textContent = 'Computing layout';
         var pk = document.getElementById('peopleCount');
@@ -2146,20 +2364,19 @@ cv.addEventListener('pointerleave', function () {
       radius: function (n) { return 4 + Math.min(Math.sqrt(n.d.n) * 1.9, 11); },
       hollow: function (n) { return !!n.d.pre; },
       fill: function (n, C) {
-        var v = THEME_COLOUR[n.d.c];
-        if (!v) return C.ink3;
-        return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || C.ink3;
+        var cs = n.d.cs.length ? n.d.cs : ['other'];
+        return cs.map(function (k) { return C.theme[k]; });
       },
       labels: null,
       click: function (n) {
-        document.dispatchEvent(new CustomEvent('showpaper', { detail: n.d.t }));
+        document.dispatchEvent(new CustomEvent('showpaper', { detail: n.d.doi }));
       },
       tip: function (n) {
         return esc(n.d.t) + '<b>' + (n.d.y || '') +
           (n.d.j ? ' &#183; ' + esc(n.d.j) : '') +
-          (n.d.c ? ' &#183; ' + (LABEL[n.d.c] || n.d.c) : '') +
+          (n.d.cs.length ? ' &#183; ' + n.d.cs.map(function (k) { return LABEL[k] || k; }).join(', ') : '') +
           (n.d.pre ? ' &#183; preprint' : '') +
-          (n.d.ids.length ? '' : ' &#183; no author list from Crossref yet') +
+          (n.d.listed ? '' : ' &#183; no author list from Crossref yet') +
           '<br>Click to find it below</b>';
       }
     });
@@ -2173,6 +2390,7 @@ cv.addEventListener('pointerleave', function () {
       cnt.textContent = g.papers.length + ' works · ' + g.pedges.length +
         ' shared-author links · ' + pre.length + ' preprint' + (pre.length === 1 ? '' : 's');
     }
+    paperKey(g.papers);
     if (!pre.length) { btn.disabled = true; btn.textContent = 'No preprints in the map'; }
     bar.hidden = false;
     btn.addEventListener('click', function () {
@@ -2245,7 +2463,7 @@ cv.addEventListener('pointerleave', function () {
         var w = works[parseInt(b.dataset.i, 10)];
         if (!w) return;
         closePerson();
-        document.dispatchEvent(new CustomEvent('showpaper', { detail: w.t }));
+        document.dispatchEvent(new CustomEvent('showpaper', { detail: w.d }));
       });
     });
   }

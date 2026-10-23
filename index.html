@@ -1176,7 +1176,7 @@ function esc(s) {
       if (/^(erratum|correction|corrigendum)/i.test(title) || /expression of concern/i.test(title)) return;
 
       var pd = s['publication-date'] || {};
-      var year = pd.year && pd.year.value, month = pd.month && pd.month.value;
+      var year = pd.year && pd.year.value, month = pd.month && pd.month.value, day = pd.day && pd.day.value;
       var journal = s['journal-title'] && s['journal-title'].value;
 
       var doi = null, url = null;
@@ -1197,6 +1197,7 @@ function esc(s) {
       out.push({
         y: year ? parseInt(year, 10) : 0,
         m: month ? parseInt(month, 10) : 0,
+        dd: day ? parseInt(day, 10) : 0,
         t: title,
         j: lab,
         jg: !journal,
@@ -1206,7 +1207,7 @@ function esc(s) {
         s: st
       });
     });
-    out.sort(function (a, b) { return b.y - a.y || b.m - a.m || a.t.localeCompare(b.t); });
+    out.sort(function (a, b) { return b.y - a.y || b.m - a.m || b.dd - a.dd || a.t.localeCompare(b.t); });
     return out;
   }
 

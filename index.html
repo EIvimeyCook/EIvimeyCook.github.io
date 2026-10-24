@@ -51,7 +51,7 @@
      readers included (all-pairs OKLab ΔE ≥ 8 under protan/deutan simulation,
      ≥ 15 for normal vision), in this mode and the light one, and each is ≥ 3:1
      against the ground. They are spread in lightness as well as hue, because
-     seven hues at one lightness cannot all be told apart. Each theme keeps its
+     six hues at one lightness cannot all be told apart. Each theme keeps its
      hue across the two modes; only the step changes. */
   --th-ageing:#c8635d;
   --th-open:#8dbefd;
@@ -59,7 +59,6 @@
   --th-meta:#9964e5;
   --th-pedagogy:#df9b44;
   --th-health:#f07ec2;
-  --th-other:#f1efe8;
 
   --sans:"Archivo",-apple-system,"Helvetica Neue",Arial,sans-serif;
   --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
@@ -90,7 +89,6 @@
   --th-meta:#50038f;
   --th-pedagogy:#b17000;
   --th-health:#ab3f84;
-  --th-other:#141312;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -199,8 +197,12 @@ main.rig{zoom:var(--tscale,1)}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
 .chip{border:1px solid var(--line-2);padding:.5rem .8rem;font-size:13px;color:var(--ink-3);
   line-height:1.3;transition:border-color .2s}
-.chip b{color:var(--ink);font-weight:600}
-.chip:hover{border-color:var(--ink-3)}
+.chip b{color:var(--ink);font-weight:600;transition:color .2s}
+/* each role links to the page that lists me in it; the arrow marks it as
+   leaving the site, as on the tool links further down */
+.chip i{font-style:normal;margin-left:.4rem;color:var(--ink-3);transition:color .2s}
+.chip:hover{border-color:var(--signal)}
+.chip:hover b,.chip:hover i{color:var(--signal)}
 .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
 .links a{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line-2);
   padding:.55rem .85rem;font-size:13.5px;color:var(--ink);transition:.2s}
@@ -560,10 +562,10 @@ main.rig{zoom:var(--tscale,1)}
       <h1>Edward R. <em>Ivimey-Cook</em></h1>
       <p class="role">Lecturer in Biological Sciences &#183; University of East Anglia</p>
       <div class="chips">
-        <span class="chip"><b>UEA</b> &#183; Lecturer</span>
-        <span class="chip"><b>SORTEE</b> &#183; Past-President</span>
-        <span class="chip"><b>Ecology Letters</b> &#183; Data Editor</span>
-        <span class="chip"><b>Ecological Society of America</b> &#183; Publications Committee</span>
+        <a class="chip" href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia"><b>UEA</b> &#183; Lecturer<i aria-hidden="true">&#8599;</i></a>
+        <a class="chip" href="https://www.sortee.org/people/#executive-committee" target="_blank" rel="noopener" title="SORTEE Executive Committee"><b>SORTEE</b> &#183; Past-President<i aria-hidden="true">&#8599;</i></a>
+        <a class="chip" href="https://onlinelibrary.wiley.com/page/journal/14610248/homepage/editorialboard.html" target="_blank" rel="noopener" title="Ecology Letters editorial board: listed under the Data Editors tab"><b>Ecology Letters</b> &#183; Data Editor<i aria-hidden="true">&#8599;</i></a>
+        <a class="chip" href="https://esa.org/about/governance/committees/publications-committee/" target="_blank" rel="noopener" title="ESA Publications Committee"><b>Ecological Society of America</b> &#183; Publications Committee<i aria-hidden="true">&#8599;</i></a>
       </div>
       <div class="links">
         <a href="https://scholar.google.co.uk/citations?user=-OVDG0QAAAAJ&hl=en" rel="me noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.84 3.77A8 8 0 0 1 12 9a8 8 0 0 1 7.16 4.27L24 9.5z"/></svg>Scholar</a>
@@ -681,7 +683,7 @@ main.rig{zoom:var(--tscale,1)}
       <div class="plot" id="plot" role="group" aria-label="Filter by year"></div>
       <div class="key" id="plotKey" role="group" aria-label="Filter by status">
         <button data-status="pub" aria-pressed="false"><b class="kp"></b>Published</button>
-        <button data-status="pre" aria-pressed="false"><b class="kr"></b>Preprint or in review</button>
+        <button data-status="pre" aria-pressed="false"><b class="kr"></b>Preprint</button>
       </div>
       <p class="pnote" id="plotNote" aria-live="polite" hidden></p>
     </div>
@@ -797,7 +799,7 @@ main.rig{zoom:var(--tscale,1)}
 var CALM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 var ORCID = '0000-0003-4910-0443';
 var LABEL = {ageing:'Ageing', environmental:'Environment', open:'Open science',
-  meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical', other:'Other'};
+  meta:'Meta-analysis', pedagogy:'Pedagogy', health:'Biomedical'};
 function esc(s) {
   return (s || '').replace(/[&<>"]/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
@@ -1084,33 +1086,64 @@ function esc(s) {
 /* ---------- the record ---------- */
 (function () {
 
+  /* A snapshot of the ORCID record, as the live page lists it, shown only when
+     ORCID cannot be reached. It is copied, not rebuilt, so it goes stale as
+     the record grows: refresh it from the live list now and then. Order is the
+     live order, newest first, because the fallback is not re-sorted. */
   var FALLBACK = [
-    {y:2026,t:"The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology",j:"Peer Community Journal",u:"https://doi.org/10.24072/pcjournal.687"},
-    {y:2025,t:"Within-individual changes in mitochondrial DNA copy number across the life course and links to individual performance",j:"Biology Letters",u:"https://doi.org/10.1098/rsbl.2025.0521"},
-    {y:2025,t:"From Policy to Practice: Progress towards Data- and Code-Sharing in Ecology and Evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.1394"},
-    {y:2025,t:"Rapamycin, not metformin, mirrors dietary restriction-driven lifespan extension in vertebrates: a meta-analysis",j:"Aging Cell",u:"https://onlinelibrary.wiley.com/doi/10.1111/acel.70131"},
-    {y:2025,t:"Preprint Policies in Ecology and Evolutionary Biology Journals",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2025.0524"},
-    {y:2025,t:"The promise of community-driven preprints in ecology and evolution",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2024.1487"},
-    {y:2025,t:"Pre-registration and Registered Reports in Ecology and Evolutionary Biology: An Evidence-Based Appraisal by SORTEE",j:"EcoEvoRxiv",u:"https://doi.org/10.32942/X2C37Q"},
-    {y:2025,t:"TADA! Simple guidelines to improve code sharing",j:"EcoEvoRxiv",u:"https://doi.org/10.32942/X2D93K"},
-    {y:2025,t:"Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus",j:"EcoEvoRxiv",s:"In review",u:"https://doi.org/10.32942/X2P919"},
-    {y:2024,t:"Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus",j:"Journal of Evolutionary Biology",u:"https://doi.org/10.1093/jeb/voad009"},
-    {y:2023,t:"Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/full/10.1111/jeb.14230"},
-    {y:2023,t:"Advice for improving the reproducibility of data extraction in meta-analysis",j:"Research Synthesis Methods",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1663"},
-    {y:2023,t:"No Time to Die: Evolution of a Post-Reproductive Life Stage",j:"Journal of Zoology",u:"https://zslpublications.onlinelibrary.wiley.com/doi/10.1111/jzo.13096"},
-    {y:2023,t:"Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions",j:"Nature Communications",d:"10.1038/s41467-023-37039-1",u:"https://www.nature.com/articles/s41467-023-37039-1"},
-    {y:2023,t:"Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/10.1098/rspb.2022.1556"},
-    {y:2023,t:"The distribution of the Lansing Effect across animal species",j:"Evolution",d:"10.1093/evolut/qpac045",u:"https://academic.oup.com/evolut/advance-article/doi/10.1093/evolut/qpac045/6916890"},
-    {y:2023,t:"Technology-enhanced simulation for healthcare professionals: A meta-analysis",j:"Frontiers in Medicine",u:"https://www.frontiersin.org/articles/10.3389/fmed.2023.1149048/full"},
-    {y:2023,t:"Editorial: Ecological and evolutionary relevance of phenotypic plasticity in a changing world",j:"Frontiers in Ecology and Evolution",u:"https://doi.org/10.3389/fevo.2023.1140343"},
-    {y:2022,t:"Triparental ageing in a laboratory population of an insect with maternal care",j:"Behavioral Ecology",d:"10.1093/beheco/arac078",u:"https://academic.oup.com/beheco/advance-article/doi/10.1093/beheco/arac078/6674571"},
-    {y:2021,t:"Fitness benefits of dietary restriction",j:"Proceedings of the Royal Society B",u:"https://doi.org/10.1098/rspb.2021.1787"},
-    {y:2021,t:"Ageing as 'early-life inertia': Disentangling life-history trade-offs along a lifetime of an individual",j:"Evolution Letters",u:"https://onlinelibrary.wiley.com/doi/full/10.1002/evl3.254"},
-    {y:2021,t:"Inbreeding reduces fitness of seed beetles under thermal stress",j:"Journal of Evolutionary Biology",u:"https://onlinelibrary.wiley.com/doi/10.1111/jeb.13899"},
-    {y:2021,t:"Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2021.0701"},
-    {y:2021,t:"Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.1728"},
-    {y:2020,t:"The diversity of maternal-age effects upon pre-adult survival across animal species",j:"Proceedings of the Royal Society B",u:"https://royalsocietypublishing.org/doi/full/10.1098/rspb.2020.0972"},
-    {y:2018,t:"Disentangling pre- and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care",j:"The American Naturalist",u:"https://www.journals.uchicago.edu/doi/full/10.1086/699654"}
+    {y:2026,t:"SORTEE five years on: taking stock of the Society for Open, Reliable, and Transparent Ecology and Evolutionary biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x20400",u:"https://doi.org/10.32942/x20400"},
+    {y:2026,t:"Increased stress in early life epigenetically rewires pathways related to aging and longevity",j:"bioRxiv",s:"Preprint",d:"10.64898/2026.09.30.755600",u:"https://doi.org/10.64898/2026.09.30.755600"},
+    {y:2026,t:"Meta-analysts must lead by example and embrace all FAIR principles",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2139c",u:"https://doi.org/10.32942/X2139C"},
+    {y:2026,t:"‘We Belong Here Too’: Assessing Postgraduate Taught Satisfaction Across Three UK Higher Education Institutions",j:"EdArXiv",s:"Preprint",d:"10.35542/osf.io/twdqs_v1",u:"https://doi.org/10.35542/osf.io/twdqs_v1"},
+    {y:2026,t:"An item bank of reporting items and concepts in evidence synthesis reporting guidelines",j:"MetaArXiv",s:"Preprint",d:"10.31222/osf.io/fjnd5_v1",u:"https://doi.org/10.31222/osf.io/fjnd5_v1"},
+    {y:2026,t:"Evaluative conversations as an AI-resilient, effective and inclusive form of assessment",j:"EdArXiv",s:"Preprint",d:"10.35542/osf.io/5fyq4_v2",u:"https://doi.org/10.35542/osf.io/5fyq4_v2"},
+    {y:2026,t:"Age-related shifts in dietary and oviposition preferences and steep costs of modest parental ageing in Drosophila melanogaster",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x26d6w",u:"https://doi.org/10.32942/x26d6w"},
+    {y:2026,t:"A simple demographic explanation for the evolution of the dietary restriction response and its ecological relevance",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2zt1z",u:"https://doi.org/10.32942/x2zt1z"},
+    {y:2026,t:"Within-individual changes in mitochondrial DNA copy number across the life course and links to individual performance",j:"Biology Letters",d:"10.1098/rsbl.2025.0521",u:"https://doi.org/10.1098/rsbl.2025.0521"},
+    {y:2026,t:"Long‐Term Evolution Under Heatwave Conditions in the Seed Beetle, Callosobruchus maculatus",j:"Ecology and Evolution",d:"10.1002/ece3.73562",u:"https://doi.org/10.1002/ece3.73562"},
+    {y:2026,t:"Open Code in Ecology and Evolutionary Biology: An Evidence-Based Appraisal by SORTEE",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x27d4f",u:"https://doi.org/10.32942/X27D4F"},
+    {y:2026,t:"Pre-registration and Registered Reports in Ecology and Evolutionary Biology: An Evidence-Based Appraisal by SORTEE",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2c37q",u:"https://doi.org/10.32942/X2C37Q"},
+    {y:2026,t:"The SORTEE guidelines for data and code quality control in ecology and evolutionary biology",j:"Peer Community Journal",d:"10.24072/pcjournal.687",u:"https://doi.org/10.24072/pcjournal.687"},
+    {y:2026,t:"Cross-species meta-analysis reveals determinants of homing gene drive performance",j:"bioRxiv",s:"Preprint",d:"10.64898/2026.02.28.708699",u:"https://doi.org/10.64898/2026.02.28.708699"},
+    {y:2026,t:"A comparison of methods to assess selective disappearance and quantify ageing",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2q07s",u:"https://doi.org/10.32942/X2Q07S"},
+    {y:2025,t:"A protocol for developing a comprehensive item bank of reporting items to inform future evidence synthesis reporting guidelines",j:"OSF",s:"Preprint",d:"10.17605/osf.io/zwcn2",u:"https://doi.org/10.17605/OSF.IO/ZWCN2"},
+    {y:2025,t:"Preprint policies across journals and publishers in ecology and evolutionary biology",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2025.0524",u:"https://doi.org/10.1098/rspb.2025.0524"},
+    {y:2025,t:"squidSim: a flexible R package for structured and reproducible simulations in Ecology and Evolutionary Biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x20m0t",u:"https://doi.org/10.32942/x20m0t"},
+    {y:2025,t:"From policy to practice: progress towards data- and code-sharing in ecology and evolution",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2025.1394",u:"https://doi.org/10.1098/rspb.2025.1394"},
+    {y:2025,t:"Rapamycin, Not Metformin, Mirrors Dietary Restriction‐Driven Lifespan Extension in Vertebrates: A Meta‐Analysis",j:"Aging Cell",d:"10.1111/acel.70131",u:"https://doi.org/10.1111/acel.70131"},
+    {y:2025,t:"The SORTEE Guidelines for Data and Code Quality Control in Ecology and Evolutionary Biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x24p8s",u:"https://doi.org/10.32942/x24p8s"},
+    {y:2025,t:"TADA! Simple guidelines to improve analytical code sharing for transparency and reproducibility",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2d93k",u:"https://doi.org/10.32942/x2d93k"},
+    {y:2025,t:"Evolution under fluctuating conditions and exposure to heatwaves in the seed beetle, Callosobruchus maculatus",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2p919",u:"https://doi.org/10.32942/X2P919"},
+    {y:2025,t:"The promise of community-driven preprints in ecology and evolution",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2024.1487",u:"https://doi.org/10.1098/rspb.2024.1487"},
+    {y:2025,t:"From Policy to Practice: Progress towards Data- and Code-Sharing in Ecology and Evolution",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2492q",u:"https://doi.org/10.32942/x2492q"},
+    {y:2024,t:"The promise of community-driven preprints in ecology and evolution",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2ss46",u:"https://doi.org/10.32942/x2ss46"},
+    {y:2024,t:"Genetic background and thermal regime influence adaptation to novel environment in the seed beetle, Callosobruchus maculatus",j:"Journal of Evolutionary Biology",d:"10.1093/jeb/voad009",u:"https://doi.org/10.1093/jeb/voad009"},
+    {y:2023,t:"Implementing code review in the scientific workflow: Insights from ecology and evolutionary biology",j:"Journal of Evolutionary Biology",d:"10.1111/jeb.14230",u:"https://doi.org/10.1111/jeb.14230"},
+    {y:2023,t:"No time to die: Evolution of a post-reproductive life stage",j:"Journal of Zoology",d:"10.1111/jzo.13096",u:"https://doi.org/10.1111/jzo.13096"},
+    {y:2023,t:"Advice for improving the reproducibility of data extraction in meta-analysis",j:"Research Synthesis Methods",d:"10.1002/jrsm.1663",u:"https://doi.org/10.1002/jrsm.1663"},
+    {y:2023,t:"Implementing Code Review in the Scientific Workflow: Insights from Ecology and Evolutionary Biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2cg64",u:"https://doi.org/10.32942/x2cg64"},
+    {y:2023,t:"Technology-enhanced simulation for healthcare professionals: A meta-analysis",j:"Frontiers in Medicine",d:"10.3389/fmed.2023.1149048",u:"https://doi.org/10.3389/fmed.2023.1149048"},
+    {y:2023,t:"Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2022.1556",u:"https://doi.org/10.1098/rspb.2022.1556"},
+    {y:2023,t:"Method Reporting with Initials for Transparency (MeRIT) promotes more granularity and accountability for author contributions",j:"Nature Communications",d:"10.1038/s41467-023-37039-1",u:"https://doi.org/10.1038/s41467-023-37039-1"},
+    {y:2023,t:"Editorial: Ecological and evolutionary relevance of phenotypic plasticity in a changing world",j:"Frontiers in Ecology and Evolution",d:"10.3389/fevo.2023.1140343",u:"https://doi.org/10.3389/fevo.2023.1140343"},
+    {y:2023,t:"The distribution of the Lansing Effect across animal species.",j:"Evolution; international journal of organic evolution",d:"10.1093/evolut/qpac045",u:"https://doi.org/10.1093/evolut/qpac045"},
+    {y:2022,t:"A framework for improving the reproducibility of data extraction for meta-analysis",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2d30c",u:"https://doi.org/10.32942/x2d30c"},
+    {y:2022,t:"Triparental ageing in a laboratory population of an insect with maternal care",j:"Behavioral Ecology",d:"10.1093/beheco/arac078",u:"https://doi.org/10.1093/beheco/arac078"},
+    {y:2022,t:"Fasting increases investment in soma upon refeeding at the cost of gamete quality in zebrafish",j:"bioRxiv",s:"Preprint",d:"10.1101/2022.07.18.500454",u:"https://doi.org/10.1101/2022.07.18.500454"},
+    {y:2022,t:"The distribution of the Lansing Effect across animal species",j:"bioRxiv",s:"Preprint",d:"10.1101/2022.04.27.489689",u:"https://doi.org/10.1101/2022.04.27.489689"},
+    {y:2021,t:"Genetic and thermal variation influence adaptation to fluctuating temperature in the seed beetle, Callosobruchus maculatus",j:"bioRxiv",s:"Preprint",d:"10.1101/2021.11.26.470113",u:"https://doi.org/10.1101/2021.11.26.470113"},
+    {y:2021,t:"Fitness benefits of dietary restriction",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2021.1787",u:"https://doi.org/10.1098/rspb.2021.1787"},
+    {y:2021,t:"Ageing as “early‐life inertia”: Disentangling life‐history trade‐offs along a lifetime of an individual",j:"Evolution Letters",d:"10.1002/evl3.254",u:"https://doi.org/10.1002/evl3.254"},
+    {y:2021,t:"Biparental age effects in the burying beetle Nicrophorus vespilloides",j:"bioRxiv",s:"Preprint",d:"10.1101/2021.09.08.459445",u:"https://doi.org/10.1101/2021.09.08.459445"},
+    {y:2021,t:"Inbreeding reduces fitness of seed beetles under thermal stress",j:"Journal of Evolutionary Biology",d:"10.1111/jeb.13899",u:"https://doi.org/10.1111/jeb.13899"},
+    {y:2021,t:"Transgenerational fitness effects of lifespan extension by dietary restriction in Caenorhabditis elegans",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2021.0701",u:"https://doi.org/10.1098/rspb.2021.0701"},
+    {y:2021,t:"Inbreeding reduces fitness of seed beetles under thermal stress",j:"bioRxiv",s:"Preprint",d:"10.1101/2021.05.05.442709",u:"https://doi.org/10.1101/2021.05.05.442709"},
+    {y:2021,t:"Cost-free lifespan extension via optimization of gene expression in adulthood aligns with the developmental theory of ageing",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2020.1728",u:"https://doi.org/10.1098/rspb.2020.1728"},
+    {y:2020,t:"The diversity of maternal-age effects upon pre-adult survival across animal species",j:"Proceedings of the Royal Society B: Biological Sciences",d:"10.1098/rspb.2020.0972",u:"https://doi.org/10.1098/rspb.2020.0972"},
+    {y:2020,t:"Transgenerational fitness effects of lifespan extension by dietary restriction inCaenorhabditis elegans",j:"bioRxiv",s:"Preprint",d:"10.1101/2020.06.24.168922",u:"https://doi.org/10.1101/2020.06.24.168922"},
+    {y:2019,t:"Cost-free lifespan extension via optimisation of gene expression in adulthood supports the developmental theory of ageing",j:"bioRxiv",s:"Preprint",d:"10.1101/739490",u:"https://doi.org/10.1101/739490"},
+    {y:2018,t:"Disentangling pre- and postnatal maternal age effects on offspring performance in an insect with elaborate maternal care",j:"The American Naturalist",d:"10.1086/699654",u:"https://doi.org/10.1086/699654"},
+    {y:2018,t:"Evaluating the diversity of maternal age effects upon neonatal survival across animal species",j:"bioRxiv",s:"Preprint",d:"10.1101/373340",u:"https://doi.org/10.1101/373340"}
   ];
 
   /* Keywords match on word boundaries, so "aging" no longer fires inside
@@ -1188,8 +1221,9 @@ function esc(s) {
     if ((l.indexOf('fitness benefits of dietary restriction') > -1
         || l.indexOf('fasting increases investment in soma') > -1)
         && out.indexOf('environmental') < 0) out.push('environmental');
-    // an unmatched work is labelled Other, never silently filed under a research theme
-    if (!out.length) out.push('other');
+    // an unmatched work gets no theme at all, never a guessed one: it shows
+    // untagged in the list and grey on the map, and an OVERRIDES entry is the
+    // way to give it one
     return out;
   }
 
@@ -1197,7 +1231,9 @@ function esc(s) {
     var ty = (type || '').toLowerCase();
     var hay = ((journal || '') + ' ' + (doi || '')).toLowerCase();
     if (ty === 'software' || ty === 'data-set') return 'Software';
-    if (/in review|in prep|submitted/.test(hay)) return 'In review';
+    // a manuscript ORCID says is submitted or in preparation is not published
+    // yet, so it counts as a preprint, the site's one unpublished status
+    if (/in review|in prep|submitted/.test(hay)) return 'Preprint';
     // ORCID's own "preprint" type covers the live feed; the word/prefix test
     // below is what a hand-written FALLBACK entry falls back on if its s: is
     // left unset. It checks every server SERVERS knows, not just two of them,
@@ -1309,7 +1345,7 @@ function esc(s) {
   var plot = document.getElementById('plot');
   var hbars = document.getElementById('hbars');
 
-  var ORDER = ['ageing', 'environmental', 'open', 'meta', 'pedagogy', 'health', 'other'];
+  var ORDER = ['ageing', 'environmental', 'open', 'meta', 'pedagogy', 'health'];
 
   document.getElementById('filters').innerHTML =
     '<button data-filter="all" aria-pressed="true">All</button>' +
@@ -1328,7 +1364,7 @@ function esc(s) {
     return passesTheme(p) && (!state.year || p.y === state.year) &&
            (!state.status || (state.status === 'pre') === isPre(p));
   }
-  function isPre(p) { return p.s === 'Preprint' || p.s === 'In review'; }
+  function isPre(p) { return p.s === 'Preprint'; }
 
   /* The year bars, the status key, the theme bars and the theme buttons all
      write to the same state, so every one of them is redrawn from it here. */
@@ -1351,7 +1387,7 @@ function esc(s) {
     if (!state.year && !state.status && state.filter === 'all' && !q) { note.hidden = true; return; }
     var n = ALL.filter(matches).length, bits = [];
     if (state.year) bits.push(state.year);
-    if (state.status) bits.push(state.status === 'pre' ? 'preprint or in review' : 'published');
+    if (state.status) bits.push(state.status === 'pre' ? 'preprint' : 'published');
     if (state.filter !== 'all') bits.push(LABEL[state.filter].toLowerCase());
     if (q) bits.push('“' + q + '”');
     note.innerHTML = '<span>' + n + (n === 1 ? ' record' : ' records') + ' &#183; ' + bits.map(function (b) { return esc(String(b)); }).join(' &#183; ') + '</span>' +
@@ -1443,7 +1479,7 @@ function esc(s) {
              ';--pre:' + (n ? e.pre / n : 0) + ';--pub:' + (n ? e.pub / n : 0) + '"' +
              ' data-year="' + y + '" aria-pressed="false"' +
              ' data-empty="' + (n ? 'false' : 'true') + '" aria-disabled="' + (n ? 'false' : 'true') + '"' +
-             ' aria-label="' + y + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review">' +
+             ' aria-label="' + y + ': ' + e.pub + ' published, ' + e.pre + (e.pre === 1 ? ' preprint' : ' preprints') + '">' +
              '<span class="pstack"><i class="pre"></i><i class="pub"></i></span>' +
              '<span class="yl">' + String(y).slice(2) + '</span></button>';
     }).join('');
@@ -1464,7 +1500,7 @@ function esc(s) {
       b.style.setProperty('--pub', n ? e.pub / n : 0);
       b.dataset.empty = m ? 'false' : 'true';
       b.setAttribute('aria-disabled', !m && state.year !== y ? 'true' : 'false');
-      b.setAttribute('aria-label', b.dataset.year + ': ' + e.pub + ' published, ' + e.pre + ' preprint or in review');
+      b.setAttribute('aria-label', b.dataset.year + ': ' + e.pub + ' published, ' + e.pre + (e.pre === 1 ? ' preprint' : ' preprints'));
     });
   }
 
@@ -1752,7 +1788,7 @@ function esc(s) {
         // c, the first theme, decides which cluster a work joins; cs, all of
         // them in the same order as its tags in the list, colours the node
         c: (rec.c || [])[0] || null, cs: (rec.c || []).slice(), n: authors.length || 1,
-        pre: rec.s === 'Preprint' || rec.s === 'In review',
+        pre: rec.s === 'Preprint',
         // co-authors other than me: these are what join two works on the map
         ids: authors.filter(function (a) { return !SELF.test(a.name); })
                     .map(function (a) { return a.id; }),
@@ -2263,7 +2299,7 @@ cv.addEventListener('pointerleave', function () {
     if (!el) return;
     var here = {}, split = false;
     papers.forEach(function (p) {
-      (p.cs.length ? p.cs : ['other']).forEach(function (k) { here[k] = true; });
+      p.cs.forEach(function (k) { here[k] = true; });
       if (p.cs.length > 1) split = true;
     });
     el.innerHTML = Object.keys(LABEL).filter(function (k) { return here[k]; }).map(function (k) {
@@ -2358,14 +2394,16 @@ cv.addEventListener('pointerleave', function () {
          Preprints are their own group whatever their subject: what has been
          posted but not yet published is a question about the record, not about
          the research, and it is easier to read as one cluster. */
-      group: function (n) { return n.d.pre ? 'preprint' : (n.d.c || 'other'); },
+      group: function (n) { return n.d.pre ? 'preprint' : (n.d.c || 'none'); },
       cluster: 0.019, calm: 0.05,
       done: function () { revealPanel('paperLoad', paperCv); },
       radius: function (n) { return 4 + Math.min(Math.sqrt(n.d.n) * 1.9, 11); },
       hollow: function (n) { return !!n.d.pre; },
       fill: function (n, C) {
-        var cs = n.d.cs.length ? n.d.cs : ['other'];
-        return cs.map(function (k) { return C.theme[k]; });
+        // a work with no theme is drawn in the neutral grey, set explicitly:
+        // canvas ignores an undefined colour and would reuse the last one
+        if (!n.d.cs.length) return C.ink3;
+        return n.d.cs.map(function (k) { return C.theme[k] || C.ink3; });
       },
       labels: null,
       click: function (n) {

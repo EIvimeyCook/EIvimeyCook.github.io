@@ -201,8 +201,9 @@ main.rig{zoom:var(--tscale,1)}
 /* each role links to the page that lists me in it; the arrow marks it as
    leaving the site, as on the tool links further down */
 .chip i{font-style:normal;margin-left:.4rem;color:var(--ink-3);transition:color .2s}
-.chip:hover{border-color:var(--signal)}
-.chip:hover b,.chip:hover i{color:var(--signal)}
+/* only a box that links somewhere reacts; a role with no page yet is a plain span */
+a.chip:hover{border-color:var(--signal)}
+a.chip:hover b,a.chip:hover i{color:var(--signal)}
 .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
 .links a{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line-2);
   padding:.55rem .85rem;font-size:13.5px;color:var(--ink);transition:.2s}
@@ -315,12 +316,6 @@ main.rig{zoom:var(--tscale,1)}
 .prose em{font-style:italic}
 .prose strong{color:var(--ink);font-weight:500}
 .head{font-size:clamp(1.35rem,2.4vw,1.85rem);margin-bottom:1rem;letter-spacing:-.03em}
-.spec{border-top:1px solid var(--line);margin-top:1.1rem}
-.spec div{display:flex;gap:1rem;justify-content:space-between;align-items:baseline;
-  padding:.5rem 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
-.spec dt{color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;flex:none}
-.spec dd{margin:0;color:var(--ink);text-align:right}
-.spec dd i{display:block;font-style:normal;color:var(--ink-3);font-size:10.5px;margin-top:2px}
 
 .strands{grid-template-columns:repeat(3,minmax(0,1fr))}
 .strand h3{font-size:1.1rem;margin-bottom:.6rem;letter-spacing:-.02em}
@@ -496,28 +491,106 @@ main.rig{zoom:var(--tscale,1)}
 .role dd i{display:block;font-style:normal;font-family:var(--mono);font-size:10px;
   color:var(--ink-3);margin-top:.2rem}
 
-.kit{border-top:1px solid var(--line)}
-.item{display:grid;grid-template-columns:minmax(0,1fr) 7rem;gap:1rem;padding:.85rem 0;
-  border-bottom:1px solid var(--line);align-items:start}
-.item h3{font-size:14.5px;margin-bottom:.25rem}
-.item p{font-size:13.5px;margin:0;color:var(--ink-2);max-width:58ch}
-.item .meta{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-3);text-align:right}
-.item a.go{font-family:var(--mono);font-size:10.5px;color:var(--signal);letter-spacing:.06em;
-  display:inline-block;margin-top:.4rem;border-bottom:1px solid transparent}
-.item a.go:hover{border-bottom-color:var(--signal)}
-.item a.go + a.go{margin-left:1.1rem}
-@media (max-width:640px){.item{grid-template-columns:minmax(0,1fr)}.item .meta{text-align:left}}
+/* one tile per app: what it runs on, what it is, then its links along the
+   bottom (margin-top:auto), so tiles in a row match in height and their
+   links line up. At most four to a row, so seven sit 4 + 3 on a desktop. */
+.kit{display:grid;gap:.8rem;margin-top:1.2rem;
+  grid-template-columns:repeat(auto-fill,minmax(max(220px,calc((100% - 2.4rem) / 4)),1fr))}
+.tile{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line-2);
+  background:var(--panel);padding:.95rem 1rem 1rem}
+.tile .meta{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 .6rem}
+.tile h3{font-size:15px;margin:0 0 .35rem}
+.tile .d{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin:0 0 1rem}
+/* only the links react: the tile itself is not a link, since some carry two */
+.tile .go-row{margin-top:auto;display:flex;flex-wrap:wrap;gap:.45rem}
+.tile a.go{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);
+  border:1px solid var(--line-2);padding:.32rem .6rem;transition:.2s}
+.tile a.go.live{color:var(--signal);border-color:var(--signal)}
+.tile a.go:hover{color:var(--ground);background:var(--signal);border-color:var(--signal)}
 
-.oslist{border-top:1px solid var(--line);margin-top:.2rem}
-.os{display:grid;grid-template-columns:3.2rem minmax(0,1fr) 10rem;gap:1rem;padding:.55rem 0 .55rem .5rem;
-  border-bottom:1px solid var(--line);align-items:baseline;position:relative;transition:background .2s}
-.os:hover{background:var(--panel-2)}
-.os:hover .t{color:var(--signal)}
-.os .y{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
-.os .t{font-size:13.5px;color:var(--ink);line-height:1.4;transition:color .2s}
-.os .j{font-family:var(--mono);font-size:10px;color:var(--ink-3);line-height:1.5}
-@media (max-width:760px){.os{grid-template-columns:3rem minmax(0,1fr)}.os .j{grid-column:2}}
+/* ---------- open science: leadership ---------- */
+/* the two cells stack full width, so the second needs no dividing rule */
+#open .cell + .cell{border-left:0}
+.lead-top{display:flex;flex-wrap:wrap;gap:1.2rem 3rem;align-items:flex-end;justify-content:space-between;
+  margin-bottom:1.6rem}
+.lead-top .prose{max-width:52ch;font-size:14.5px}
+.lead-top .head{margin-bottom:.6rem}
+/* a few counts worked out from the page itself, so they never need updating */
+.ostats{display:flex;gap:0;border:1px solid var(--line-2)}
+.ostats div{padding:.65rem 1.1rem;min-width:7.5rem}
+.ostats div + div{border-left:1px solid var(--line-2)}
+.ostats b{display:block;font-size:2rem;font-weight:600;line-height:1;color:var(--ink);letter-spacing:-.04em}
+.ostats span{display:block;margin-top:.4rem;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3)}
+
+/* Each role is a bar on one shared year axis. The bars are placed by script
+   from each row's data-from / data-to, so adding a role is one more <li>:
+   copy a row, change the words and the two years ("present" if ongoing). The
+   role, organisation and years stay as plain text, so nothing is lost if the
+   bars never draw. */
+.roleaxis,.rl{display:grid;grid-template-columns:19rem minmax(0,1fr);gap:0 1.2rem;align-items:center}
+.roleaxis{margin-bottom:.35rem}
+.roleaxis .tr{position:relative;height:1.1rem}
+.roleaxis .tr span{position:absolute;top:0;transform:translateX(-50%);font-family:var(--mono);
+  font-size:9.5px;letter-spacing:.06em;color:var(--ink-3)}
+.roleaxis .tr span.now{color:var(--signal)}
+.rgroup + .rgroup{margin-top:1.1rem}
+.rgroup > .tag{margin:0 0 .35rem}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rl{padding:.5rem 0;border-bottom:1px solid var(--line)}
+.rl .rt{display:flex;flex-direction:column;min-width:0}
+.rl .rt b{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
+.rl .rt i{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3);margin-top:.15rem}
+/* the track carries a faint line at every year and, from --now, today */
+.rl .tr{position:relative;height:12px;
+  background:linear-gradient(to right,var(--line) 1px,transparent 1px) 0 0/calc(100% / var(--n,5)) 100% repeat-x}
+.rl .tr::before{content:"";position:absolute;top:-6px;bottom:-6px;left:calc(var(--now,1) * 100%);
+  border-left:1px dashed var(--signal);opacity:.5}
+.rl .tr s{position:absolute;top:2px;height:8px;background:var(--ink-3);border-radius:0 2px 2px 0;
+  transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease) calc(var(--i,0) * 50ms)}
+.rv.in .rl .tr s{transform:scaleX(1)}
+/* an ongoing role runs to today in the signal colour and ends in an arrow,
+   so "current" never rests on colour alone */
+.rl.cur .rt b{color:var(--ink)}
+.rl.cur .tr s{background:var(--signal);border-radius:0}
+.rl.cur .tr s::after{content:"";position:absolute;right:-6px;top:-2px;border:6px solid transparent;
+  border-left-color:var(--signal);border-right-width:0}
+.rolekey{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:.9rem;align-items:center;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.rolekey span{display:inline-flex;align-items:center;gap:.45rem}
+.rolekey b{display:block;width:18px;height:7px;background:var(--ink-3)}
+.rolekey b.cur{background:var(--signal)}
+.rolekey i.todaymark{display:block;width:0;height:12px;border-left:1px dashed var(--signal)}
+.rolekey a{margin-left:auto;color:var(--signal);border-bottom:1px solid currentColor;text-transform:none;letter-spacing:.06em}
+@media (max-width:640px){
+  /* the three counts share the width rather than overhang it */
+  .ostats{width:100%}
+  .ostats div{flex:1;min-width:0;padding:.6rem .7rem}
+  .ostats b{font-size:1.7rem}
+  .roleaxis,.rl{grid-template-columns:minmax(0,1fr)}
+  .roleaxis > :first-child{display:none}
+  .rl .tr{margin-top:.45rem}
+  .rolekey a{margin-left:0}
+}
+
+/* ---------- open science: works by year ---------- */
+/* year groups flow down up to three columns; a group never splits */
+.osyears{columns:3 300px;column-gap:2.4rem;margin-top:.6rem}
+.oy{break-inside:avoid;margin:0 0 1.6rem}
+.oy h4{display:flex;align-items:baseline;gap:.7rem;margin:0 0 .5rem;padding-bottom:.4rem;
+  border-bottom:2px solid var(--ink);font-size:1.9rem;font-weight:700;letter-spacing:-.045em;
+  line-height:1;color:var(--ink)}
+.oy h4 span{font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3)}
+.osw{display:block;padding:.55rem 0 .6rem;border-bottom:1px solid var(--line);position:relative}
+.osw .t{display:block;font-size:13.5px;line-height:1.4;color:var(--ink);font-weight:500;transition:color .2s}
+.osw .m{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .55rem;margin-top:.3rem;
+  font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.osw .m b{font-weight:400;color:var(--signal);text-transform:uppercase;letter-spacing:.07em}
+.osw .m i{display:inline-flex;align-items:center;gap:.3rem;font-style:normal}
+.osw .m i::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.osw:hover .t{color:var(--signal)}
 
 .out{display:flex;flex-wrap:wrap;gap:.4rem}
 .out a{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
@@ -534,7 +607,7 @@ main.rig{zoom:var(--tscale,1)}
 .js .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   .js .rv{opacity:1;transform:none;transition:none}
-  .pstack,.hb b{transform:none;transition:none}
+  .pstack,.hb b,.rl .tr s{transform:none;transition:none}
   /* .plot.settled outranks the line above and would bring the motion back */
   .plot.settled .pstack,.pstack i{transition:none}
   .load{animation:none}
@@ -582,6 +655,8 @@ main.rig{zoom:var(--tscale,1)}
         <a class="chip" href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia"><b>UEA</b> &#183; Lecturer<i aria-hidden="true">&#8599;</i></a>
         <a class="chip" href="https://www.sortee.org/people/#executive-committee" target="_blank" rel="noopener" title="SORTEE people page: Executive and Advocacy committees"><b>SORTEE</b> &#183; Past-President and Advocacy Co-Chair<i aria-hidden="true">&#8599;</i></a>
         <a class="chip" href="https://onlinelibrary.wiley.com/page/journal/14610248/homepage/editorialboard.html" target="_blank" rel="noopener" title="Ecology Letters editorial board: listed under the Data Editors tab"><b>Ecology Letters</b> &#183; Data Editor<i aria-hidden="true">&#8599;</i></a>
+        <!-- no link until MEE lists the role on its editorial board page -->
+        <span class="chip"><b>Methods in Ecology and Evolution</b> &#183; Code Editor</span>
         <a class="chip" href="https://esa.org/about/governance/committees/publications-committee/" target="_blank" rel="noopener" title="ESA Publications Committee"><b>Ecological Society of America</b> &#183; Publications Committee<i aria-hidden="true">&#8599;</i></a>
       </div>
       <div class="links">
@@ -621,6 +696,7 @@ main.rig{zoom:var(--tscale,1)}
           <li><p class="r">Lecturer in Biological Sciences</p><p class="w">University of East Anglia</p></li>
           <li><p class="r">Past-President and Advocacy Co-Chair &#183; SORTEE</p><p class="w">Society for Open, Reliable, and Transparent Ecology and Evolutionary biology</p></li>
           <li><p class="r">Data Editor</p><p class="w">Ecology Letters</p></li>
+          <li><p class="r">Specialist Associate Editor (Code Editor)</p><p class="w">Methods in Ecology and Evolution</p></li>
           <li><p class="r">Publications Committee</p><p class="w">Ecological Society of America</p></li>
         </ol>
         </div>
@@ -729,32 +805,56 @@ main.rig{zoom:var(--tscale,1)}
     </div>
   </section>
 
-  <section class="grid rv" id="open" style="grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)">
+  <section class="grid rv" id="open">
     <div class="sechead"><span class="sn">07</span><h2>Open science</h2><i></i></div>
     <div class="cell">
-      <h3 class="head">Leadership</h3>
-      <div class="prose" style="font-size:14px">
-        <p>A large part of my work is building guidelines, tools, and research culture that make ecology and evolutionary biology more open, reliable, and transparent.</p>
+      <div class="lead-top">
+        <div>
+          <h3 class="head">Leadership</h3>
+          <div class="prose">
+            <p>A large part of my work is building guidelines, tools, and research culture that make ecology and evolutionary biology more open, reliable, and transparent.</p>
+          </div>
+        </div>
+        <div class="ostats" role="group" aria-label="Open science at a glance">
+          <div><b id="osWorks">&#8211;</b><span>Open science works</span></div>
+          <div><b id="osPre">&#8211;</b><span>Of them preprints</span></div>
+          <div><b id="osRoles">&#8211;</b><span>Current roles</span></div>
+        </div>
       </div>
-      <dl class="spec">
-        <div><dt>2026&#8211;present</dt><dd>Advocacy Co-Chair<i>SORTEE</i></dd></div>
-        <div><dt>2026&#8211;present</dt><dd>Past-President<i>SORTEE</i></dd></div>
-        <div><dt>2025&#8211;2026</dt><dd>President<i>SORTEE</i></dd></div>
-        <div><dt>2024&#8211;2025</dt><dd>President-Elect<i>SORTEE</i></dd></div>
-        <div><dt>2023&#8211;2024</dt><dd>Secretary<i>SORTEE</i></dd></div>
-        <div><dt>2023&#8211;2025</dt><dd>Board Member<i>SORTEE</i></dd></div>
-        <div><dt>2022&#8211;2023</dt><dd>Conference Chair<i>SORTEE</i></dd></div>
-      </dl>
-      <p class="tag" style="margin:1.6rem 0 .5rem">Editorial and publications</p>
-      <dl class="spec">
-        <div><dt>2024&#8211;present</dt><dd>Data Editor<i>Ecology Letters</i></dd></div>
-        <div><dt>2026&#8211;present</dt><dd>Publications Committee<i>Ecological Society of America</i></dd></div>
-      </dl>
-      <p style="margin-top:1.2rem"><a class="mono" style="font-size:10.5px;letter-spacing:.08em;color:var(--signal);border-bottom:1px solid currentColor" href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE board of directors</a></p>
+      <!-- To add a role: copy an <li>, change the words, and set data-from and
+           data-to to its years (data-to="present" while it is ongoing). The
+           bars and the counts above are worked out from these. -->
+      <div class="rolechart" id="roleChart">
+        <div class="roleaxis" aria-hidden="true"><div></div><div class="tr"></div></div>
+        <div class="rgroup">
+          <p class="tag">SORTEE</p>
+          <ol class="rows">
+            <li class="rl" data-from="2022" data-to="2023"><span class="rt"><b>Conference Chair</b><i>2022&#8211;2023</i></span></li>
+            <li class="rl" data-from="2023" data-to="2025"><span class="rt"><b>Board Member</b><i>2023&#8211;2025</i></span></li>
+            <li class="rl" data-from="2023" data-to="2024"><span class="rt"><b>Secretary</b><i>2023&#8211;2024</i></span></li>
+            <li class="rl" data-from="2024" data-to="2025"><span class="rt"><b>President-Elect</b><i>2024&#8211;2025</i></span></li>
+            <li class="rl" data-from="2025" data-to="2026"><span class="rt"><b>President</b><i>2025&#8211;2026</i></span></li>
+            <li class="rl" data-from="2026" data-to="present"><span class="rt"><b>Past-President</b><i>2026&#8211;present</i></span></li>
+            <li class="rl" data-from="2026" data-to="present"><span class="rt"><b>Advocacy Co-Chair</b><i>2026&#8211;present</i></span></li>
+          </ol>
+        </div>
+        <div class="rgroup">
+          <p class="tag">Editorial and publications</p>
+          <ol class="rows">
+            <li class="rl" data-from="2024" data-to="present"><span class="rt"><b>Data Editor</b><i>Ecology Letters &#183; 2024&#8211;present</i></span></li>
+            <li class="rl" data-from="2026" data-to="present"><span class="rt"><b>Specialist Associate Editor (Code Editor)</b><i>Methods in Ecology and Evolution &#183; 2026&#8211;present</i></span></li>
+            <li class="rl" data-from="2026" data-to="present"><span class="rt"><b>Publications Committee</b><i>Ecological Society of America &#183; 2026&#8211;present</i></span></li>
+          </ol>
+        </div>
+        <div class="rolekey">
+          <span><b class="cur"></b>Current</span><span><b></b>Past</span><span><i class="todaymark"></i>Today</span>
+          <a href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE board of directors &#8599;</a>
+        </div>
+      </div>
     </div>
     <div class="cell">
       <p class="tag">Open science publications</p>
-      <div class="oslist" id="osList"></div>
+      <div class="osyears" id="osList"></div>
     </div>
   </section>
 
@@ -763,13 +863,13 @@ main.rig{zoom:var(--tscale,1)}
     <div class="cell">
       <p class="prose">Open-source Shiny and web apps I've built to support reproducible research.</p>
       <div class="kit">
-        <div class="item"><div><h3>shinyDigitise</h3><p>A point-and-click GUI for the metaDigitise package, to pull data straight from published figures.</p><a class="go" href="https://github.com/EIvimeyCook/shinyDigitise" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>READMEBuilder</h3><p>A Shiny app that walks you through writing a high-quality README for research data and code.</p><a class="go" href="https://github.com/EIvimeyCook/READMEBuilder" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>metRscreen</h3><p>A Shiny app for screening records in meta-analyses and systematic reviews.</p><a class="go" href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>DCQC Shiny App</h3><p>A Shiny app for data &amp; code quality control following the SORTEE guidelines.</p><a class="go" href="https://github.com/SORTEE/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>DCQC Web App</h3><p>The same DCQC app, running entirely in your browser, with nothing to install.</p><a class="go" href="https://eivimeycook.github.io/DCQC/" target="_blank" rel="noopener">Live app &#8599;</a><a class="go" href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Web app</p></div>
-        <div class="item"><div><h3>shinySim</h3><p>A Shiny app for structured, reproducible simulations in ecology &amp; evolution.</p><a class="go" href="https://github.com/squidgroup/shinySim" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
-        <div class="item"><div><h3>disappR</h3><p>A Shiny app to model ageing and selective [dis]appearance.</p><a class="go" href="https://github.com/EIvimeyCook/disappR" target="_blank" rel="noopener">Source &#8599;</a></div><p class="meta">R / Shiny</p></div>
+        <article class="tile"><p class="meta">R / Shiny</p><h3>shinyDigitise</h3><p class="d">A point-and-click GUI for the metaDigitise package, to pull data straight from published figures.</p><div class="go-row"><a class="go" href="https://github.com/EIvimeyCook/shinyDigitise" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Shiny &#183; Web app</p><h3>READMEBuilder</h3><p class="d">Walks you through writing a high-quality README for research data and code. Now also runs entirely in your browser, with nothing to install.</p><div class="go-row"><a class="go live" href="https://eivimeycook.github.io/READMEBuilder/" target="_blank" rel="noopener">Live app &#8599;</a><a class="go" href="https://github.com/EIvimeyCook/READMEBuilder" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Shiny</p><h3>metRscreen</h3><p class="d">A Shiny app for screening records in meta-analyses and systematic reviews.</p><div class="go-row"><a class="go" href="https://github.com/EIvimeyCook/metRscreen" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Shiny</p><h3>DCQC Shiny App</h3><p class="d">A Shiny app for data &amp; code quality control following the SORTEE guidelines.</p><div class="go-row"><a class="go" href="https://github.com/SORTEE/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Web app</p><h3>DCQC Web App</h3><p class="d">The same DCQC app, running entirely in your browser, with nothing to install.</p><div class="go-row"><a class="go live" href="https://eivimeycook.github.io/DCQC/" target="_blank" rel="noopener">Live app &#8599;</a><a class="go" href="https://github.com/EIvimeyCook/DCQC" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Shiny</p><h3>shinySim</h3><p class="d">A Shiny app for structured, reproducible simulations in ecology &amp; evolution.</p><div class="go-row"><a class="go" href="https://github.com/squidgroup/shinySim" target="_blank" rel="noopener">Source &#8599;</a></div></article>
+        <article class="tile"><p class="meta">R / Shiny</p><h3>disappR</h3><p class="d">A Shiny app to model ageing and selective [dis]appearance.</p><div class="go-row"><a class="go" href="https://github.com/EIvimeyCook/disappR" target="_blank" rel="noopener">Source &#8599;</a></div></article>
       </div>
     </div>
   </section>
@@ -892,6 +992,53 @@ function esc(s) {
   Object.keys(links).forEach(function (id) {
     var n = document.getElementById(id); if (n) spy.observe(n);
   });
+})();
+
+/* ---------- open science roles: bars on one year axis ----------
+   Each role row carries its years in data-from / data-to; this draws its bar.
+   The axis runs from the earliest start to the end of the current year, and
+   an ongoing role runs to today, so it always has real length and the chart
+   stays right from one year to the next without editing. */
+(function () {
+  var chart = document.getElementById('roleChart');
+  if (!chart) return;
+  var rows = [].slice.call(chart.querySelectorAll('.rl'));
+  if (!rows.length) return;
+  var now = new Date(), thisYear = now.getFullYear();
+  var y0 = new Date(thisYear, 0, 1), y1 = new Date(thisYear + 1, 0, 1);
+  var today = thisYear + (now - y0) / (y1 - y0);
+  var from = Math.min.apply(null, rows.map(function (r) { return parseInt(r.dataset.from, 10); }));
+  var to = thisYear + 1, span = to - from;
+  function x(y) { return (y - from) / span; }
+  chart.style.setProperty('--n', span);
+  chart.style.setProperty('--now', x(today));
+
+  var current = 0;
+  rows.forEach(function (r, i) {
+    var a = parseInt(r.dataset.from, 10);
+    var ongoing = r.dataset.to === 'present';
+    var b = ongoing ? today : parseInt(r.dataset.to, 10);
+    if (ongoing) { r.classList.add('cur'); current++; }
+    var track = document.createElement('span');
+    track.className = 'tr';
+    track.setAttribute('aria-hidden', 'true');
+    var bar = document.createElement('s');
+    bar.style.left = (x(a) * 100) + '%';
+    bar.style.width = Math.max((x(b) - x(a)) * 100, 1) + '%';
+    bar.style.setProperty('--i', i);
+    track.appendChild(bar);
+    r.appendChild(track);
+  });
+
+  // each year label sits over the middle of its own year
+  var axis = chart.querySelector('.roleaxis .tr'), labels = '';
+  for (var y = from; y < to; y++) {
+    labels += '<span style="left:' + (x(y + 0.5) * 100) + '%">' + y + '</span>';
+  }
+  if (axis) axis.innerHTML = labels;
+
+  var n = document.getElementById('osRoles');
+  if (n) n.textContent = current;
 })();
 
 /* ---------- the page background: a cohort ageing as you scroll ----------
@@ -1112,6 +1259,7 @@ function esc(s) {
      the record grows: refresh it from the live list now and then. Order is the
      live order, newest first, because the fallback is not re-sorted. */
   var FALLBACK = [
+    {y:2026,t:"Example repository for: 'TADA! Simple guidelines to improve analytical code sharing for transparency and reproducibility'",j:"Zenodo",s:"Software",d:"10.5281/zenodo.23648444",u:"https://doi.org/10.5281/zenodo.23648444"},
     {y:2026,t:"SORTEE five years on: taking stock of the Society for Open, Reliable, and Transparent Ecology and Evolutionary biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x20400",u:"https://doi.org/10.32942/x20400"},
     {y:2026,t:"Increased stress in early life epigenetically rewires pathways related to aging and longevity",j:"bioRxiv",s:"Preprint",d:"10.64898/2026.09.30.755600",u:"https://doi.org/10.64898/2026.09.30.755600"},
     {y:2026,t:"Meta-analysts must lead by example and embrace all FAIR principles",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2139c",u:"https://doi.org/10.32942/X2139C"},
@@ -1538,15 +1686,38 @@ function esc(s) {
     }).join('');
   }
 
+  /* The open science works, grouped under their year, newest first, with any
+     undated ones last. Each shows its source, a Preprint label, and a dot for
+     every other theme it has: an Open science dot would be on every one. The
+     counts at the top of the section come from the same list. */
   function buildOpen() {
     var list = ALL.filter(function (p) { return (p.c || []).indexOf('open') > -1; });
     var box = document.getElementById('osList');
+    var nWorks = document.getElementById('osWorks'), nPre = document.getElementById('osPre');
+    if (nWorks) nWorks.textContent = list.length;
+    if (nPre) nPre.textContent = list.filter(isPre).length;
     if (!list.length) { box.innerHTML = '<p class="empty">Nothing classified as open science in the current feed.</p>'; return; }
-    box.innerHTML = list.map(function (p) {
-      return '<a class="os" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '" target="_blank" rel="noopener">' +
-             '<span class="y">' + (p.y || '&#8212;&#8212;') + '</span>' +
-             '<span class="t">' + esc(p.t) + '</span>' +
-             '<span class="j">' + esc(p.j || '') + (p.s ? ' &#183; ' + esc(p.s) : '') + '</span></a>';
+
+    var groups = [], at = {};
+    list.forEach(function (p) {
+      var y = p.y || 0;
+      if (!(y in at)) { at[y] = groups.length; groups.push({ y: y, items: [] }); }
+      groups[at[y]].items.push(p);
+    });
+    groups.sort(function (a, b) { return (b.y || -1) - (a.y || -1); });
+
+    box.innerHTML = groups.map(function (g) {
+      var n = g.items.length;
+      return '<div class="oy"><h4>' + (g.y || 'Undated') + '<span>' + n + (n === 1 ? ' work' : ' works') + '</span></h4>' +
+        g.items.map(function (p) {
+          var others = (p.c || []).filter(function (c) { return c !== 'open' && LABEL[c]; });
+          return '<a class="osw" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '" target="_blank" rel="noopener">' +
+            '<span class="t">' + esc(p.t) + '</span><span class="m">' +
+            (p.j ? '<span>' + esc(p.j) + '</span>' : '') +
+            (isPre(p) ? '<b>Preprint</b>' : '') +
+            others.map(function (c) { return '<i style="--c:var(--th-' + c + ')">' + LABEL[c] + '</i>'; }).join('') +
+            '</span></a>';
+        }).join('') + '</div>';
     }).join('');
   }
 

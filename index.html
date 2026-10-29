@@ -223,10 +223,27 @@ main.rig{zoom:var(--tscale,1)}
   font-weight:600;flex:none;margin:0;color:var(--ink)}
 .sechead i{flex:1;height:1px;background:var(--line-2);min-width:1rem;align-self:center}
 
+/* ---------- biography + timeline ---------- */
+/* The bio's prose stops at 66ch, so its column only needs to be about that
+   wide; the timeline takes the rest and, given the room, sets "Now" and
+   "Previously" side by side, which halves its height and stops it leaving
+   a tall empty column under the bio. Between phone and wide-desktop widths
+   the two cells stack instead, with the timeline full width beneath. */
+.biogrid{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+@media (max-width:1199px){
+  .biogrid{grid-template-columns:minmax(0,1fr)}
+  .biogrid .cell + .cell{border-left:0}
+}
+.tl{container-type:inline-size}
+.tl-cols > div + div{margin-top:2.1rem}
+@container (min-width:560px){
+  .tl-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 2.2rem}
+  .tl-cols > div + div{margin-top:0}
+}
+
 /* ---------- timeline ---------- */
 .tl h3{font-size:1.2rem;font-weight:600;color:var(--ink);margin:0 0 1rem;letter-spacing:-.02em}
-.tl ol{list-style:none;margin:0 0 2.1rem;padding:0 0 0 1.6rem;position:relative}
-.tl ol:last-child{margin-bottom:0}
+.tl ol{list-style:none;margin:0;padding:0 0 0 1.6rem;position:relative}
 .tl ol::before{content:"";position:absolute;left:5px;top:7px;bottom:4px;width:1px;background:var(--ink)}
 .tl li{position:relative;padding-bottom:1.35rem}
 .tl li:last-child{padding-bottom:0}
@@ -586,7 +603,7 @@ main.rig{zoom:var(--tscale,1)}
     </figure>
   </section>
 
-  <section class="grid rv" style="grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)">
+  <section class="grid biogrid rv">
     <div class="cell">
       <p class="tag">Biography</p>
       <div class="prose">
@@ -597,7 +614,8 @@ main.rig{zoom:var(--tscale,1)}
     </div>
     <div class="cell">
       <p class="tag">Timeline</p>
-      <div class="tl">
+      <div class="tl"><div class="tl-cols">
+        <div>
         <h3>Now</h3>
         <ol>
           <li><p class="r">Lecturer in Biological Sciences</p><p class="w">University of East Anglia</p></li>
@@ -605,13 +623,16 @@ main.rig{zoom:var(--tscale,1)}
           <li><p class="r">Data Editor</p><p class="w">Ecology Letters</p></li>
           <li><p class="r">Publications Committee</p><p class="w">Ecological Society of America</p></li>
         </ol>
+        </div>
+        <div>
         <h3>Previously</h3>
         <ol class="past">
           <li><p class="r">Postdoc &#183; University of Glasgow</p><p class="w">with Prof Pat Monaghan &#183; zebra finch</p><p class="p">Intergenerational transfer of ageing: the Lansing Effect</p></li>
           <li><p class="r">Postdoc &#183; University of East Anglia</p><p class="w">with Prof Alexei Maklakov &#183; <em>C. elegans</em></p><p class="p">The cost of longevity: transgenerational consequences of parental lifespan extension</p></li>
           <li><p class="r">PhD &#183; University of Edinburgh</p><p class="w">with Dr Jacob Moorad &#183; burying beetle</p><p class="p">Experimental &amp; comparative analyses of maternal age and senescence</p></li>
         </ol>
-      </div>
+        </div>
+      </div></div>
     </div>
   </section>
 

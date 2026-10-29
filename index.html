@@ -482,14 +482,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
   background-size:300% 100%;animation:sweep 1.5s linear infinite}
 @keyframes sweep{to{background-position:-200% 0}}
 
-/* ---------- service, tools, open science ---------- */
-.roles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0;
-  border-top:1px solid var(--line)}
-.role{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:.7rem .8rem}
-.role dt{font-family:var(--mono);font-size:10px;color:var(--signal);letter-spacing:.08em}
-.role dd{margin:.25rem 0 0;font-size:13px;color:var(--ink);font-weight:500;line-height:1.3}
-.role dd i{display:block;font-style:normal;font-family:var(--mono);font-size:10px;
-  color:var(--ink-3);margin-top:.2rem}
+/* ---------- tools, open science ---------- */
 
 /* one tile per app: what it runs on, what it is, then its links along the
    bottom (margin-top:auto), so tiles in a row match in height and their
@@ -1008,7 +1001,9 @@ function esc(s) {
   var y0 = new Date(thisYear, 0, 1), y1 = new Date(thisYear + 1, 0, 1);
   var today = thisYear + (now - y0) / (y1 - y0);
   var from = Math.min.apply(null, rows.map(function (r) { return parseInt(r.dataset.from, 10); }));
-  var to = thisYear + 1, span = to - from;
+  // to the end of this year, or further if a role is given a known future end
+  var ends = rows.map(function (r) { return parseInt(r.dataset.to, 10); }).filter(function (v) { return v === v; });
+  var to = Math.max.apply(null, [thisYear + 1].concat(ends)), span = to - from;
   function x(y) { return (y - from) / span; }
   chart.style.setProperty('--n', span);
   chart.style.setProperty('--now', x(today));

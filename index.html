@@ -204,6 +204,10 @@ main.rig{zoom:var(--tscale,1)}
 /* only a box that links somewhere reacts; a role with no page yet is a plain span */
 a.chip:hover{border-color:var(--signal)}
 a.chip:hover b,a.chip:hover i{color:var(--signal)}
+/* a box holding several roles links each one on its own, so the role reacts and
+   the box does not */
+.chip a{transition:color .2s}
+.chip a:hover,.chip a:hover i{color:var(--signal)}
 .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
 .links a{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--line-2);
   padding:.55rem .85rem;font-size:13.5px;color:var(--ink);transition:.2s}
@@ -240,6 +244,9 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
 @container (min-width:560px){
   .tl-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 2.2rem}
   .tl-cols > div + div{margin-top:0}
+  /* side by side, the shorter list spreads out so both columns end level */
+  .tl-cols > div{display:flex;flex-direction:column}
+  .tl-cols ol{flex:1;display:flex;flex-direction:column;justify-content:space-between}
 }
 
 /* ---------- timeline ---------- */
@@ -252,6 +259,9 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
   background:var(--signal);box-shadow:0 0 0 3px var(--ground)}
 .tl ol.past li::before{background:var(--ground);border:2px solid var(--signal)}
 .tl .r{font-size:15px;font-weight:600;color:var(--ink);line-height:1.35}
+.tl .r a{transition:color .2s}
+.tl .r i{font-style:normal;font-weight:400;margin-left:.3rem;color:var(--ink-3);transition:color .2s}
+.tl .r a:hover,.tl .r a:hover i{color:var(--signal)}
 .tl .w{font-size:13.5px;color:var(--ink-3);margin-top:.2rem;line-height:1.45}
 .tl .p{font-size:13px;color:var(--ink-2);font-style:italic;margin-top:.3rem;line-height:1.45}
 
@@ -653,7 +663,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
       <h1>Edward R. <em>Ivimey-Cook</em></h1>
       <p class="role">Lecturer in Biological Sciences &#183; University of East Anglia</p>
       <div class="chips">
-        <a class="chip" href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia"><b>UEA</b> &#183; Lecturer<i aria-hidden="true">&#8599;</i></a>
+        <span class="chip"><b>UEA</b> &#183; <a href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia">Lecturer<i aria-hidden="true">&#8599;</i></a> &#183; <a href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia">Deputy Senior Advisor<i aria-hidden="true">&#8599;</i></a> &#183; <a href="https://uea-uk.libguides.com/openresearch/champions" target="_blank" rel="noopener" title="UEA Open Research Champions, listed by school">Open Research Champion<i aria-hidden="true">&#8599;</i></a></span>
         <a class="chip" href="https://www.sortee.org/people/#executive-committee" target="_blank" rel="noopener" title="SORTEE people page: Executive and Advocacy committees"><b>SORTEE</b> &#183; Past-President and Advocacy Co-Chair<i aria-hidden="true">&#8599;</i></a>
         <a class="chip" href="https://onlinelibrary.wiley.com/page/journal/14610248/homepage/editorialboard.html" target="_blank" rel="noopener" title="Ecology Letters editorial board: listed under the Data Editors tab"><b>Ecology Letters</b> &#183; Data Editor<i aria-hidden="true">&#8599;</i></a>
         <!-- no link until MEE lists the role on its editorial board page -->
@@ -694,9 +704,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
         <div>
         <h3>Now</h3>
         <ol>
-          <li><p class="r">Lecturer in Biological Sciences</p><p class="w">University of East Anglia</p></li>
-          <li><p class="r">Deputy Senior Advisor &#183; School of Biology</p><p class="w">University of East Anglia &#183; since 2025</p></li>
-          <li><p class="r">Open Research Champion &#183; School of Biology</p><p class="w">University of East Anglia &#183; since 2025</p></li>
+          <li><p class="r"><a href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia">Lecturer in Biological Sciences<i aria-hidden="true">&#8599;</i></a> &#183; <a href="https://research-portal.uea.ac.uk/en/persons/edward-ivimey-cook" target="_blank" rel="noopener" title="Staff profile at the University of East Anglia">Deputy Senior Advisor<i aria-hidden="true">&#8599;</i></a> &#183; <a href="https://uea-uk.libguides.com/openresearch/champions" target="_blank" rel="noopener" title="UEA Open Research Champions, listed by school">Open Research Champion<i aria-hidden="true">&#8599;</i></a></p><p class="w">University of East Anglia</p></li>
           <li><p class="r">Past-President and Advocacy Co-Chair &#183; SORTEE</p><p class="w">Society for Open, Reliable, and Transparent Ecology and Evolutionary biology</p></li>
           <li><p class="r">Data Editor</p><p class="w">Ecology Letters</p></li>
           <li><p class="r">Specialist Associate Editor (Code Editor)</p><p class="w">Methods in Ecology and Evolution</p></li>

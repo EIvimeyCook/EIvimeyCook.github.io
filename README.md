@@ -48,7 +48,11 @@ holds, and returns the author list for each work.
   own group** whatever their subject, and are drawn hollow. The
   button under the panel takes them out of the layout and puts them back; hidden
   nodes are skipped by the forces, the edges and the hit test alike, so the rest
-  redistributes into the space instead of leaving holes.
+  redistributes into the space instead of leaving holes. A **dashed line joins a preprint
+  to its published version**, and the same pair get buttons in the Publications list.
+  Pairs come from identical titles, Crossref's preprint links, and the hand-kept
+  `VERSIONS` table for retitled papers Crossref does not link. Only papers are listed:
+  software, datasets and Zenodo, Dryad or figshare deposits in the ORCID record are left out.
 - **Map of co-authors** puts one node per person and joins two people who appear on
   the same work. Node size is the number of works shared. **Clicking a person lists
   what we've written together**, and clicking any title in that list hands off to the

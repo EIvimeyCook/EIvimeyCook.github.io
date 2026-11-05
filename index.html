@@ -285,6 +285,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
 .mapkey i{width:9px;height:9px;border-radius:50%;display:block;flex:none}
 .mapkey i.hollow{border:1.5px solid var(--ink-3);background:transparent}
 .mapkey i.split{background:linear-gradient(90deg,var(--ink-2) 0 50%,var(--line-2) 50% 100%)}
+.mapkey i.vlink{width:14px;height:0;border-radius:0;background:none;border-top:1.5px dashed var(--ink-3)}
 
 /* ---------- co-author panel ---------- */
 .netpanel{position:absolute;z-index:4;right:var(--pad);top:var(--pad);
@@ -459,6 +460,12 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
 .rec .yr{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
 .rec .ti{font-size:14px;line-height:1.4;color:var(--ink);font-weight:500;letter-spacing:-.005em}
 .rec:hover .ti{color:var(--signal)}
+/* the title's link covers the whole row, so the row stays one big target while
+   the version button, raised above it, can be a control of its own */
+.rec .ti::after{content:"";position:absolute;inset:0}
+.rec .ver{position:relative;z-index:1;display:block;padding:.4rem .6rem .4rem 0;border:0;background:none;
+  color:var(--ink-2);font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;cursor:pointer}
+.rec .ver:hover{color:var(--signal)}
 .rec .src{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);line-height:1.4}
 .rec .cls{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
   color:var(--ink-3);line-height:1.6}
@@ -556,6 +563,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
 .rolekey b.cur{background:var(--signal)}
 .rolekey i.todaymark{display:block;width:0;height:12px;border-left:1px dashed var(--signal)}
 .rolekey a{margin-left:auto;color:var(--signal);border-bottom:1px solid currentColor;text-transform:none;letter-spacing:.06em}
+.rolekey a + a{margin-left:0}
 @media (max-width:640px){
   /* the three counts share the width rather than overhang it */
   .ostats{width:100%}
@@ -687,6 +695,8 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
         <h3>Now</h3>
         <ol>
           <li><p class="r">Lecturer in Biological Sciences</p><p class="w">University of East Anglia</p></li>
+          <li><p class="r">Deputy Senior Advisor &#183; School of Biology</p><p class="w">University of East Anglia &#183; since 2025</p></li>
+          <li><p class="r">Open Research Champion &#183; School of Biology</p><p class="w">University of East Anglia &#183; since 2025</p></li>
           <li><p class="r">Past-President and Advocacy Co-Chair &#183; SORTEE</p><p class="w">Society for Open, Reliable, and Transparent Ecology and Evolutionary biology</p></li>
           <li><p class="r">Data Editor</p><p class="w">Ecology Letters</p></li>
           <li><p class="r">Specialist Associate Editor (Code Editor)</p><p class="w">Methods in Ecology and Evolution</p></li>
@@ -723,7 +733,7 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
         <span id="paperCount"></span>
         <div class="mapkey" id="paperKey" role="group" aria-label="Colour key"></div>
       </div>
-      <p class="cap tag">One node per work listed in Publications, joined where two works share at least one co-author besides me. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the theme, as in the key above and the tags in Publications: a work with more than one theme is split into equal slices, one per theme, in the same order as its tags. Works are pulled together by their first theme, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to rearrange the layout. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
+      <p class="cap tag">One node per work listed in Publications, joined where two works share at least one co-author besides me. A dashed line joins a preprint to its published version. Authors come from Crossref, so a work Crossref has no author list for yet still gets a node, just drawn alone. Node size is the number of authors, and colour is the theme, as in the key above and the tags in Publications: a work with more than one theme is split into equal slices, one per theme, in the same order as its tags. Works are pulled together by their first theme, so the map groups by subject, and preprints form a cluster of their own, drawn hollow. Drag a node to rearrange the layout. Ctrl/&#8984; + scroll or pinch to zoom, drag empty space to pan, or use the +/&#8722; buttons.</p>
     </div>
   </section>
 
@@ -839,9 +849,16 @@ a.chip:hover b,a.chip:hover i{color:var(--signal)}
             <li class="rl" data-from="2026" data-to="present"><span class="rt"><b>Publications Committee</b><i>Ecological Society of America &#183; 2026&#8211;present</i></span></li>
           </ol>
         </div>
+        <div class="rgroup">
+          <p class="tag">University of East Anglia</p>
+          <ol class="rows">
+            <li class="rl" data-from="2025" data-to="present"><span class="rt"><b>Open Research Champion</b><i>School of Biology &#183; 2025&#8211;present</i></span></li>
+          </ol>
+        </div>
         <div class="rolekey">
           <span><b class="cur"></b>Current</span><span><b></b>Past</span><span><i class="todaymark"></i>Today</span>
           <a href="https://www.sortee.org/people/#board-of-directors" target="_blank" rel="noopener">SORTEE board of directors &#8599;</a>
+          <a href="https://uea-uk.libguides.com/openresearch/champions" target="_blank" rel="noopener">UEA Open Research Champions &#8599;</a>
         </div>
       </div>
     </div>
@@ -1254,7 +1271,6 @@ function esc(s) {
      the record grows: refresh it from the live list now and then. Order is the
      live order, newest first, because the fallback is not re-sorted. */
   var FALLBACK = [
-    {y:2026,t:"Example repository for: 'TADA! Simple guidelines to improve analytical code sharing for transparency and reproducibility'",j:"Zenodo",s:"Software",d:"10.5281/zenodo.23648444",u:"https://doi.org/10.5281/zenodo.23648444"},
     {y:2026,t:"SORTEE five years on: taking stock of the Society for Open, Reliable, and Transparent Ecology and Evolutionary biology",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x20400",u:"https://doi.org/10.32942/x20400"},
     {y:2026,t:"Increased stress in early life epigenetically rewires pathways related to aging and longevity",j:"bioRxiv",s:"Preprint",d:"10.64898/2026.09.30.755600",u:"https://doi.org/10.64898/2026.09.30.755600"},
     {y:2026,t:"Meta-analysts must lead by example and embrace all FAIR principles",j:"EcoEvoRxiv",s:"Preprint",d:"10.32942/x2139c",u:"https://doi.org/10.32942/X2139C"},
@@ -1394,7 +1410,6 @@ function esc(s) {
   function statusOf(type, journal, doi) {
     var ty = (type || '').toLowerCase();
     var hay = ((journal || '') + ' ' + (doi || '')).toLowerCase();
-    if (ty === 'software' || ty === 'data-set') return 'Software';
     // a manuscript ORCID says is submitted or in preparation is not published
     // yet, so it counts as a preprint, the site's one unpublished status
     if (/in review|in prep|submitted/.test(hay)) return 'Preprint';
@@ -1454,6 +1469,21 @@ function esc(s) {
     return SERVERS[prefixOf(doi || '')] || SERVERS[prefixOf(url || '')] || '';
   }
 
+  /* Only papers are listed. ORCID's auto-update files repository deposits as
+     data-set or software, but sometimes as plain "other", so a work on a
+     repository's DOI prefix is dropped too, unless ORCID calls it a paper:
+     Zenodo also hosts real preprints. */
+  var REPOSITORIES = {
+    '10.5281': 'Zenodo',
+    '10.5061': 'Dryad',
+    '10.6084': 'figshare'
+  };
+  function isDeposit(type, doi) {
+    var ty = (type || '').toLowerCase();
+    if (ty === 'software' || ty === 'data-set') return true;
+    return !!REPOSITORIES[prefixOf(doi || '')] && ty !== 'journal-article' && ty !== 'preprint';
+  }
+
   function parse(data) {
     var out = [];
     ((data && data.group) || []).forEach(function (g) {
@@ -1475,6 +1505,7 @@ function esc(s) {
         else if (!url && idurl) { url = idurl; }
       });
       if (!url && s.url && s.url.value) url = s.url.value;
+      if (isDeposit(s.type, doi || url)) return;
 
       var themes = themesOf(title, journal);
       var ov = overrideFor(url, title);
@@ -1575,6 +1606,42 @@ function esc(s) {
     if (changed) { refresh(); buildOpen(); }
   });
 
+  /* A preprint and its published paper are two rows, each pointing at the other
+     through v. Three things can join them: an identical title, a link Crossref
+     holds (bioRxiv deposits these, EcoEvoRxiv mostly does not), and VERSIONS, for
+     a paper that was retitled and that Crossref does not link. Check the authors
+     match before adding a pair there, since nothing else tests it. */
+  var VERSIONS = {
+    '10.32942/x2p919': '10.1002/ece3.73562',
+    '10.32942/x2d30c': '10.1002/jrsm.1663'
+  };
+  function linkVersions(extra) {
+    var byDoi = {}, byTitle = {}, changed = false;
+    function flat(t) { return (t || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); }
+    function join(a, b) {
+      // one link each, so a second preprint of a paper can never leave the first
+      // pointing at a paper that no longer points back
+      if (!a || !b || isPre(a) === isPre(b) || a.v || b.v) return;
+      a.v = b.d; b.v = a.d; changed = true;
+    }
+    ALL.forEach(function (p) {
+      if (!p.d) return;
+      byDoi[p.d] = p;
+      if (!isPre(p)) byTitle[flat(p.t)] = p;
+    });
+    ALL.forEach(function (p) { if (p.d && isPre(p)) join(p, byTitle[flat(p.t)]); });
+    Object.keys(VERSIONS).forEach(function (k) { join(byDoi[k], byDoi[VERSIONS[k]]); });
+    (extra || []).forEach(function (x) { join(byDoi[doiOf(x[0])], byDoi[doiOf(x[1])]); });
+    return changed;
+  }
+  document.addEventListener('versions', function (e) {
+    if (linkVersions(e.detail)) render();
+  });
+  rows.addEventListener('click', function (e) {
+    var b = e.target.closest('.ver'); if (!b) return;
+    document.dispatchEvent(new CustomEvent('showpaper', { detail: b.dataset.to }));
+  });
+
   function render() {
     var was = new Map();
     rows.querySelectorAll('.rec').forEach(function (el) { was.set(el.dataset.k, el.getBoundingClientRect()); });
@@ -1591,12 +1658,14 @@ function esc(s) {
       var th = (p.c || []).map(function (c) {
         return '<span class="th"><i style="background:var(--th-' + c + ')"></i>' + LABEL[c] + '</span>';
       }).join('');
-      return '<a class="rec" data-k="' + esc(rowKey(p)) + '" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '"' +
-             ' target="_blank" rel="noopener">' +
+      var ver = p.v ? '<button type="button" class="ver" data-to="' + esc(p.v) + '">' +
+                      (isPre(p) ? 'Published version' : 'Preprint') + '</button>' : '';
+      return '<div class="rec" data-k="' + esc(rowKey(p)) + '">' +
              '<span class="yr">' + (p.y || '&#8212;&#8212;') + '</span>' +
-             '<span class="ti">' + esc(p.t) + '</span>' +
+             '<a class="ti" href="' + esc(p.u || 'https://orcid.org/' + ORCID) + '"' +
+             ' target="_blank" rel="noopener">' + esc(p.t) + '</a>' +
              '<span class="src">' + esc(p.j || '') + '</span>' +
-             '<span class="cls">' + st + th + '</span>' + '</a>';
+             '<span class="cls">' + st + th + ver + '</span>' + '</div>';
     }).join('');
 
     if (CALM || !rows.querySelector('.rec').animate) return;
@@ -1717,6 +1786,7 @@ function esc(s) {
   }
 
   function boot() {
+    linkVersions();
     buildPlot(); buildBars(); buildOpen(); render();
     document.dispatchEvent(new CustomEvent('recordready', { detail: ALL }));
   }
@@ -1729,7 +1799,7 @@ function esc(s) {
     });
     boot();
     document.getElementById('rowNote').innerHTML =
-      '<p class="note">The live ORCID feed could not be reached, so a saved copy of the record is shown instead.' +
+      '<p class="note">The live ORCID feed could not be reached, so a saved copy of the record is shown instead. ' +
       'The current version is always at <a href="https://orcid.org/' + ORCID + '" target="_blank" rel="noopener">orcid.org/' + ORCID + '</a>.</p>';
   }
 
@@ -1786,7 +1856,8 @@ function esc(s) {
     refresh();
   });
 
-  /* Clicking a node on the paper map lands you on that work in this list. */
+  /* Clicking a node on the paper map, a co-author's work or a version button
+     lands you on that work in this list. */
   document.addEventListener('showpaper', function (e) {
     state.filter = 'all'; state.year = null; state.status = null; state.q = '';
     // a search still waiting on its debounce would otherwise filter the row away
@@ -1971,7 +2042,7 @@ function esc(s) {
       });
 
       papers.push({
-        doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u,
+        doi: doi, t: rec.t, y: rec.y, j: rec.j, u: rec.u, v: rec.v,
         // c, the first theme, decides which cluster a work joins; cs, all of
         // them in the same order as its tags in the list, colours the node
         c: (rec.c || [])[0] || null, cs: (rec.c || []).slice(), n: authors.length || 1,
@@ -2236,7 +2307,8 @@ function zoomBy(k, mx, my) {
 
       edges.forEach(function (e) {
         var a = nodes[e.a], b = nodes[e.b];
-        if (!a || !b || a.off || b.off) return;
+        // a preprint and its paper get the dashed line below instead
+        if (!a || !b || a.off || b.off || e.v) return;
         var lit = hot && (a === hot || b === hot);
         ctx.strokeStyle = lit ? C.sig : C.line;
         ctx.globalAlpha = lit ? 0.85 : 0.34;
@@ -2245,6 +2317,21 @@ function zoomBy(k, mx, my) {
         ctx.moveTo(sx(a), sy(a)); ctx.lineTo(sx(b), sy(b));
         ctx.stroke();
       });
+      // drawn only: these never enter the layout, which would pull the preprint
+      // cluster apart
+      ctx.setLineDash([3, 4]);
+      (opts.versions || []).forEach(function (e) {
+        var a = nodes[e.a], b = nodes[e.b];
+        if (!a || !b || a.off || b.off) return;
+        var lit = hot && (a === hot || b === hot);
+        ctx.strokeStyle = lit ? C.sig : C.ink3;
+        ctx.globalAlpha = lit ? 0.95 : 0.6;
+        ctx.lineWidth = lit ? 1.6 : 1;
+        ctx.beginPath();
+        ctx.moveTo(sx(a), sy(a)); ctx.lineTo(sx(b), sy(b));
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
       ctx.globalAlpha = 1;
 
       nodes.forEach(function (n) {
@@ -2493,7 +2580,8 @@ cv.addEventListener('pointerleave', function () {
       return '<span><i style="background:var(--th-' + k + ')"></i>' + LABEL[k] + '</span>';
     }).join('') +
       (split ? '<span><i class="split"></i>More than one theme</span>' : '') +
-      '<span><i class="hollow"></i>Preprint</span>';
+      '<span><i class="hollow"></i>Preprint</span>' +
+      '<span><i class="vlink"></i>Preprint and its paper</span>';
   }
 
   function go(records) {
@@ -2521,14 +2609,25 @@ cv.addEventListener('pointerleave', function () {
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
     }
 
-    /* type is asked for so nameServers can tell a preprint from an article.
-       If Crossref ever refuses it the maps must still be drawn, so fall back
-       to the two fields the networks actually need. */
-    ask('DOI,author,type')
+    /* type is asked for so nameServers can tell a preprint from an article, and
+       relation for the links between a preprint and its paper. If Crossref ever
+       refuses either the maps must still be drawn, so fall back to the two
+       fields the networks actually need. */
+    ask('DOI,author,type,relation')
+      .catch(function () { return ask('DOI,author,type'); })
       .catch(function () { return ask('DOI,author'); })
       .then(function (j) {
         clearTimeout(timer);
         var items = (j && j.message && j.message.items) || [];
+        var rel = [];
+        items.forEach(function (w) {
+          var r = w.relation || {};
+          (r['is-preprint-of'] || []).concat(r['has-preprint'] || []).forEach(function (x) {
+            rel.push([w.DOI, x.id]);
+          });
+        });
+        // before build, which copies each work's link onto its map node
+        document.dispatchEvent(new CustomEvent('versions', { detail: rel }));
         var g = build(items, byDoi);
         if (!g) throw new Error('no authors');
         G = g;
@@ -2545,7 +2644,7 @@ cv.addEventListener('pointerleave', function () {
       })
       .catch(function () {
         clearTimeout(timer);
-        var msg = 'Author lists could not be retrieved from Crossref, so this map is not drawn.' +
+        var msg = 'Author lists could not be retrieved from Crossref, so this map is not drawn. ' +
           'The works themselves are listed in Publications below.';
         panelFail(paperCv, msg);
         panelFail(peopleCv, msg);
@@ -2578,7 +2677,12 @@ cv.addEventListener('pointerleave', function () {
   function renderPapers(g) {
     // wrapped, so the layout's x/y never overwrite a work's own year
     var nodes = g.papers.map(function (p) { return { d: p }; });
+    var at = {}, versions = [];
+    g.papers.forEach(function (p, i) { at[p.doi] = i; });
+    g.papers.forEach(function (p, i) { if (at[p.v] > i) versions.push({ a: i, b: at[p.v] }); });
+    g.pedges.forEach(function (e) { if (g.papers[e.a].v === g.papers[e.b].doi) e.v = true; });
     var sim = Sim(paperCv, document.getElementById('paperTip'), nodes, g.pedges, {
+      versions: versions,
       spring: 0.0014, repel: 700, rest: 52, centre: 0.0013,
       /* Works of the same theme pull together, so the map groups by subject.
          Preprints are their own group whatever their subject: what has been
@@ -2605,6 +2709,9 @@ cv.addEventListener('pointerleave', function () {
           (n.d.cs.length ? ' &#183; ' + n.d.cs.map(function (k) { return LABEL[k] || k; }).join(', ') : '') +
           (n.d.pre ? ' &#183; Preprint' : '') +
           (n.d.listed ? '' : ' &#183; no author list from Crossref yet') +
+          // with preprints switched off, the line a paper would point to is gone
+          (n.d.v && !nodes[at[n.d.v]].off ?
+            '<br>Dashed line leads to its ' + (n.d.pre ? 'published version' : 'preprint') : '') +
           '<br>Click to find it below</b>';
       }
     });
@@ -2617,7 +2724,8 @@ cv.addEventListener('pointerleave', function () {
     if (cnt) {
       cnt.textContent = g.papers.length + (g.papers.length === 1 ? ' work · ' : ' works · ') +
         g.pedges.length + (g.pedges.length === 1 ? ' shared-author link · ' : ' shared-author links · ') +
-        pre.length + ' preprint' + (pre.length === 1 ? '' : 's');
+        pre.length + ' preprint' + (pre.length === 1 ? '' : 's') + ' · ' +
+        versions.length + ' linked to ' + (versions.length === 1 ? 'its paper' : 'their papers');
     }
     paperKey(g.papers);
     if (!pre.length) { btn.disabled = true; btn.textContent = 'No preprints in the map'; }
@@ -2660,7 +2768,7 @@ cv.addEventListener('pointerleave', function () {
 
   /* Clicking a co-author lists what the two of them wrote; clicking one of those
      titles hands off to the record below, which already knows how to find and
-     flash a row by title. */
+     flash a row by DOI. */
   var panel = document.getElementById('peoplePanel');
 
   function closePerson() {
